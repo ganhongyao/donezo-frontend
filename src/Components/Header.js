@@ -47,23 +47,35 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function Header() {
+export default function Header(props) {
     const classes = useStyles();
 
+    var loggedInBar = (<div> 
+                            <Link to='/login' className={classes.link}>
+                                <Button className={classes.loginbutton} onClick={props.loginHandler} variant="outlined">Log Out</Button>
+                            </Link>
+                        </div>);
+
+    var loggedOutBar = (<div> 
+                            <Link to='/login' className={classes.link}>
+                                <Button className={classes.loginbutton} onClick={props.loginHandler} variant="outlined">Log In</Button>
+                            </Link>
+                            <Link to='/signup' className={classes.link}>
+                                <Button className={classes.signupbutton} variant="contained">Sign up</Button>
+                            </Link>
+                        </div>);
+
     return (
+        
         <div>
             <AppBar className={classes.appbar} elevation={0}>
                 <Toolbar className={classes.toolbar}>
                     <Link to='/' className={classes.appbarTitle}>
                         <h1><span className={classes.greenText}>Done</span>zo.</h1>
                     </Link>
-                    <Link to='/login' className={classes.link}>
-                        <Button className={classes.loginbutton} variant="outlined">Log In</Button></Link>
-                    <Link to='/signup' className={classes.link}>
-                        <Button className={classes.signupbutton} variant="contained">Sign up</Button>
-                    </Link>
-                    
-                    
+
+                    {props.isLoggedIn ? loggedInBar : loggedOutBar}
+
                 </Toolbar>
                 
             </AppBar>

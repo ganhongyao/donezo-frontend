@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     form: {
-        width: '40%', // Fix IE 11 issue.
+        width: '50%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
         
     },
@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     button: {
         color: '#54e346',
         backgroundColor: 'white',
+        '&:hover': {
+            backgroundColor: '#00a152',
+        },
     }
 
 
