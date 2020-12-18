@@ -5,8 +5,8 @@ const theme = createMuiTheme({
   palette: {
     type: 'light',
     primary: {
-      main: '#61dafb',
-      light: '#61dafb',
+      main: '#00a152',
+      light: '#00a152',
       dark: '#21a1c4',
     },
     secondary: {
@@ -35,5 +35,8 @@ const theme = createMuiTheme({
       },
     },
   },
+  typography: {
+      fontFamily: 'Nunito'
+  }
 });
 export default theme;
