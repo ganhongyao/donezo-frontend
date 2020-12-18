@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     rootLoggedOut: {
       minHeight: '100vh',
       background: 'linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5))',
-      backgroundImage: `url(${process.env.PUBLIC_URL + '/bg.png'})`,
+      backgroundImage: `url(${process.env.PUBLIC_URL + '/loggedout-bg.jpg'})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       display: 'flex',
@@ -26,7 +26,10 @@ const useStyles = makeStyles((theme) => ({
 
     rootLoggedIn: {
       minHeight: '100vh',
-      backgroundColor: '#433d3c',
+      background: 'linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5))',
+      backgroundImage: `url(${process.env.PUBLIC_URL + '/loggedout-bg.jpg'})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center'
