@@ -25,14 +25,12 @@ const useStyles = makeStyles((theme) => ({
     },
 
     loginbutton: {
-        fontFamily: 'Nunito',
         color: 'white',
         border: '2px solid #54e346'
 
     },
 
     signupbutton: {
-        fontFamily: 'Nunito',
         color: 'white',
         backgroundColor: '#54e346',
         '&:hover': {
@@ -58,7 +56,7 @@ export default function Header(props) {
 
     var loggedOutBar = (<div> 
                             <Link to='/login' className={classes.link}>
-                                <Button className={classes.loginbutton} onClick={props.loginHandler} variant="outlined">Log In</Button>
+                                <Button className={classes.loginbutton} variant="outlined">Log In</Button>
                             </Link>
                             <Link to='/signup' className={classes.link}>
                                 <Button className={classes.signupbutton} variant="contained">Sign up</Button>

@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function LoginPage() {
+export default function LoginPage(props) {
     const classes = useStyles();
 
     return (
@@ -88,6 +88,7 @@ export default function LoginPage() {
                     variant="contained"
                     color="primary"
                     className={classes.button}  
+                    onClick={props.loginHandler}
                 >
                     LOG IN
                 </Button>
