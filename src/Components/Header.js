@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import { AppBar, Button, IconButton, Toolbar } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         backgroundColor: '#54e346',
         
+    },
+
+    link: {
+        textDecoration: 'none'
     }
 
 }));
@@ -46,8 +51,13 @@ export default function Header() {
             <AppBar className={classes.appbar} elevation={0}>
                 <Toolbar className={classes.toolbar}>
                     <h1 className={classes.appbarTitle}><span className={classes.greenText}>Done</span>zo.</h1>
-                    <Button className={classes.loginbutton} variant="outlined">Log In</Button>
-                    <Button className={classes.signupbutton} variant="contained">Sign up</Button>
+                    <Link to='/login' className={classes.link}>
+                        <Button className={classes.loginbutton} variant="outlined">Log In</Button></Link>
+                    <Link to='/signup' className={classes.link}>
+                        <Button className={classes.signupbutton} variant="contained">Sign up</Button>
+                    </Link>
+                    
+                    
                 </Toolbar>
                 
             </AppBar>
