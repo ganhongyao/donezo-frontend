@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
 
     appbarTitle: {
         color: 'white',
-        flex: '3'
+        flex: '3',
+        textDecoration: 'none'
     },
 
     greenText: {
@@ -34,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Nunito',
         color: 'white',
         backgroundColor: '#54e346',
+        '&:hover': {
+            backgroundColor: '#00a152',
+          },
         
     },
 
@@ -50,7 +54,9 @@ export default function Header() {
         <div>
             <AppBar className={classes.appbar} elevation={0}>
                 <Toolbar className={classes.toolbar}>
-                    <h1 className={classes.appbarTitle}><span className={classes.greenText}>Done</span>zo.</h1>
+                    <Link to='/' className={classes.appbarTitle}>
+                        <h1><span className={classes.greenText}>Done</span>zo.</h1>
+                    </Link>
                     <Link to='/login' className={classes.link}>
                         <Button className={classes.loginbutton} variant="outlined">Log In</Button></Link>
                     <Link to='/signup' className={classes.link}>
