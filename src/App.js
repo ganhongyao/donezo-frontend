@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import Header from './Components/Header';
-import MiddleContainer from './Components/MiddleContainer'
+import FeatureContainer from './Components/FeatureContainer'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +25,7 @@ export default function App() {
     <div className={classes.root}>
       <CssBaseline />
       <Header />
-      <MiddleContainer />
+      <FeatureContainer />
 
     </div>
   );

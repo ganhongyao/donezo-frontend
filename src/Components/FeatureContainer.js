@@ -5,10 +5,10 @@ import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
         display: 'flex',
         justifyContent: 'center',
-        opacity: 0.5
+
     },
 
     feature: {
@@ -16,11 +16,13 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '5px'
+        padding: '5px',
+        fontFamily: 'Quicksand',
+        fontWeight: '500'
     }
 }));
 
-export default function MiddleContainer() {
+export default function FeatureContainer() {
     const classes = useStyles();
 
     return (

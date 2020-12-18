@@ -22,8 +22,18 @@ const useStyles = makeStyles((theme) => ({
 
     },
 
-    button: {
-        fontFamily: 'Nunito'
+    loginbutton: {
+        fontFamily: 'Nunito',
+        color: 'white',
+        border: '2px solid #54e346'
+
+    },
+
+    signupbutton: {
+        fontFamily: 'Nunito',
+        color: 'white',
+        backgroundColor: '#54e346',
+        
     }
 
 }));
@@ -36,8 +46,8 @@ export default function Header() {
             <AppBar className={classes.appbar} elevation={0}>
                 <Toolbar className={classes.toolbar}>
                     <h1 className={classes.appbarTitle}><span className={classes.greenText}>Done</span>zo.</h1>
-                    <Button className={classes.button} variant="outlined" color="primary">Log In</Button>
-                    <Button className={classes.button} variant="contained" color="primary">Sign up</Button>
+                    <Button className={classes.loginbutton} variant="outlined">Log In</Button>
+                    <Button className={classes.signupbutton} variant="contained">Sign up</Button>
                 </Toolbar>
                 
             </AppBar>
