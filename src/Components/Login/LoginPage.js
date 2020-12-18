@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'rgba(255, 255, 255, 0.6)',
         marginLeft: '10%',
         marginRight: '10%',
-        padding: '2%'
+        padding: '1%',
+        marginTop: '3%'
         
     },
 
@@ -31,10 +32,15 @@ const useStyles = makeStyles((theme) => ({
         height: '50%'
     }, 
 
+    button: {
+        color: '#54e346',
+        backgroundColor: 'white',
+    }
+
 
 }));
 
-export default function ComponentName() {
+export default function LoginPage() {
     const classes = useStyles();
 
     return (
@@ -43,56 +49,57 @@ export default function ComponentName() {
             <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
             </Avatar>
+            LOG IN
             <form className={classes.form} noValidate>
-            <TextField className={classes.textfield}
-                size="small"
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-            />
-            <TextField
-                size="small"
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-            />
-            <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-            />
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-            >
-                Sign In
-            </Button>
-            <Grid container>
-                <Grid item xs>
-                <Link href="#" variant="body2">
-                    Forgot password?
-                </Link>
+                <TextField className={classes.textfield}
+                    size="small"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                />
+                <TextField
+                    size="small"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                />
+                <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Remember me"
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}  
+                >
+                    LOG IN
+                </Button>
+                <Grid container>
+                    <Grid item xs>
+                    <Link href="#" variant="body2">
+                        Forgot password?
+                    </Link>
+                    </Grid>
+                    <Grid item>
+                    <Link to="/signup" variant="body2">
+                        {"Don't have an account? Sign Up"}
+                    </Link>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                <Link to="/signup" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                </Link>
-                </Grid>
-            </Grid>
             </form>
         </div>
     )
