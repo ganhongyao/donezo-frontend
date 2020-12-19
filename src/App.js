@@ -11,7 +11,8 @@ import LandingPage from './Components/Landing/LandingPage'
 import LoginPage from './Components/Login/LoginPage';
 import SignupPage from './Components/Signup/SignupPage';
 import Header from "./Components/Header";
-import AddTodoForm from "./Components/AddTodoForm"
+import AddTodoForm from "./Components/AddTodoForm";
+import HomePage from "./Components/HomePage"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/" exact component={LandingPage}></Route>
           <Route path="/login" component={LoginPage}></Route>
           <Route path="/signup" component={SignupPage}></Route>
+          <Route path="/home" component={HomePage}></Route>
         </Switch>
       </Router>
     </div>
