@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     appbar: {
         background: 'none',
-        marginTop: '-15px'
+        marginTop: '-15px',
+        height: '10%'
     },
 
     appbarTitle: {
@@ -17,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
 
     greenText: {
         color: '#54e346'
+    },
+
+    whiteText: {
+        color: 'white'
     },
 
     toolbar: {
@@ -68,9 +73,12 @@ export default function Header(props) {
         <div>
             <AppBar className={classes.appbar} elevation={0}>
                 <Toolbar className={classes.toolbar}>
-                    <Link to='/' className={classes.appbarTitle}>
-                        <h1><span className={classes.greenText}>Done</span>zo.</h1>
-                    </Link>
+                    <h1 className={classes.appbarTitle}>
+                        <Link to='/' className={classes.link}>
+                        <span className={classes.greenText}>Done</span><span className={classes.whiteText}>zo.</span>
+                        </Link>
+                    </h1>
+                    
 
                     {props.isLoggedIn ? loggedInBar : loggedOutBar}
 
