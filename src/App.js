@@ -5,7 +5,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 import LandingPage from './Components/Landing/LandingPage'
 import LoginPage from './Components/Login/LoginPage';
@@ -36,8 +37,13 @@ class App extends Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-
     }
+    this.logIn = this.logIn.bind(this);
+  }
+
+  logIn = () => {
+    console.log('loggedin');
+    return <Redirect push to="/signup" />
   }
 
   render() {
@@ -46,14 +52,14 @@ class App extends Component {
     
     return (
       <div className={classes.root}>
-        <AddTodoForm />
+        
         <Router>
           <Header isLoggedIn={this.state.isLoggedIn}/>
           <Switch>
-            <Route path="/" exact component={LandingPage}></Route>
-            <Route path="/login" component={LoginPage}></Route>
-            <Route path="/signup" component={SignupPage}></Route>
-            <Route path="/home" component={HomePage}></Route>
+            <Route path="/" exact component={LandingPage}/>
+            <Route path="/login" component={LoginPage}/>
+            <Route path="/signup" component={SignupPage}/>
+            <Route path="/home" render={(props) => (<HomePage {...props} tasks={this.state.tasks}/>)}/> 
           </Switch>
         </Router>
       </div>

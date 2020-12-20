@@ -88,7 +88,7 @@ export default function LoginPage(props) {
                     variant="contained"
                     color="primary"
                     className={classes.button}  
-                    onClick={props.loginHandler}
+                    onClick={props.onSubmit}
                 >
                     LOG IN
                 </Button>
