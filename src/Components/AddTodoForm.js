@@ -20,16 +20,16 @@ const useStyles = makeStyles((theme) => ({
   createbutton: {
     '&:hover': {
       backgroundColor: '#00a152',
-  }
-  }, 
+    }
+  },
 
   select: {
     fontSize: '0.5em'
   }
-  
-  
 
-  
+
+
+
 }));
 
 
@@ -62,60 +62,60 @@ export default function FormDialog() {
             fullWidth
             required
             variant="filled"
-         
+
 
           />
-          
+
           <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <KeyboardDatePicker
-                    autoOk
-                    id="duedate"
-                    variant="inline"
-                    label="Due Date"
-                    format="MM/dd/yyyy"
-                    // value={selectedDate}
-                    InputAdornmentProps={{ position: "start" }}
-                    // onChange={date => handleDateChange(date)}
-                  />
-                </MuiPickersUtilsProvider>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormControl className={classes.formControl}>
-          
-                  <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                    Tag
+            <Grid item xs={12} sm={6}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  autoOk
+                  id="duedate"
+                  variant="inline"
+                  label="Due Date"
+                  format="MM/dd/yyyy"
+                  // value={selectedDate}
+                  InputAdornmentProps={{ position: "start" }}
+                // onChange={date => handleDateChange(date)}
+                />
+              </MuiPickersUtilsProvider>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl className={classes.formControl}>
+
+                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
+                  Tag
                   </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-placeholder-label-label"
-                    id="demo-simple-select-placeholder-label"
-                    // value={age}
-                    // onChange={handleChange}
-                    displayEmpty
-                    className={classes.selectEmpty}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>School</MenuItem>
-                    <MenuItem value={20}>Fitness</MenuItem>
-                    <MenuItem value={30}>Misc</MenuItem>
-                  </Select>
-                  </FormControl>
-                </Grid>
+                <Select
+                  labelId="demo-simple-select-placeholder-label-label"
+                  id="demo-simple-select-placeholder-label"
+                  // value={age}
+                  // onChange={handleChange}
+                  displayEmpty
+                  className={classes.selectEmpty}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>School</MenuItem>
+                  <MenuItem value={20}>Fitness</MenuItem>
+                  <MenuItem value={30}>Misc</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
           </Grid>
-          
+
           <TextField
             autoFocus
             margin="dense"
             id="description"
             label="Description"
             fullWidth
-            
+
             variant="filled"
           />
-          
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
