@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, withStyles } from '@material-ui/core';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,19 +14,8 @@ import Header from "./Components/Header";
 import AddTodoForm from "./Components/AddTodoForm";
 import HomePage from "./Components/HomePage"
 
-const useStyles = makeStyles((theme) => ({
-    rootOut: {
-      minHeight: '100vh',
-      background: 'linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5))',
-      backgroundImage: `url(${process.env.PUBLIC_URL + '/loggedout-bg.jpg'})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center'
-    },
-
-    rootIn : {
+const useStyles = (theme) => ({
+    root : {
       minHeight: '100vh',
       background: 'linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5))',
       backgroundImage: `url(${process.env.PUBLIC_URL + '/loggedout-bg.jpg'})`,
@@ -37,26 +26,40 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'center'
     }
 
-}))
+})
 
 
-export default App() {
-  const classes = useStyles();
-  const [isLoggedIn, setLoggedIn] = useState(true);
 
-  return (
-    <div className={isLoggedIn ? classes.rootIn : classes.rootOut}>
-      <AddTodoForm />
-      <Router>
-        <Header isLoggedIn={isLoggedIn}/>
-        <Switch>
-          <Route path="/" exact component={LandingPage}></Route>
-          <Route path="/login" component={LoginPage}></Route>
-          <Route path="/signup" component={SignupPage}></Route>
-          <Route path="/home" component={HomePage}></Route>
-        </Switch>
-      </Router>
-    </div>
-  );
+class App extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoggedIn: false,
+
+    }
+  }
+
+  render() {
+
+    const { classes } = this.props;
+    
+    return (
+      <div className={classes.root}>
+        <AddTodoForm />
+        <Router>
+          <Header isLoggedIn={this.state.isLoggedIn}/>
+          <Switch>
+            <Route path="/" exact component={LandingPage}></Route>
+            <Route path="/login" component={LoginPage}></Route>
+            <Route path="/signup" component={SignupPage}></Route>
+            <Route path="/home" component={HomePage}></Route>
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
+  
 }
 
+export default withStyles(useStyles)(App);
