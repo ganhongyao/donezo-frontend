@@ -15,7 +15,18 @@ import AddTodoForm from "./Components/AddTodoForm";
 import HomePage from "./Components/HomePage"
 
 const useStyles = makeStyles((theme) => ({
-    root: {
+    rootOut: {
+      minHeight: '100vh',
+      background: 'linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5))',
+      backgroundImage: `url(${process.env.PUBLIC_URL + '/loggedout-bg.jpg'})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    },
+
+    rootIn : {
       minHeight: '100vh',
       background: 'linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5))',
       backgroundImage: `url(${process.env.PUBLIC_URL + '/loggedout-bg.jpg'})`,
@@ -29,12 +40,12 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 
-export default function App() {
+export default App() {
   const classes = useStyles();
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(true);
 
   return (
-    <div className={classes.root}>
+    <div className={isLoggedIn ? classes.rootIn : classes.rootOut}>
       <AddTodoForm />
       <Router>
         <Header isLoggedIn={isLoggedIn}/>

@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
 
     appbarTitle: {
         color: 'white',
-        flex: '3',
         textDecoration: 'none'
     },
 
@@ -46,12 +45,27 @@ const useStyles = makeStyles((theme) => ({
 
     link: {
         textDecoration: 'none'
+    },
+
+    today: {
+        margin: '0 auto'
     }
 
 }));
 
 export default function Header(props) {
     const classes = useStyles();
+
+    var objToday = new Date(),
+	weekday = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
+	dayOfWeek = weekday[objToday.getDay()],
+	domEnder = function() { var a = objToday; if (/1/.test(parseInt((a + "").charAt(0)))) return "th"; a = parseInt((a + "").charAt(1)); return 1 == a ? "st" : 2 == a ? "nd" : 3 == a ? "rd" : "th" }(),
+	dayOfMonth = today + ( objToday.getDate() < 10) ? '0' + objToday.getDate()  : objToday.getDate() + domEnder,
+	months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'),
+	curMonth = months[objToday.getMonth()],
+    curYear = objToday.getFullYear();
+    
+    var today = dayOfWeek + " " + dayOfMonth+ " " + curMonth + ", " + curYear;
 
     var loggedInBar = (<div> 
                             <Link to='/login' className={classes.link}>
@@ -78,8 +92,10 @@ export default function Header(props) {
                         <span className={classes.greenText}>Done</span><span className={classes.whiteText}>zo.</span>
                         </Link>
                     </h1>
+                    <div className={classes.today}> 
+                        {props.isLoggedIn && today}
+                    </div>
                     
-
                     {props.isLoggedIn ? loggedInBar : loggedOutBar}
 
                 </Toolbar>
