@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -35,13 +35,6 @@ function createData(title, dueDate, tag, completed) {
   return { title, dueDate, tag, completed};
 }
 
-const rows = [
-  createData('Walk the dog', 159, 6.0),
-  createData('Hit the gym', 237, 9.0),
-  createData('Buy eclairs for mum', 262, 16.0),
-  createData('Submit CVWO Assignment', 305, 3.7),
-];
-
 const useStyles = makeStyles({
   table: {
     width: '100%'
@@ -56,16 +49,49 @@ const useStyles = makeStyles({
 
 export default function HomePage() {
     const classes = useStyles();
-    const [ tasks, setTasks ] = useState([
-        createData('Walk the dog', 159, 6.0),
-        createData('Hit the gym', 237, 9.0),
-        createData('Buy eclairs for mum', 262, 16.0),
-        createData('Submit CVWO Assignment', 305, 3.7),
+    var [ tasks, setTasks ] = useState([
+        createData('Walk the dog', '12/21/2020', 'Misc', false ),
+        createData('Hit the gym', '12/23/2020', 'Fitness', false),
+        createData('Buy eclairs for mum', '12/23/2020', 'Misc', false),
+        createData('Submit CVWO Assignment', '12/31/2020', 'School', false),
+        createData('Buy ice cream', '12/21/2020', 'Misc', false)
       ]);
+    
+    var [title, setTitle] = React.useState('');
+    var [dueDate, setDueDate] = React.useState(Date.now());
+    var [tag, setTag] = React.useState('None');
+
+    function addTask(e) {
+      e.preventDefault();
+      // When user does not change the default value, parse date as string
+      if (Number.isInteger(dueDate)) {
+        dueDate = (new Date(dueDate)).toLocaleString().split(",")[0]
+      }
+      setTasks(tasks.concat(createData(title, dueDate, tag, false)))
+      console.log(tag)
+    };
+
+    function handleTitleChange(e) {
+      setTitle(e.target.value)
+    }
+
+    function handleDateChange(event, date) {
+      setDueDate(date)
+    }
+
+    function handleTagChange(e) {
+      setTag(e.target.value)
+    }
 
     return (
         <div>
-            <AddTodoForm />
+            <AddTodoForm 
+              addTask={addTask} 
+              handleTitleChange={handleTitleChange} 
+              defaultDate={dueDate} 
+              handleDateChange={handleDateChange}
+              defaultTag={tag}
+              handleTagChange={handleTagChange}/>
             <TableContainer component={Paper} className={classes.container}>
                 <Table className={classes.table} aria-label="tasktable">
                     <TableHead>
@@ -83,7 +109,7 @@ export default function HomePage() {
                             {task.title}
                         </StyledTableCell>
                         <StyledTableCell align="right">{task.dueDate}</StyledTableCell>
-                        <StyledTableCell align="right">{task.completed}</StyledTableCell>
+                        <StyledTableCell align="right">{task.tag}</StyledTableCell>
                         <StyledTableCell align="center">
                             <IconButton aria-label="edit"><EditIcon /></IconButton>
                             <IconButton aria-label="delete"><DeleteIcon /></IconButton>

@@ -33,10 +33,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function FormDialog() {
+export default function FormDialog(props) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,6 +46,7 @@ export default function FormDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+ 
 
   return (
     <div className={classes.root}>
@@ -52,6 +54,7 @@ export default function FormDialog() {
         <AddCircleIcon />
       </IconButton>
       <Dialog open={open} onClose={handleClose} aria-labelledby="createform" maxWidth="xs">
+        <form onSubmit={props.addTask}>  
         <DialogTitle id="createform">Create new task</DialogTitle>
         <DialogContent>
           <TextField
@@ -62,8 +65,7 @@ export default function FormDialog() {
             fullWidth
             required
             variant="filled"
-
-
+            onChange={props.handleTitleChange}
           />
 
           <Grid container spacing={2}>
@@ -75,9 +77,9 @@ export default function FormDialog() {
                   variant="inline"
                   label="Due Date"
                   format="MM/dd/yyyy"
-                  // value={selectedDate}
                   InputAdornmentProps={{ position: "start" }}
-                // onChange={date => handleDateChange(date)}
+                  onChange={props.handleDateChange}
+                  value={props.defaultDate}
                 />
               </MuiPickersUtilsProvider>
             </Grid>
@@ -90,17 +92,17 @@ export default function FormDialog() {
                 <Select
                   labelId="demo-simple-select-placeholder-label-label"
                   id="demo-simple-select-placeholder-label"
-                  // value={age}
-                  // onChange={handleChange}
+                  value={props.defaultTag}
+                  onChange={props.handleTagChange}
                   displayEmpty
                   className={classes.selectEmpty}
                 >
-                  <MenuItem value="">
+                  <MenuItem value="None">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={10}>School</MenuItem>
-                  <MenuItem value={20}>Fitness</MenuItem>
-                  <MenuItem value={30}>Misc</MenuItem>
+                  <MenuItem value={'School'}>School</MenuItem>
+                  <MenuItem value={'Fitness'}>Fitness</MenuItem>
+                  <MenuItem value={'Misc'}>Misc</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -121,10 +123,12 @@ export default function FormDialog() {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleClose} color="primary" variant="contained" className={classes.createbutton}>
+          <Button type="submit" color="primary" variant="contained" onClick={handleClose} className={classes.createbutton}>
             Create
           </Button>
         </DialogActions>
+        </form>
+        
       </Dialog>
     </div>
   );
