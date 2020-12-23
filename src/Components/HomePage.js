@@ -12,6 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import AddTodoForm from './AddTodoForm';
+import TodoItem from './TodoItem';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -20,16 +21,10 @@ const StyledTableCell = withStyles((theme) => ({
   },
   body: {
     fontSize: 14,
+    padding: '0px',
+    paddingLeft: '10px'
   },
 }))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
 
 function createData(title, dueDate, tag, completed) {
   return { title, dueDate, tag, completed};
@@ -37,7 +32,8 @@ function createData(title, dueDate, tag, completed) {
 
 const useStyles = makeStyles({
   table: {
-    width: '100%'
+    width: '70%',
+    margin: '0 auto',
   },
 
   container: {
@@ -92,37 +88,19 @@ export default function HomePage() {
               handleDateChange={handleDateChange}
               defaultTag={tag}
               handleTagChange={handleTagChange}/>
-            <TableContainer component={Paper} className={classes.container}>
-                <Table className={classes.table} aria-label="tasktable">
-                    <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Task</StyledTableCell>
-                        <StyledTableCell align="right">Due Date</StyledTableCell>
-                        <StyledTableCell align="right">Tag</StyledTableCell>
-                        <StyledTableCell align="center">Actions</StyledTableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {tasks.map((task) => (
-                        <StyledTableRow key={task.name}>
-                        <StyledTableCell component="th" scope="row">
-                            {task.title}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">{task.dueDate}</StyledTableCell>
-                        <StyledTableCell align="right">{task.tag}</StyledTableCell>
-                        <StyledTableCell align="center">
-                            <IconButton aria-label="edit"><EditIcon /></IconButton>
-                            <IconButton aria-label="delete"><DeleteIcon /></IconButton>
-                            <IconButton aria-label="delete"><DoneOutlineIcon /></IconButton>
-                            
-                                
-                            
-                        </StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+              <Table className={classes.table} aria-label="tasktable" >
+                  <TableHead>
+                  <TableRow>
+                      <StyledTableCell>Task</StyledTableCell>
+                      <StyledTableCell align="left">Due Date</StyledTableCell>
+                      <StyledTableCell align="left">Tag</StyledTableCell>
+                      <StyledTableCell align="center">Actions</StyledTableCell>
+                  </TableRow>
+                  </TableHead>
+                  <TableBody>
+                  {tasks.map((item, i) => (<TodoItem key={i} todo={item}/>))}
+                  </TableBody>
+              </Table>
         </div>
         
     

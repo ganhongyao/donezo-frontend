@@ -14,17 +14,22 @@ import DateFnsUtils from '@date-io/date-fns';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'fixed'
+    
   },
 
   createbutton: {
     '&:hover': {
       backgroundColor: '#00a152',
-    }
+    },
   },
 
   select: {
     fontSize: '0.5em'
+  },
+
+  button: {
+    marginTop: '8%',
+    marginLeft: '15%'
   }
 
 
@@ -50,7 +55,7 @@ export default function FormDialog(props) {
 
   return (
     <div className={classes.root}>
-      <IconButton onClick={handleClickOpen}>
+      <IconButton onClick={handleClickOpen} className={classes.button}>
         <AddCircleIcon />
       </IconButton>
       <Dialog open={open} onClose={handleClose} aria-labelledby="createform" maxWidth="xs">
