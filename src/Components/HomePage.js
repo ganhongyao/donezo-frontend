@@ -40,6 +40,11 @@ const useStyles = makeStyles({
     width: '70%',
     backgroundColor: 'white',
     margin: '0 auto'
+  },
+
+  alert: {
+    color: '#54e346',
+    marginLeft: '15%'
   }
 });
 
@@ -88,19 +93,20 @@ export default function HomePage() {
               handleDateChange={handleDateChange}
               defaultTag={tag}
               handleTagChange={handleTagChange}/>
-              <Table className={classes.table} aria-label="tasktable" >
-                  <TableHead>
-                  <TableRow>
-                      <StyledTableCell>Task</StyledTableCell>
-                      <StyledTableCell align="left">Due Date</StyledTableCell>
-                      <StyledTableCell align="left">Tag</StyledTableCell>
-                      <StyledTableCell align="center">Actions</StyledTableCell>
-                  </TableRow>
-                  </TableHead>
-                  <TableBody>
-                  {tasks.map((item, i) => (<TodoItem key={i} todo={item}/>))}
-                  </TableBody>
-              </Table>
+            <span className={classes.alert}>You have <span style={{color: 'white'}}>{tasks.length}</span> unfinished tasks.</span>
+            <Table className={classes.table} aria-label="tasktable" >
+                <TableHead>
+                <TableRow>
+                    <StyledTableCell>Task</StyledTableCell>
+                    <StyledTableCell align="left">Due Date</StyledTableCell>
+                    <StyledTableCell align="left">Tag</StyledTableCell>
+                    <StyledTableCell align="center">Actions</StyledTableCell>
+                </TableRow>
+                </TableHead>
+                <TableBody>
+                {tasks.map((item, i) => (<TodoItem key={i} todo={item}/>))}
+                </TableBody>
+            </Table>
         </div>
         
     
