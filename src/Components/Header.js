@@ -88,7 +88,7 @@ export default function Header(props) {
             <AppBar className={classes.appbar} elevation={0}>
                 <Toolbar className={classes.toolbar}>
                     <h1 className={classes.appbarTitle}>
-                        <Link to='/' className={classes.link}>
+                        <Link to={props.isLoggedIn ? "/home" : "/"} className={classes.link}>
                         <span className={classes.greenText}>Done</span><span className={classes.whiteText}>zo.</span>
                         </Link>
                     </h1>
