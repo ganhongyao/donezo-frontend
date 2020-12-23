@@ -65,6 +65,7 @@ class LoginPage extends Component {
     handleSubmit(event) {
         const { email, password } = this.state;
         event.preventDefault();
+        console.log(this.state)
     }
 
     render() {
@@ -107,10 +108,6 @@ class LoginPage extends Component {
                         autoComplete="current-password"
                         value={this.state.password}
                         onChange={this.handleChange}
-                    />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
                     />
                     <Button
                         type="submit"

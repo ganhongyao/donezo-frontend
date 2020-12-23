@@ -24,7 +24,7 @@ const useStyles = (theme) => ({
       backgroundSize: 'cover',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
 
     rootin: {

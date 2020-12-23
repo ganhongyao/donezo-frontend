@@ -63,6 +63,7 @@ export default function FormDialog(props) {
         <DialogTitle id="createform">Create new task</DialogTitle>
         <DialogContent>
           <TextField
+            name="newTitle"
             autoFocus
             margin="dense"
             id="title"
@@ -70,7 +71,7 @@ export default function FormDialog(props) {
             fullWidth
             required
             variant="filled"
-            onChange={props.handleTitleChange}
+            onChange={props.handleChange}
           />
 
           <Grid container spacing={2}>
@@ -97,8 +98,9 @@ export default function FormDialog(props) {
                 <Select
                   labelId="demo-simple-select-placeholder-label-label"
                   id="demo-simple-select-placeholder-label"
+                  name='newTag'
                   value={props.defaultTag}
-                  onChange={props.handleTagChange}
+                  onChange={props.handleChange}
                   displayEmpty
                   className={classes.selectEmpty}
                 >
@@ -119,7 +121,6 @@ export default function FormDialog(props) {
             id="description"
             label="Description"
             fullWidth
-
             variant="filled"
           />
 
