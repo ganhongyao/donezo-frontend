@@ -27,7 +27,7 @@ export default function TodoItem(props) {
     return (
         <TableRow className={classes.root}>
             <TableCell className={classes.cell}>{props.todo.title}</TableCell>
-            <TableCell className={classes.cell}>{props.todo.dueDate}</TableCell>
+            <TableCell className={classes.cell}>{props.todo.duedate}</TableCell>
             <TableCell className={classes.cell}>{props.todo.tag}</TableCell>
             <TableCell className={classes.cell} align='center'>
                 <IconButton aria-label="edit"><EditIcon /></IconButton>
