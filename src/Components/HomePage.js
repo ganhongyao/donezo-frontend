@@ -147,7 +147,7 @@ class HomePage extends Component {
 				defaultDate={this.state.newDueDate} 
 				defaultTag={this.state.newTag}
 				/>
-				<span className={classes.alert}>You have <span style={{color: 'white'}}>{this.state.todos.length}</span> unfinished todos.</span>
+				<span className={classes.alert}>You have <span style={{color: 'white'}}>{this.state.todos.length}</span> unfinished tasks.</span>
 				<Table className={classes.table} aria-label="tasktable" >
 					<TableHead>
 					<TableRow>
