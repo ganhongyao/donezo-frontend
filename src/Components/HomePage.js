@@ -13,7 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import AddTodoForm from './AddTodoForm';
 import TodoItem from './TodoItem';
-import axios from 'axios'
+import axios from 'axios';
+import update from 'immutability-helper';
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
@@ -95,14 +96,32 @@ class HomePage extends Component {
 			this.setState({
 				newDueDate: adjustedDate
 			}
-				
 		)}
-		
-		this.setState({
-			todos: this.state.todos.concat(createData(this.state.newTitle, this.state.newDueDate, this.state.newTag, false))
-		})
-		console.log(this.state.newDueDate)
-		console.log(this.state)
+		console.log(this.state.newDueDate);
+		const year = this.state.newDueDate.split("/")[2];
+		const day = this.state.newDueDate.split("/")[1];
+		const month = this.state.newDueDate.split("/")[0];
+		const adjustedDate = year + "-" + month + "-" + day;
+		console.log(adjustedDate)
+		axios.post(
+			'http://localhost:3001/api/v1/todos',
+			{ todo:
+				{
+				title: this.state.newTitle,
+				duedate: adjustedDate,
+				description: '',
+				completed: false
+				}
+			}
+			)
+			.then(response => {
+			console.log(response)
+			const todos = update(this.state.todos, {
+				$splice: [[0, 0, response.data]]
+			})
+			this.setState({todos: todos})
+			})
+			.catch(error => console.log(error))
 	}
 
 	render() {
