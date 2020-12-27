@@ -21,8 +21,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+
+
 export default function TodoItem(props) {
     const classes = useStyles();
+
+    const handleDelete = () => {
+        props.handleDelete(props.todo.id)
+    }
 
     return (
         <TableRow className={classes.root}>
@@ -31,8 +37,8 @@ export default function TodoItem(props) {
             <TableCell className={classes.cell}>{props.todo.tag}</TableCell>
             <TableCell className={classes.cell} align='center'>
                 <IconButton aria-label="edit"><EditIcon /></IconButton>
-                <IconButton aria-label="delete"><DeleteIcon /></IconButton>
-                <IconButton aria-label="done"><DoneOutlineIcon /></IconButton>
+                <IconButton aria-label="delete" onClick={handleDelete}><DeleteIcon /></IconButton>
+                <IconButton aria-label="done" ><DoneOutlineIcon /></IconButton>
             </TableCell>
         </TableRow>
     )

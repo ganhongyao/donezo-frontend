@@ -63,6 +63,7 @@ class HomePage extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
 	}
 
 	componentDidMount() {
@@ -73,7 +74,16 @@ class HomePage extends Component {
 		})
 		.catch(error => console.log(error))
 	}
-	
+
+	handleDelete(id) {
+		axios.delete(`http://localhost:3001/api/v1/todos/${id}`)
+		.then(response => {
+			const todoIndex = this.state.todos.findIndex(x => x.id === id)
+			const todos = update(this.state.todos, { $splice: [[todoIndex, 1]]})
+			this.setState({todos: todos})
+		})
+		.catch(error => console.log(error))
+	}
 
 	handleChange(event) {
 		this.setState({
@@ -148,7 +158,7 @@ class HomePage extends Component {
 					</TableRow>
 					</TableHead>
 					<TableBody>
-					{this.state.todos.map((item, i) => (<TodoItem key={i} todo={item}/>))}
+					{this.state.todos.map((todo) => (<TodoItem key={todo.id} todo={todo} handleDelete={this.handleDelete}/>))}
 					</TableBody>
 				</Table>
 			</div>
