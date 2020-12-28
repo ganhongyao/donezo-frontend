@@ -38,12 +38,6 @@ const useStyles = (theme) => ({
 		margin: '0 auto',
 	},
 
-	container: {
-		width: '70%',
-		backgroundColor: 'white',
-		margin: '0 auto'
-	},
-
 	alert: {
 		color: '#54e346',
 		marginLeft: '15%'
@@ -73,7 +67,7 @@ class HomePage extends Component {
 		axios.get('http://localhost:3001/api/v1/todos.json')
 		.then(response => {
 			console.log(response)
-			this.setState({todos: response.data})
+			this.setState({todos: response.data.filter(todo => !todo.completed)})
 		})
 		.catch(error => console.log(error))
 	}
@@ -85,9 +79,9 @@ class HomePage extends Component {
 			const todos = update(this.state.todos, { $splice: [[todoIndex, 1]]})
 			this.setState({todos: todos})
 		})
-		.catch(error => console.log(error))
+		.catch(error => console.log(error));
+		this.forceUpdate();
 	}
-
 
 	handleChange(event) {
 		this.setState({
@@ -172,7 +166,7 @@ class HomePage extends Component {
 					</TableRow>
 					</TableHead>
 					<TableBody>
-					{this.state.todos.map((todo) => {
+					{this.state.todos.filter(item => !item.completed).map((todo) => {
 						return <TodoItem key={todo.id} todo={todo} handleDelete={this.handleDelete} handleChange={this.handleChange} handleUpdate={this.handleUpdate}/>
 					})}
 					

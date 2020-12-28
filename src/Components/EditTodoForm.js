@@ -12,10 +12,12 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 
 
-const useStyles = (theme) => ({
-  
+const useStyles = makeStyles((theme) => ({
+  actionicon: {
+    fill: 'black'
+  }
 
-});
+}));
 
 
 export default function EditTodoForm(props) {
@@ -36,7 +38,7 @@ export default function EditTodoForm(props) {
   return (
     <div className={classes.root}>
       <IconButton onClick={handleClickOpen}>
-        <EditIcon />
+        <EditIcon className={classes.actionicon}/>
       </IconButton>
       <Dialog open={open} onClose={handleClose} aria-labelledby="createform" maxWidth="xs">
         <form onSubmit={props.handleEdit}>  

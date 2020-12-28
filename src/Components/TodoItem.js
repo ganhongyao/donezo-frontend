@@ -13,7 +13,8 @@ const useStyles = (theme) => ({
         lineHeight: '15px',
         padding: '0px',
         paddingLeft: '15px',
-        height: '40px'
+        height: '40px',
+        
     },
 
     cell: {
@@ -29,8 +30,11 @@ const useStyles = (theme) => ({
         paddingLeft: '15px',
         display: 'flex',
         height: '40px',
-        alignItems: 'center'
-        
+        alignItems: 'center',
+    },
+
+    actionicon: {
+        fill: 'black'
     }
 });
 
@@ -39,20 +43,35 @@ class TodoItem extends Component {
         super(props);
         this.state = {
             title: this.props.todo.title,
-            duedate: this.props.todo.duedate
+            duedate: this.props.todo.duedate,
+            completed: this.props.todo.completed
         }
         this.handleDelete = this.handleDelete.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleComplete = this.handleComplete.bind(this);
     }
 
     handleDelete() {
         this.props.handleDelete(this.props.todo.id)
     }
 
+    handleComplete() {
+        const todo = {title: this.state.title, duedate: this.state.duedate, completed: !this.state.completed}
+        axios.put(
+        `http://localhost:3001/api/v1/todos/${this.props.todo.id}`,
+        {todo: todo}
+        )
+        .then(response => {
+        console.log(response)
+        this.props.handleUpdate(response.data)
+        })
+        .catch(error => console.log(error))
+    }
+
     handleEdit() {
-        const todo = {title: this.state.title, duedate: this.state.duedate }
+        const todo = {title: this.state.title, duedate: this.state.duedate, completed: this.state.completed}
         axios.put(
         `http://localhost:3001/api/v1/todos/${this.props.todo.id}`,
         {todo: todo}
@@ -96,8 +115,8 @@ class TodoItem extends Component {
                         handleDateChange={this.handleDateChange} 
                         defaultDate={this.state.duedate}
                         />
-                    <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon /></IconButton>
-                    <IconButton aria-label="done" ><DoneOutlineIcon /></IconButton>
+                    <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon className={classes.actionicon}/></IconButton>
+                    <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon className={classes.actionicon}/></IconButton>
                 </TableCell>
             </TableRow>
         )

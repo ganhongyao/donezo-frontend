@@ -13,7 +13,8 @@ import LoginPage from './Components/Login/LoginPage';
 import SignupPage from './Components/Signup/SignupPage';
 import Header from "./Components/Header";
 import AddTodoForm from "./Components/AddTodoForm";
-import HomePage from "./Components/HomePage"
+import HomePage from "./Components/HomePage";
+import CompletedTodos from "./Components/CompletedTodos"
 
 const useStyles = (theme) => ({
     rootout : {
@@ -33,6 +34,9 @@ const useStyles = (theme) => ({
       backgroundImage: `url(${process.env.PUBLIC_URL + '/loggedout-bg.jpg'})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
+      display: 'flex',
+      flexDirection: 'column'
+      
     }
 
 })
@@ -68,6 +72,7 @@ class App extends Component {
             <Route path="/login" component={LoginPage}/>
             <Route path="/signup" component={SignupPage}/>
             <Route path="/home" render={(props) => (<HomePage {...props} tasks={this.state.tasks}/>)}/> 
+            <Route path="/completed" component={CompletedTodos}/>
           </Switch>
         </Router>
       </div>
