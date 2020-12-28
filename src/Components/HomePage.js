@@ -25,7 +25,7 @@ const StyledTableCell = withStyles((theme) => ({
 		fontSize: 14,
 		padding: '0px',
 		paddingLeft: '10px'
-	},
+	}
 }))(TableCell);
 
 function createData(title, dueDate, tag, completed) {
@@ -36,7 +36,6 @@ const useStyles = (theme) => ({
 	table: {
 		width: '70%',
 		margin: '0 auto',
-		tableLayout: 'fixed'
 	},
 
 	container: {
@@ -158,12 +157,17 @@ class HomePage extends Component {
 				/>
 				<span className={classes.alert}>You have <span style={{color: 'white'}}>{this.state.todos.length}</span> unfinished tasks.</span>
 				<Table className={classes.table} aria-label="tasktable" >
-					
+				<colgroup>
+					<col style={{width:"50%"}}/>
+					<col style={{width:"20%"}}/>
+					<col style={{width:"20%"}}/>
+					<col style={{width:"10%"}}/>
+				</colgroup>
 					<TableHead>
 					<TableRow>
-						<StyledTableCell classes={classes.titleheading}>Task</StyledTableCell>
+						<StyledTableCell>Task</StyledTableCell>
 						<StyledTableCell align="left">Due Date</StyledTableCell>
-						<StyledTableCell align="left">Tag</StyledTableCell>
+						<StyledTableCell align="center">Tag(s)</StyledTableCell>
 						<StyledTableCell align="center">Actions</StyledTableCell>
 					</TableRow>
 					</TableHead>

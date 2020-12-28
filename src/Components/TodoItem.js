@@ -16,7 +16,7 @@ const useStyles = (theme) => ({
     },
 
     cell: {
-        lineHeight: '10px',
+        lineHeight: '15px',
         padding: '0px',
         paddingLeft: '15px',
     },

@@ -27,10 +27,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '0.5em'
   },
 
-  button: {
-    marginTop: '8%',
-    marginLeft: '15%'
-  }
+  
 
 
 
