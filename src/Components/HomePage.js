@@ -36,6 +36,7 @@ const useStyles = (theme) => ({
 	table: {
 		width: '70%',
 		margin: '0 auto',
+		tableLayout: 'fixed'
 	},
 
 	container: {
@@ -47,7 +48,8 @@ const useStyles = (theme) => ({
 	alert: {
 		color: '#54e346',
 		marginLeft: '15%'
-	}
+	},
+	
 });
 
 class HomePage extends Component {
@@ -57,13 +59,15 @@ class HomePage extends Component {
 			todos: [],
 			newTitle: '',
 			newDueDate: '',
-			newTag: 'None'
+			newTag: 'None',
+			
 		}
 		
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
+		this.handleUpdate = this.handleUpdate.bind(this);
 	}
 
 	componentDidMount() {
@@ -93,9 +97,19 @@ class HomePage extends Component {
 	}
 
 	handleDateChange(event, date) {
+		const year = date.split("/")[2];
+		const day = date.split("/")[1];
+		const month = date.split("/")[0];
+		const adjustedDate = year + "-" + month + "-" + day;
 		this.setState({
-			newDueDate: date
+			newDueDate: adjustedDate
 		})
+	}
+
+	handleUpdate(todo) {
+		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
+    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }})
+    	this.setState({todos: todos})
 	}
 
 	handleSubmit(event) {
@@ -103,23 +117,17 @@ class HomePage extends Component {
 		console.log(Number.isInteger(this.state.newDueDate))
 		if (Number.isInteger(this.state.newDueDate)) {
 			const adjustedDate = (new Date(this.state.newDueDate)).toLocaleString().split(",")[0]
-			console.log(adjustedDate)
 			this.setState({
 				newDueDate: adjustedDate
 			}
 		)}
-		console.log(this.state.newDueDate);
-		const year = this.state.newDueDate.split("/")[2];
-		const day = this.state.newDueDate.split("/")[1];
-		const month = this.state.newDueDate.split("/")[0];
-		const adjustedDate = year + "-" + month + "-" + day;
-		console.log(adjustedDate)
+		
 		axios.post(
 			'http://localhost:3001/api/v1/todos',
 			{ todo:
 				{
 				title: this.state.newTitle,
-				duedate: adjustedDate,
+				duedate: this.state.newDueDate,
 				description: '',
 				completed: false
 				}
@@ -150,16 +158,20 @@ class HomePage extends Component {
 				/>
 				<span className={classes.alert}>You have <span style={{color: 'white'}}>{this.state.todos.length}</span> unfinished tasks.</span>
 				<Table className={classes.table} aria-label="tasktable" >
+					
 					<TableHead>
 					<TableRow>
-						<StyledTableCell>Task</StyledTableCell>
+						<StyledTableCell classes={classes.titleheading}>Task</StyledTableCell>
 						<StyledTableCell align="left">Due Date</StyledTableCell>
 						<StyledTableCell align="left">Tag</StyledTableCell>
 						<StyledTableCell align="center">Actions</StyledTableCell>
 					</TableRow>
 					</TableHead>
 					<TableBody>
-					{this.state.todos.map((todo) => (<TodoItem key={todo.id} todo={todo} handleDelete={this.handleDelete}/>))}
+					{this.state.todos.map((todo) => {
+						return <TodoItem key={todo.id} todo={todo} handleDelete={this.handleDelete} handleChange={this.handleChange} handleUpdate={this.handleUpdate}/>
+					})}
+					
 					</TableBody>
 				</Table>
 			</div>
