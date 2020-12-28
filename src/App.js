@@ -64,7 +64,7 @@ class App extends Component {
         <Router>
           <Header isLoggedIn={this.state.isLoggedIn}/>
           <Switch>
-            <Route path="/" exact component={LandingPage}/>
+            <Route path="/" exact component={this.state.isLoggedIn ? HomePage : LandingPage}/>
             <Route path="/login" component={LoginPage}/>
             <Route path="/signup" component={SignupPage}/>
             <Route path="/home" render={(props) => (<HomePage {...props} tasks={this.state.tasks}/>)}/> 

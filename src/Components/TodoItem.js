@@ -30,6 +30,10 @@ export default function TodoItem(props) {
         props.handleDelete(props.todo.id)
     }
 
+    const handleBlur = () => {
+        
+    }
+
     return (
         <TableRow className={classes.root}>
             <TableCell className={classes.cell}>{props.todo.title}</TableCell>
