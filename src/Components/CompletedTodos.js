@@ -6,7 +6,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TodoItem from './TodoItem';
-import axios from 'axios'
+import axios from 'axios';
+import update from 'immutability-helper';
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
@@ -42,6 +43,7 @@ class CompletedTodos extends Component {
         this.state = {
             completed: []
         }
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     componentDidMount() {
@@ -51,9 +53,15 @@ class CompletedTodos extends Component {
 			this.setState({completed: response.data.filter(todo => todo.completed)})
 		})
         .catch(error => console.log(error));
+    }
+    
+    handleUpdate(todo) {
+		const todoIndex = this.state.completed.findIndex(x => x.id === todo.id)
+    	const completed = update(this.state.completed, {[todoIndex]: { $set: todo }})
+        this.setState({completed: completed})
+        console.log(this.state)
 	}
     
-
     render() {
         const { classes } = this.props;
         return (
@@ -75,7 +83,7 @@ class CompletedTodos extends Component {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {this.state.completed.map((todo) => {
+                    {this.state.completed.filter(item => item.completed).map((todo) => {
                         return <TodoItem key={todo.id} todo={todo} handleDelete={this.handleDelete} handleChange={this.handleChange} handleUpdate={this.handleUpdate}/>
                     })}
                     

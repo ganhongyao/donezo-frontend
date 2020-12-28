@@ -28,10 +28,6 @@ const StyledTableCell = withStyles((theme) => ({
 	}
 }))(TableCell);
 
-function createData(title, dueDate, tag, completed) {
-  return { title, dueDate, tag, completed };
-}
-
 const useStyles = (theme) => ({
 	table: {
 		width: '70%',
@@ -53,6 +49,7 @@ class HomePage extends Component {
 			newTitle: '',
 			newDueDate: '',
 			newTag: 'None',
+			length: '0'
 			
 		}
 		
@@ -68,6 +65,7 @@ class HomePage extends Component {
 		.then(response => {
 			console.log(response)
 			this.setState({todos: response.data.filter(todo => !todo.completed)})
+			this.setState({length: this.state.todos.length})
 		})
 		.catch(error => console.log(error))
 	}
@@ -80,7 +78,6 @@ class HomePage extends Component {
 			this.setState({todos: todos})
 		})
 		.catch(error => console.log(error));
-		this.forceUpdate();
 	}
 
 	handleChange(event) {
@@ -102,7 +99,8 @@ class HomePage extends Component {
 	handleUpdate(todo) {
 		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
     	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }})
-    	this.setState({todos: todos})
+		this.setState({todos: todos})
+		this.setState({length: this.state.length - 1})
 	}
 
 	handleSubmit(event) {
@@ -136,10 +134,13 @@ class HomePage extends Component {
 			.catch(error => console.log(error))
 	}
 
+	
+
 	render() {
 
 		const { classes } = this.props;
-		
+		var isSingular = this.state.length == 1;
+
 		return (
 			<div>
 				<AddTodoForm 
@@ -149,7 +150,9 @@ class HomePage extends Component {
 				defaultDate={this.state.newDueDate} 
 				defaultTag={this.state.newTag}
 				/>
-				<span className={classes.alert}>You have <span style={{color: 'white'}}>{this.state.todos.length}</span> unfinished tasks.</span>
+				<span className={classes.alert}>
+					You have <span style={{color: 'white'}}>{this.state.length}</span> unfinished task{!isSingular && 's'}.
+				</span>
 				<Table className={classes.table} aria-label="tasktable" >
 				<colgroup>
 					<col style={{width:"50%"}}/>
