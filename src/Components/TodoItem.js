@@ -10,19 +10,27 @@ import axios from 'axios';
 const useStyles = (theme) => ({
     root: {
         backgroundColor: 'rgba(255, 255, 255, 0.6)',  
-        lineHeight: '10px',
+        lineHeight: '15px',
         padding: '0px',
-        paddingLeft: '15px'
+        paddingLeft: '15px',
+        height: '40px'
     },
 
     cell: {
         lineHeight: '15px',
         padding: '0px',
         paddingLeft: '15px',
+        height: '40px'
     },
 
     actionscell: {
-        display: 'flex'
+        lineHeight: '15px',
+        padding: '0px',
+        paddingLeft: '15px',
+        display: 'flex',
+        height: '40px',
+        alignItems: 'center'
+        
     }
 });
 
@@ -86,7 +94,8 @@ class TodoItem extends Component {
                         handleChange={this.handleChange} 
                         handleEdit={this.handleEdit} 
                         handleDateChange={this.handleDateChange} 
-                        defaultDate={this.state.duedate}/>
+                        defaultDate={this.state.duedate}
+                        />
                     <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon /></IconButton>
                     <IconButton aria-label="done" ><DoneOutlineIcon /></IconButton>
                 </TableCell>
