@@ -49,7 +49,7 @@ class HomePage extends Component {
 			newTitle: '',
 			newDueDate: '',
 			newTag: 'None',
-			length: '0'
+			length: 0
 			
 		}
 		
@@ -78,6 +78,7 @@ class HomePage extends Component {
 			this.setState({todos: todos})
 		})
 		.catch(error => console.log(error));
+		this.setState({length: this.state.length - 1})
 	}
 
 	handleChange(event) {
@@ -105,7 +106,6 @@ class HomePage extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		console.log(Number.isInteger(this.state.newDueDate))
 		if (Number.isInteger(this.state.newDueDate)) {
 			const adjustedDate = (new Date(this.state.newDueDate)).toLocaleString().split(",")[0]
 			this.setState({
@@ -132,6 +132,8 @@ class HomePage extends Component {
 			this.setState({todos: todos})
 			})
 			.catch(error => console.log(error))
+		
+		this.setState({length: this.state.length + 1})
 	}
 
 	
@@ -140,6 +142,7 @@ class HomePage extends Component {
 
 		const { classes } = this.props;
 		var isSingular = this.state.length == 1;
+		console.log(this.state)
 
 		return (
 			<div>
