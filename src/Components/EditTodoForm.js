@@ -69,6 +69,7 @@ export default function EditTodoForm(props) {
                   InputAdornmentProps={{ position: "start" }}
                   onChange={props.handleDateChange}
                   value={props.defaultDate}
+                  required
                 />
               </MuiPickersUtilsProvider>
             </Grid>
@@ -111,7 +112,7 @@ export default function EditTodoForm(props) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button type="submit" color="primary" variant="contained" onClick={handleClose} className={classes.createbutton}>
+          <Button type="submit" color="primary" variant="contained" onClick={handleClose} disabled={!props.canEdit} className={classes.createbutton}>
             Edit
           </Button>
         </DialogActions>

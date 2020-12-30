@@ -101,6 +101,7 @@ class TodoItem extends Component {
     
     render() {
         const { classes } = this.props;
+        var canEdit = this.state.title.length > 0 && this.state.duedate.length > 0;
 
         return (
             <TableRow className={classes.root}>
@@ -114,6 +115,7 @@ class TodoItem extends Component {
                         handleEdit={this.handleEdit} 
                         handleDateChange={this.handleDateChange} 
                         defaultDate={this.state.duedate}
+                        canEdit={canEdit}
                         />
                     <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon className={classes.actionicon}/></IconButton>
                     <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon className={classes.actionicon}/></IconButton>
