@@ -142,7 +142,7 @@ class HomePage extends Component {
 
 		const { classes } = this.props;
 		var isSingular = this.state.length == 1;
-		console.log(this.state)
+		var canSubmit = this.state.newTitle.length > 0 && this.state.newDueDate.length > 0;
 
 		return (
 			<div>
@@ -152,6 +152,7 @@ class HomePage extends Component {
 				handleDateChange={this.handleDateChange}
 				defaultDate={this.state.newDueDate} 
 				defaultTag={this.state.newTag}
+				canSubmit={canSubmit}
 				/>
 				<span className={classes.alert}>
 					You have <span style={{color: 'white'}}>{this.state.length}</span> unfinished task{!isSingular && 's'}.

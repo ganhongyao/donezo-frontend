@@ -73,7 +73,7 @@ export default function FormDialog(props) {
             variant="filled"
             onChange={props.handleChange}
           />
-
+          <hr style={{border: 'white'}}/>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -86,6 +86,7 @@ export default function FormDialog(props) {
                   InputAdornmentProps={{ position: "start" }}
                   onChange={props.handleDateChange}
                   value={props.defaultDate}
+                  required
                 />
               </MuiPickersUtilsProvider>
             </Grid>
@@ -129,7 +130,7 @@ export default function FormDialog(props) {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button type="submit" color="primary" variant="contained" onClick={handleClose} className={classes.createbutton}>
+          <Button type="submit" color="primary" variant="contained" onClick={handleClose} disabled={!props.canSubmit} className={classes.createbutton}>
             Create
           </Button>
         </DialogActions>
