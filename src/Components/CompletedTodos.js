@@ -44,6 +44,7 @@ class CompletedTodos extends Component {
             completed: []
         }
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
@@ -60,6 +61,16 @@ class CompletedTodos extends Component {
     	const completed = update(this.state.completed, {[todoIndex]: { $set: todo }})
         this.setState({completed: completed})
         console.log(this.state)
+    }
+    
+    handleDelete(id) {
+		axios.delete(`http://localhost:3001/api/v1/todos/${id}`)
+		.then(response => {
+			const todoIndex = this.state.completed.findIndex(x => x.id === id)
+			const completed = update(this.state.completed, { $splice: [[todoIndex, 1]]})
+			this.setState({completed: completed})
+		})
+		.catch(error => console.log(error));
 	}
     
     render() {

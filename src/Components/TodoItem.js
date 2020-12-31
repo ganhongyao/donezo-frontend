@@ -101,7 +101,7 @@ class TodoItem extends Component {
     
     render() {
         const { classes } = this.props;
-        var canEdit = this.state.title.length > 0 && this.state.duedate.length > 0;
+        var canEdit = this.state.title.length > 0;
 
         return (
             <TableRow className={classes.root}>
