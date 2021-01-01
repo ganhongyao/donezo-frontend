@@ -194,6 +194,7 @@ class HomePage extends Component {
 						return <TodoItem 
 							key={todo.id} 
 							todo={todo} 
+							tags={this.state.tags}
 							handleDelete={this.handleDelete} 
 							handleChange={this.handleChange} 
 							handleUpdate={this.handleUpdate}/>

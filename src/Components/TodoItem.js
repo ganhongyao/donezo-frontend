@@ -49,12 +49,14 @@ class TodoItem extends Component {
         this.state = {
             title: this.props.todo.title,
             duedate: this.props.todo.duedate,
-            completed: this.props.todo.completed
+            completed: this.props.todo.completed,
+            tags_list: this.props.todo.tags_list
         }
         this.handleDelete = this.handleDelete.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleTagChange = this.handleTagChange.bind(this);
         this.handleComplete = this.handleComplete.bind(this);
     }
 
@@ -76,7 +78,7 @@ class TodoItem extends Component {
     }
 
     handleEdit() {
-        const todo = {title: this.state.title, duedate: this.state.duedate, completed: this.state.completed}
+        const todo = {title: this.state.title, duedate: this.state.duedate, completed: this.state.completed, tags_list: this.state.tags_list}
         axios.put(
         `http://localhost:3001/api/v1/todos/${this.props.todo.id}`,
         {todo: todo}
@@ -103,6 +105,12 @@ class TodoItem extends Component {
 			duedate: adjustedDate
 		})
     }
+
+    handleTagChange(event, selected) {
+		this.setState({
+			tags_list: selected
+		})
+	}
     
     render() {
         const { classes } = this.props;
@@ -120,8 +128,10 @@ class TodoItem extends Component {
                         handleChange={this.handleChange} 
                         handleEdit={this.handleEdit} 
                         handleDateChange={this.handleDateChange} 
+                        handleTagChange={this.handleTagChange}
                         defaultDate={this.state.duedate}
                         canEdit={canEdit}
+                        tags={this.props.tags}
                         />
                     <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon className={classes.actionicon}/></IconButton>
                     <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon className={classes.actionicon}/></IconButton>

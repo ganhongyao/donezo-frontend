@@ -41,7 +41,8 @@ class CompletedTodos extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            completed: []
+            completed: [],
+            tags: []
         }
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -54,6 +55,11 @@ class CompletedTodos extends Component {
 			this.setState({completed: response.data.filter(todo => todo.completed)})
 		})
         .catch(error => console.log(error));
+        axios.get("http://localhost:3001/api/v1/tags.json")
+		.then(response => {
+			console.log(response)
+			this.setState({tags: response.data})
+		})
     }
     
     handleUpdate(todo) {
@@ -95,7 +101,7 @@ class CompletedTodos extends Component {
                     </TableHead>
                     <TableBody>
                     {this.state.completed.filter(item => item.completed).map((todo) => {
-                        return <TodoItem key={todo.id} todo={todo} handleDelete={this.handleDelete} handleChange={this.handleChange} handleUpdate={this.handleUpdate}/>
+                        return <TodoItem key={todo.id} todo={todo} tags={this.state.tags} handleDelete={this.handleDelete} handleChange={this.handleChange} handleUpdate={this.handleUpdate}/>
                     })}
                     
                     </TableBody>

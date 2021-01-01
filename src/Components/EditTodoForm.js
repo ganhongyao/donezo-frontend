@@ -10,12 +10,19 @@ import { FormControl, Grid, IconButton, InputLabel, makeStyles, MenuItem, Select
 import EditIcon from '@material-ui/icons/Edit';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
+import Chip from '@material-ui/core/Chip';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
 
 
 const useStyles = makeStyles((theme) => ({
   actionicon: {
     fill: 'black'
-  }
+  },
+
+  autocomplete: {
+    width: '300px'
+  },
 
 }));
 
@@ -57,8 +64,6 @@ export default function EditTodoForm(props) {
             defaultValue={props.todo.title}
           />
 
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   autoOk
@@ -72,31 +77,26 @@ export default function EditTodoForm(props) {
                   required
                 />
               </MuiPickersUtilsProvider>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl className={classes.formControl}>
-                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                  Tag
-                  </InputLabel>
-                <Select
-                  labelId="demo-simple-select-placeholder-label-label"
-                  id="demo-simple-select-placeholder-label"
-                  name='newTag'
-                  value={props.defaultTag}
-                  onChange={props.handleChange}
-                  displayEmpty
-                  className={classes.selectEmpty}
-                >
-                  <MenuItem value="None">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={'School'}>School</MenuItem>
-                  <MenuItem value={'Fitness'}>Fitness</MenuItem>
-                  <MenuItem value={'Misc'}>Misc</MenuItem>
-                </Select>
+            <br/>
+              <FormControl>                
+              <Autocomplete
+                multiple
+                id="tags-filled"
+                options={props.tags.map((option) => option.name)}
+                freeSolo
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip variant="outlined" label={option} size="small" {...getTagProps({ index })} />
+                  ))
+                
+                }
+                renderInput={(params) => (
+                  <TextField {...params} variant="filled" label="Tags" placeholder="Type to create new tag"/>
+                )}
+                className={classes.autocomplete}
+                onChange={props.handleTagChange}
+              />
               </FormControl>
-            </Grid>
-          </Grid>
 
           <TextField
             autoFocus
