@@ -107,7 +107,7 @@ class TodoItem extends Component {
             <TableRow className={classes.root}>
                 <TableCell className={classes.cell}>{this.props.todo.title}</TableCell>
                 <TableCell className={classes.cell}>{this.props.todo.duedate}</TableCell>
-                <TableCell className={classes.cell}>{this.props.todo.tag}</TableCell>
+                <TableCell className={classes.cell}>{this.props.todo.tags_list}</TableCell>
                 <TableCell className={classes.actionscell} align='center'>
                     <EditTodoForm 
                         todo={this.props.todo} 

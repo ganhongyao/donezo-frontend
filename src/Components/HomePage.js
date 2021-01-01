@@ -48,7 +48,7 @@ class HomePage extends Component {
 			todos: [],
 			newTitle: '',
 			newDueDate: '',
-			newTag: '',
+			newTag: [],
 			length: 0,
 			tags: []
 			
@@ -57,6 +57,7 @@ class HomePage extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
+		this.handleTagChange = this.handleTagChange.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
 	}
@@ -103,6 +104,12 @@ class HomePage extends Component {
 		})
 	}
 
+	handleTagChange(event, selected) {
+		this.setState({
+			newTag: selected
+		})
+	}
+
 	handleUpdate(todo) {
 		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
     	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }})
@@ -126,7 +133,8 @@ class HomePage extends Component {
 				title: this.state.newTitle,
 				duedate: this.state.newDueDate,
 				description: '',
-				completed: false
+				completed: false,
+				tags_list: this.state.newTag
 				}
 			}
 			)
@@ -157,6 +165,7 @@ class HomePage extends Component {
 				addTask={this.handleSubmit} 
 				handleChange={this.handleChange} 
 				handleDateChange={this.handleDateChange}
+				handleTagChange={this.handleTagChange}
 				defaultDate={this.state.newDueDate} 
 				newTag={this.state.newTag}
 				tags={this.state.tags}
@@ -182,7 +191,12 @@ class HomePage extends Component {
 					</TableHead>
 					<TableBody>
 					{this.state.todos.filter(item => !item.completed).map((todo) => {
-						return <TodoItem key={todo.id} todo={todo} handleDelete={this.handleDelete} handleChange={this.handleChange} handleUpdate={this.handleUpdate}/>
+						return <TodoItem 
+							key={todo.id} 
+							todo={todo} 
+							handleDelete={this.handleDelete} 
+							handleChange={this.handleChange} 
+							handleUpdate={this.handleUpdate}/>
 					})}
 					
 					</TableBody>

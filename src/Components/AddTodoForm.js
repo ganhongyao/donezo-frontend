@@ -6,11 +6,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { FormControl, Grid, IconButton, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core';
+import { FormControl, Grid, IconButton, InputLabel, makeStyles, MenuItem } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
-
+import Chip from '@material-ui/core/Chip';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +31,12 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: '8%',
     marginLeft: '15%'
-  }
+  },
+
+  autocomplete: {
+    width: '300px'
+  },
+
 
 
 
@@ -40,6 +46,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FormDialog(props) {
   const classes = useStyles();
+
+  const options = props.tags.map(tag => {
+    tag.label = tag.name;
+    tag.value = tag.name;
+    return tag;
+  })
 
   const [open, setOpen] = React.useState(false);
 
@@ -58,7 +70,7 @@ export default function FormDialog(props) {
       <IconButton onClick={handleClickOpen} className={classes.button}>
         <AddCircleIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="createform" maxWidth="xs">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="createform" maxWidth="xs" scroll={'body'}>
         <form onSubmit={props.addTask}>  
         <DialogTitle id="createform">Create new task</DialogTitle>
         <DialogContent>
@@ -87,27 +99,27 @@ export default function FormDialog(props) {
                   required
                 />
               </MuiPickersUtilsProvider>
-            <br/>
-              <FormControl className={classes.formControl}>
-
-                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                  Tag
-                  </InputLabel>
-                <Select
-                  labelId="demo-simple-select-placeholder-label-label"
-                  id="demo-simple-select-placeholder-label"
-                  name='newTag'
-                  value={props.newTag}
-                  onChange={props.handleChange}
-                  displayEmpty
-                  className={classes.selectEmpty}
-                >
-                  <MenuItem value="None">
-                    <em>None</em>
-                  </MenuItem>
-                  {props.tags.map(tag => <MenuItem value={tag.name}>{tag.name}</MenuItem>)}
-                </Select>
+              <br/>
+              <FormControl>                
+              <Autocomplete
+                multiple
+                id="tags-filled"
+                options={props.tags.map((option) => option.name)}
+                freeSolo
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip variant="outlined" label={option} size="small" {...getTagProps({ index })} />
+                  ))
+                
+                }
+                renderInput={(params) => (
+                  <TextField {...params} variant="filled" label="Tags" placeholder="Type to create new tag"/>
+                )}
+                className={classes.autocomplete}
+                onChange={props.handleTagChange}
+              />
               </FormControl>
+              
 
           <TextField
             autoFocus
