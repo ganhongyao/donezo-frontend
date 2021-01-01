@@ -48,8 +48,9 @@ class HomePage extends Component {
 			todos: [],
 			newTitle: '',
 			newDueDate: '',
-			newTag: 'None',
-			length: 0
+			newTag: '',
+			length: 0,
+			tags: []
 			
 		}
 		
@@ -67,7 +68,12 @@ class HomePage extends Component {
 			this.setState({todos: response.data.filter(todo => !todo.completed)})
 			this.setState({length: this.state.todos.length})
 		})
-		.catch(error => console.log(error))
+		.catch(error => console.log(error));
+		axios.get("http://localhost:3001/api/v1/tags.json")
+		.then(response => {
+			console.log(response)
+			this.setState({tags: response.data})
+		})
 	}
 
 	handleDelete(id) {
@@ -134,6 +140,7 @@ class HomePage extends Component {
 			.catch(error => console.log(error))
 		
 		this.setState({length: this.state.length + 1})
+		console.log(this.state)
 	}
 
 	
@@ -151,7 +158,8 @@ class HomePage extends Component {
 				handleChange={this.handleChange} 
 				handleDateChange={this.handleDateChange}
 				defaultDate={this.state.newDueDate} 
-				defaultTag={this.state.newTag}
+				newTag={this.state.newTag}
+				tags={this.state.tags}
 				canSubmit={canSubmit}
 				/>
 				<span className={classes.alert}>

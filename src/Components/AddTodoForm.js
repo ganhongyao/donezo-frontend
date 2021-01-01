@@ -74,8 +74,6 @@ export default function FormDialog(props) {
             onChange={props.handleChange}
           />
           <hr style={{border: 'white'}}/>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   autoOk
@@ -89,8 +87,7 @@ export default function FormDialog(props) {
                   required
                 />
               </MuiPickersUtilsProvider>
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            <br/>
               <FormControl className={classes.formControl}>
 
                 <InputLabel shrink id="demo-simple-select-placeholder-label-label">
@@ -100,7 +97,7 @@ export default function FormDialog(props) {
                   labelId="demo-simple-select-placeholder-label-label"
                   id="demo-simple-select-placeholder-label"
                   name='newTag'
-                  value={props.defaultTag}
+                  value={props.newTag}
                   onChange={props.handleChange}
                   displayEmpty
                   className={classes.selectEmpty}
@@ -108,13 +105,9 @@ export default function FormDialog(props) {
                   <MenuItem value="None">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={'School'}>School</MenuItem>
-                  <MenuItem value={'Fitness'}>Fitness</MenuItem>
-                  <MenuItem value={'Misc'}>Misc</MenuItem>
+                  {props.tags.map(tag => <MenuItem value={tag.name}>{tag.name}</MenuItem>)}
                 </Select>
               </FormControl>
-            </Grid>
-          </Grid>
 
           <TextField
             autoFocus
