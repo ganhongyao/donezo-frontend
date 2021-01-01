@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { makeStyles} from '@material-ui/core/styles';
-import { IconButton, ListItem, TableCell, TableRow, withStyles } from '@material-ui/core';
+import { Chip, IconButton, ListItem, TableCell, TableRow, withStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
@@ -35,6 +35,11 @@ const useStyles = (theme) => ({
 
     actionicon: {
         fill: 'black'
+    },
+
+    chip: {
+        marginTop: '3px',
+        marginBottom: '3px'
     }
 });
 
@@ -102,12 +107,13 @@ class TodoItem extends Component {
     render() {
         const { classes } = this.props;
         var canEdit = this.state.title.length > 0;
+        const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))
 
         return (
             <TableRow className={classes.root}>
                 <TableCell className={classes.cell}>{this.props.todo.title}</TableCell>
                 <TableCell className={classes.cell}>{this.props.todo.duedate}</TableCell>
-                <TableCell className={classes.cell}>{this.props.todo.tags_list}</TableCell>
+                <TableCell className={classes.cell}>{chips}</TableCell>
                 <TableCell className={classes.actionscell} align='center'>
                     <EditTodoForm 
                         todo={this.props.todo} 
