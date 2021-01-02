@@ -32,6 +32,7 @@ const useStyles = (theme) => ({
 	table: {
 		width: '70%',
 		margin: '0 auto',
+		marginBottom: '5%'
 	},
 
 	alert: {
