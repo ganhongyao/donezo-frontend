@@ -41,7 +41,6 @@ export default function EditTodoForm(props) {
     setOpen(false);
   };
  
-  console.log(props.todo.tags_list)
 
   return (
     <div className={classes.root}>

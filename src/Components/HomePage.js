@@ -125,7 +125,29 @@ class HomePage extends Component {
 				newDueDate: adjustedDate
 			}
 		)}
-		
+		const tagsInDB = this.state.tags.map(object => object.name);
+		const TagsToAdd = this.state.newTag.filter(item => !tagsInDB.includes(item));
+
+		TagsToAdd.forEach(ele => 	{
+			axios.post(
+				'http://localhost:3001/api/v1/tags',
+				{ tag:
+					{
+						name: ele
+					}
+				}
+				)
+				.then(response => {
+				console.log(response)
+				const tags = update(this.state.tags, {
+					$splice: [[0, 0, response.data]]
+				})
+				this.setState({tags: tags})
+				})
+				.catch(error => console.log(error))
+			
+		})
+
 		axios.post(
 			'http://localhost:3001/api/v1/todos',
 			{ todo:
@@ -148,7 +170,6 @@ class HomePage extends Component {
 			.catch(error => console.log(error))
 		
 		this.setState({length: this.state.length + 1})
-		console.log(this.state)
 	}
 
 	

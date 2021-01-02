@@ -7,6 +7,7 @@ import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import EditTodoForm from './EditTodoForm';
 import axios from 'axios';
 
+
 const useStyles = (theme) => ({
     root: {
         backgroundColor: 'rgba(255, 255, 255, 0.6)',  
@@ -79,6 +80,24 @@ class TodoItem extends Component {
 
     handleEdit() {
         const todo = {title: this.state.title, duedate: this.state.duedate, completed: this.state.completed, tags_list: this.state.tags_list}
+        const tagsInDB = this.props.tags.map(object => object.name);
+		const TagsToAdd = this.state.tags_list.filter(item => !tagsInDB.includes(item));
+
+		TagsToAdd.forEach(ele => 	{
+			axios.post(
+				'http://localhost:3001/api/v1/tags',
+				{ tag:
+					{
+						name: ele
+					}
+				}
+				)
+				.then(response => {
+				console.log(response)
+				})
+				.catch(error => console.log(error))
+			
+		})
         axios.put(
         `http://localhost:3001/api/v1/todos/${this.props.todo.id}`,
         {todo: todo}
@@ -88,6 +107,7 @@ class TodoItem extends Component {
         this.props.handleUpdate(response.data)
         })
         .catch(error => console.log(error))
+
     }
 
     handleChange(event) {
