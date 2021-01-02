@@ -26,7 +26,6 @@ const useStyles = (theme) => ({
     },
 
     actionscell: {
-        lineHeight: '15px',
         padding: '0px',
         paddingLeft: '15px',
         display: 'flex',
@@ -40,7 +39,10 @@ const useStyles = (theme) => ({
 
     chip: {
         marginTop: '3px',
-        marginBottom: '3px'
+        marginBottom: '3px',
+        marginLeft: '3px',
+        fontSize: '10px',
+        backgroundColor: '#54e346',
     }
 });
 
