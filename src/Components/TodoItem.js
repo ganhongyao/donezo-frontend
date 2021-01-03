@@ -7,7 +7,6 @@ import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import EditTodoForm from './EditTodoForm';
 import axios from 'axios';
 
-
 const useStyles = (theme) => ({
     root: {
         backgroundColor: 'rgba(255, 255, 255, 0.6)',  
@@ -154,9 +153,9 @@ class TodoItem extends Component {
                         defaultDate={this.state.duedate}
                         canEdit={canEdit}
                         tags={this.props.tags}
-                        />
+                    />
                     <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon className={classes.actionicon}/></IconButton>
-                    <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon className={classes.actionicon}/></IconButton>
+                    <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon style={this.props.todo.completed ? {fill:'green'} : {}}className={classes.actionicon}/></IconButton>
                 </TableCell>
             </TableRow>
         )
