@@ -38,8 +38,33 @@ const useStyles = (theme) => ({
 	
 });
 
-function sortByTitle(arr, titleSortedAsc) {
-	const isAsc = titleSortedAsc % 2 == 1;
+function sortBy(arr, by, sortedAsc) {
+	const isAsc = sortedAsc % 2 == 1;
+	function compareTitle( a, b ) {
+		if ( a.title < b.title ){
+		  return isAsc ? 1 : -1;
+		}
+		if ( a.title > b.title ){
+		  return isAsc ? -1 : 1;
+		}
+		return 0;
+	}
+	function compareDate( a, b ) {
+		if ( a.duedate < b.duedate ){
+		  return isAsc ? 1 : -1;
+		}
+		if ( a.duedate > b.duedate ){
+		  return isAsc ? -1 : 1;
+		}
+		return 0;
+	}
+	let copy = arr.slice();
+	by == 'title' ? copy.sort(compareTitle) : copy.sort(compareDate)
+	return copy;
+}
+
+function sortByDate(arr, by, stateVar) {
+	const isAsc = stateVar % 2 == 1;
 	function compare( a, b ) {
 		if ( a.title < b.title ){
 		  return isAsc ? 1 : -1;
@@ -78,6 +103,7 @@ class HomePage extends Component {
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
 		this.handleSortTitle = this.handleSortTitle.bind(this);
+		this.handleSortDate = this.handleSortDate.bind(this);
 	}
 
 	componentDidMount() {
@@ -192,7 +218,12 @@ class HomePage extends Component {
 
 	handleSortTitle() {
 		this.setState((prevState) => ({titleSortedAsc: prevState.titleSortedAsc + 1}))
-		this.setState({todos: sortByTitle(this.state.todos, this.state.titleSortedAsc)})
+		this.setState({todos: sortBy(this.state.todos, 'title', this.state.titleSortedAsc)})
+	}
+
+	handleSortDate() {
+		this.setState((prevState) => ({dateSortedAsc: prevState.dateSortedAsc + 1}))
+		this.setState({todos: sortBy(this.state.todos, 'date', this.state.dateSortedAsc)})
 	}
 
 
@@ -202,10 +233,6 @@ class HomePage extends Component {
 		const { classes } = this.props;
 		var isSingular = this.state.length == 1;
 		var canSubmit = this.state.newTitle.length > 0 && this.state.newDueDate.length > 0;
-		console.log(this.state.todos);
-		console.log(sortByTitle(this.state.todos));
-		console.log(this.state.todos)
-
 		return (
 			<div>
 				<AddTodoForm 
@@ -230,7 +257,8 @@ class HomePage extends Component {
 				</colgroup>
 					
 					<TableHeader 
-						handleSortTitle={this.handleSortTitle} 
+						handleSortTitle={this.handleSortTitle}
+						handleSortDate={this.handleSortDate} 
 						titleSortedAsc={this.state.titleSortedAsc} 
 						dateSortedAsc={this.state.dateSortedAsc} />
 					
