@@ -15,6 +15,7 @@ import Header from "./Components/Header";
 import AddTodoForm from "./Components/AddTodoForm";
 import HomePage from "./Components/HomePage";
 import CompletedTodos from "./Components/CompletedTodos"
+import CompletedPage from './Components/CompletedPage';
 
 const useStyles = (theme) => ({
     rootout : {
@@ -48,7 +49,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true,
+      isLoggedIn: true
     }
     this.logIn = this.logIn.bind(this);
   }
@@ -71,8 +72,8 @@ class App extends Component {
             <Route path="/" exact component={this.state.isLoggedIn ? HomePage : LandingPage}/>
             <Route path="/login" component={LoginPage}/>
             <Route path="/signup" component={SignupPage}/>
-            <Route path="/home" render={(props) => (<HomePage {...props} tasks={this.state.tasks}/>)}/> 
-            <Route path="/completed" component={CompletedTodos}/>
+            <Route path="/home" component={HomePage}/> 
+            <Route path="/completed" component={CompletedPage}/>
           </Switch>
         </Router>
       </div>
