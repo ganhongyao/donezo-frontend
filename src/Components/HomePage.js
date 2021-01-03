@@ -15,18 +15,10 @@ import AddTodoForm from './AddTodoForm';
 import TodoItem from './TodoItem';
 import axios from 'axios';
 import update from 'immutability-helper';
+import { Button } from '@material-ui/core';
+import TableHeader from './TableHeader'
 
-const StyledTableCell = withStyles((theme) => ({
-	head: {
-		backgroundColor: theme.palette.common.black,
-		color: theme.palette.common.white,
-	},
-	body: {
-		fontSize: 14,
-		padding: '0px',
-		paddingLeft: '10px'
-	}
-}))(TableCell);
+
 
 const useStyles = (theme) => ({
 	table: {
@@ -39,9 +31,31 @@ const useStyles = (theme) => ({
 		color: '#54e346',
 		marginLeft: '15%'
 	},
+
+	sortButton: {
+		color: 'white'
+	}
 	
 });
 
+function sortByTitle(arr, titleSortedAsc) {
+	const isAsc = titleSortedAsc % 2 == 1;
+	function compare( a, b ) {
+		if ( a.title < b.title ){
+		  return isAsc ? 1 : -1;
+		}
+		if ( a.title > b.title ){
+		  return isAsc ? -1 : 1;
+		}
+		return 0;
+	}
+	let copy = arr.slice();
+	copy.sort(compare)
+	return copy;
+}
+
+
+  
 class HomePage extends Component {
   	constructor(props) {
 		super(props);
@@ -51,7 +65,9 @@ class HomePage extends Component {
 			newDueDate: '',
 			newTag: [],
 			length: 0,
-			tags: []
+			tags: [],
+			titleSortedAsc: 0,
+			dateSortedAsc: 0
 			
 		}
 		
@@ -61,6 +77,7 @@ class HomePage extends Component {
 		this.handleTagChange = this.handleTagChange.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
+		this.handleSortTitle = this.handleSortTitle.bind(this);
 	}
 
 	componentDidMount() {
@@ -173,13 +190,21 @@ class HomePage extends Component {
 		this.setState({length: this.state.length + 1})
 	}
 
-	
+	handleSortTitle() {
+		this.setState((prevState) => ({titleSortedAsc: prevState.titleSortedAsc + 1}))
+		this.setState({todos: sortByTitle(this.state.todos, this.state.titleSortedAsc)})
+	}
+
+
 
 	render() {
 
 		const { classes } = this.props;
 		var isSingular = this.state.length == 1;
 		var canSubmit = this.state.newTitle.length > 0 && this.state.newDueDate.length > 0;
+		console.log(this.state.todos);
+		console.log(sortByTitle(this.state.todos));
+		console.log(this.state.todos)
 
 		return (
 			<div>
@@ -203,14 +228,12 @@ class HomePage extends Component {
 					<col style={{width:"20%"}}/>
 					<col style={{width:"10%"}}/>
 				</colgroup>
-					<TableHead>
-					<TableRow>
-						<StyledTableCell>Task</StyledTableCell>
-						<StyledTableCell align="left">Due Date</StyledTableCell>
-						<StyledTableCell align="center">Tag(s)</StyledTableCell>
-						<StyledTableCell align="center">Actions</StyledTableCell>
-					</TableRow>
-					</TableHead>
+					
+					<TableHeader 
+						handleSortTitle={this.handleSortTitle} 
+						titleSortedAsc={this.state.titleSortedAsc} 
+						dateSortedAsc={this.state.dateSortedAsc} />
+					
 					<TableBody>
 					{this.state.todos.filter(item => !item.completed).map((todo) => {
 						return <TodoItem 
