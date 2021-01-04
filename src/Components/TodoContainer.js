@@ -18,74 +18,25 @@ const useStyles = (theme) => ({
     
 });
 
-function sortBy(arr, by, sortedAsc) {
-	const isAsc = sortedAsc % 2 == 1;
-	function compareTitle( a, b ) {
-		if ( a.title < b.title ){
-		  return isAsc ? 1 : -1;
-		}
-		if ( a.title > b.title ){
-		  return isAsc ? -1 : 1;
-		}
-		return 0;
-	}
-	function compareDate( a, b ) {
-		if ( a.duedate < b.duedate ){
-		  return isAsc ? 1 : -1;
-		}
-		if ( a.duedate > b.duedate ){
-		  return isAsc ? -1 : 1;
-		}
-		return 0;
-	}
-	let copy = arr.slice();
-	by == 'title' ? copy.sort(compareTitle) : copy.sort(compareDate)
-	return copy;
-}   
+
 
 class TodoContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            todos: [],
-            titleSortedAsc: 0,
-            dateSortedAsc: 0
+            todos: this.props.todos,
         }
-
-        this.handleSortTitle = this.handleSortTitle.bind(this);
-        this.handleSortDate = this.handleSortDate.bind(this);
     }
 
-    componentDidMount() {
-		axios.get('http://localhost:3001/api/v1/todos.json')
-		.then(response => {
-			console.log(response)
-			this.setState({todos: response.data.filter(todo => !todo.completed)})
-			this.props.updateCount(this.state.todos.length)
-		})
-		.catch(error => console.log(error));
-		axios.get("http://localhost:3001/api/v1/tags.json")
-		.then(response => {
-			console.log(response)
-			this.setState({tags: response.data})
-        })
-        
-        
-	}
-
-    handleSortTitle() {
-
-		this.setState((prevState) => ({titleSortedAsc: prevState.titleSortedAsc + 1}))
-		this.setState({todos: sortBy(this.state.todos, 'title', this.state.titleSortedAsc)})
-	}
-
-	handleSortDate() {
-		this.setState((prevState) => ({dateSortedAsc: prevState.dateSortedAsc + 1}))
-		this.setState({todos: sortBy(this.state.todos, 'date', this.state.dateSortedAsc)})
-	}
+    componentDidUpdate(prevProps) {
+        if (this.props.todos !== prevProps.todos) {
+          this.setState({todos: this.props.todos});
+        }
+      }
 
     render() {
         const { classes } = this.props;
+        console.log("from container " + this.state.todos)
         
         return(
             <div>
@@ -98,10 +49,11 @@ class TodoContainer extends Component {
                     </colgroup>
                         
                         <TableHeader 
-                            handleSortTitle={this.handleSortTitle}
-                            handleSortDate={this.handleSortDate} 
-                            titleSortedAsc={this.state.titleSortedAsc} 
-                            dateSortedAsc={this.state.dateSortedAsc} />
+                            handleSortTitle={this.props.handleSortTitle}
+                            handleSortDate={this.props.handleSortDate} 
+                            titleSortedAsc={this.props.titleSortedAsc}
+                            dateSortedAsc={this.props.dateSortedAsc}
+                             />
                         
                         <TableBody>
                         {this.state.todos.map((todo) => {

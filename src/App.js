@@ -15,7 +15,7 @@ import Header from "./Components/Header";
 import AddTodoForm from "./Components/AddTodoForm";
 import HomePage from "./Components/HomePage";
 import CompletedTodos from "./Components/CompletedTodos"
-import CompletedPage from './Components/CompletedPage';
+import CompletedPage from "./Components/CompletedPage";
 
 const useStyles = (theme) => ({
     rootout : {

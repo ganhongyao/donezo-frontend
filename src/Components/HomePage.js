@@ -17,19 +17,43 @@ const useStyles = (theme) => ({
 	
 });
 
-
+function sortBy(arr, by, sortedAsc) {
+	const isAsc = sortedAsc % 2 == 1;
+	function compareTitle( a, b ) {
+		if ( a.title < b.title ){
+		  return isAsc ? 1 : -1;
+		}
+		if ( a.title > b.title ){
+		  return isAsc ? -1 : 1;
+		}
+		return 0;
+	}
+	function compareDate( a, b ) {
+		if ( a.duedate < b.duedate ){
+		  return isAsc ? 1 : -1;
+		}
+		if ( a.duedate > b.duedate ){
+		  return isAsc ? -1 : 1;
+		}
+		return 0;
+	}
+	let copy = arr.slice();
+	by == 'title' ? copy.sort(compareTitle) : copy.sort(compareDate)
+	return copy;
+}   
 
 class HomePage extends Component {
   	constructor(props) {
 		super(props);
 		this.state = {
+			todos: null,
 			newTitle: '',
 			newDueDate: '',
 			newTag: [],
 			length: 0,
 			tags: [],
 			titleSortedAsc: 0,
-			dateSortedAsc: 0
+			dateSortedAsc: 0,
 			
 		}
 		
@@ -39,12 +63,25 @@ class HomePage extends Component {
 		this.handleTagChange = this.handleTagChange.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
-		this.updateCount = this.updateCount.bind(this)
+		this.handleSortTitle = this.handleSortTitle.bind(this);
+        this.handleSortDate = this.handleSortDate.bind(this);
 	}
 
-	updateCount(count) {
-		this.setState({length: count})
+	componentDidMount() {
+		axios.get('http://localhost:3001/api/v1/todos.json')
+		.then(response => {
+			console.log(response)
+			this.setState({todos: response.data.filter(todo => !todo.completed)})
+
+		})
+		.catch(error => console.log(error));
+		axios.get("http://localhost:3001/api/v1/tags.json")
+		.then(response => {
+			console.log(response)
+			this.setState({tags: response.data})
+		})
 	}
+
 
 	handleDelete(id) {
 		axios.delete(`http://localhost:3001/api/v1/todos/${id}`)
@@ -141,16 +178,25 @@ class HomePage extends Component {
 		this.setState({length: this.state.length + 1})
 	}
 
+	handleSortTitle() {
 
+		this.setState((prevState) => ({titleSortedAsc: prevState.titleSortedAsc + 1}))
+		this.setState({todos: sortBy(this.state.todos, 'title', this.state.titleSortedAsc)})
+	}
 
-
+	handleSortDate() {
+		this.setState((prevState) => ({dateSortedAsc: prevState.dateSortedAsc + 1}))
+		this.setState({todos: sortBy(this.state.todos, 'date', this.state.dateSortedAsc)})
+	}
 
 	render() {
-		console.log(this.props)
 		const { classes } = this.props;
-		var isSingular = this.state.length == 1;
+		var isSingular = this.state.length === 1;
 		var canSubmit = this.state.newTitle.length > 0 && this.state.newDueDate.length > 0;
+		console.log(this.state.todos)
+
 		return (
+			this.state.todos && 
 			<div>
 				<AddTodoForm 
 				addTask={this.handleSubmit} 
@@ -164,10 +210,11 @@ class HomePage extends Component {
 				/>
 
 				<span className={classes.alert}>
-					You have <span style={{color: 'white'}}>{this.state.length}</span> unfinished task{!isSingular && 's'}.
+					You have <span style={{color: 'white'}}>{this.state.todos.length}</span> unfinished task{!isSingular && 's'}.
 				</span>
 				
-				<TodoContainer 
+				<TodoContainer
+					todos={this.state.todos}
 					tags={this.state.tags}
 					length={this.state.length}
 					handleChange={this.handleChange}
@@ -175,7 +222,8 @@ class HomePage extends Component {
 					handleDelete={this.handleDelete}
 					handleSortTitle={this.handleSortTitle}
 					handleSortDate={this.handleSortDate}
-					updateCount={this.updateCount}
+					titleSortedAsc={this.state.titleSortedAsc} 
+                    dateSortedAsc={this.state.dateSortedAsc}
 					/>
 			</div>
 		)
