@@ -13,16 +13,17 @@ const useStyles = makeStyles((theme) => ({
     
 }));
 
-export default function SearchBar() {
+export default function SearchBar(props) {
     const classes = useStyles();
 
     return (
             <TextField className={classes.root}
                 margin="dense"
-                id="searchbar"
+                name="searchbar"
                 label="Search"
                 fullWidth
                 variant="filled"
+                onChange={props.handleChange}
                 
 			/>
     )

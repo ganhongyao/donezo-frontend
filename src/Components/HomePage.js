@@ -22,6 +22,7 @@ const useStyles = (theme) => ({
 		marginTop: '10%',
 		width: '70%',
 		margin: '0 auto',
+		justifyContent: 'space-between'
 	}
 	
 });
@@ -63,6 +64,7 @@ class HomePage extends Component {
 			tags: [],
 			titleSortedAsc: 0,
 			dateSortedAsc: 0,
+			searchbar: ''
 			
 		}
 		
@@ -104,9 +106,15 @@ class HomePage extends Component {
 	}
 
 	handleChange(event) {
-		this.setState({
-			[event.target.name]: event.target.value
-		});
+		if (event.target.name === "searchbar") {
+			this.setState({searchbar: event.target.value.toLowerCase()})
+		}
+		else {
+			this.setState({
+				[event.target.name]: event.target.value
+			});
+		}
+		
 	}
 
 	handleDateChange(event, date) {
@@ -202,7 +210,8 @@ class HomePage extends Component {
 		const { classes } = this.props;
 		var isSingular = this.state.length === 1;
 		var canSubmit = this.state.newTitle.length > 0 && this.state.newDueDate.length > 0;
-		console.log(this.state.todos)
+		var searchResults = this.state.todos && 
+			this.state.todos.filter(todo =>  todo.title.toLowerCase().includes(this.state.searchbar) || todo.tags_list.includes(this.state.searchbar))
 
 		return (
 			this.state.todos && 
@@ -218,7 +227,7 @@ class HomePage extends Component {
 					tags={this.state.tags}
 					canSubmit={canSubmit}
 					/>
-					<SearchBar />
+					<SearchBar handleChange={this.handleChange}/>
 				</div>
 				
 				<span className={classes.alert}>
@@ -226,7 +235,7 @@ class HomePage extends Component {
 				</span>
 				
 				<TodoContainer
-					todos={this.state.todos}
+					todos={searchResults}
 					tags={this.state.tags}
 					handleChange={this.handleChange}
 					handleUpdate={this.handleUpdate}

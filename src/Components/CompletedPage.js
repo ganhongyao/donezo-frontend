@@ -3,17 +3,22 @@ import axios from 'axios';
 import update from 'immutability-helper'
 import { withStyles } from '@material-ui/core/styles';
 import TodoContainer from './TodoContainer';
+import SearchBar from './SearchBar';
 
 
 const useStyles = (theme) => ({
-    root: {
-        marginTop: '10%'
-    },
-
     alert: {
 		color: '#54e346',
-        marginLeft: '15%',
-	},
+    },
+    
+    container: {
+		display: 'flex',
+		marginTop: '10%',
+		width: '70%',
+		margin: '0 auto',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end'
+	}
 });
 
 function sortBy(arr, by, sortedAsc) {
@@ -48,7 +53,8 @@ class CompletedPage extends Component {
             todos: null,
             tags: [],
             titleSortedAsc: 0,
-            dateSortedAsc: 0
+            dateSortedAsc: 0,
+            searchbar: ''
         }
 
 		this.handleChange = this.handleChange.bind(this);
@@ -74,9 +80,16 @@ class CompletedPage extends Component {
     }
 
     handleChange(event) {
-		this.setState({
-			[event.target.name]: event.target.value
-		});
+        if (event.target.name === "searchbar") {
+            this.setState({
+                [event.target.name]: event.target.value.toLowerCase()
+            });
+        } else {
+            this.setState({
+                [event.target.name]: event.target.value
+            });
+        }
+		
 	}
     
     handleDelete(id) {
@@ -108,16 +121,24 @@ class CompletedPage extends Component {
 
     render() {
         const { classes } = this.props;
+        var searchResults = this.state.todos && 
+            this.state.todos.filter(todo =>  todo.title.toLowerCase().includes(this.state.searchbar) || todo.tags_list.includes(this.state.searchbar))
+
         return(
             this.state.todos &&
-            <div className={classes.root}>
-
+            <div>
+                
+                <div className={classes.container}>
                 <span className={classes.alert}>
-                    Completed
-				</span>
+                        Completed
+                    </span>
+
+                    <SearchBar handleChange={this.handleChange}/>
+                </div>
+                
 
                 <TodoContainer className={classes.root}
-					todos={this.state.todos}
+					todos={searchResults}
 					tags={this.state.tags}
 					handleChange={this.handleChange}
 					handleUpdate={this.handleUpdate}
