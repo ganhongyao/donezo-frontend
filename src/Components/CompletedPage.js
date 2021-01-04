@@ -48,6 +48,12 @@ class CompletedPage extends Component {
             todos: null,
             tags: []
         }
+
+		this.handleChange = this.handleChange.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
+		this.handleUpdate = this.handleUpdate.bind(this);
+		this.handleSortTitle = this.handleSortTitle.bind(this);
+        this.handleSortDate = this.handleSortDate.bind(this);
     }
 
     componentDidMount() {
@@ -65,6 +71,12 @@ class CompletedPage extends Component {
 		})
     }
     
+    handleChange(event) {
+		this.setState({
+			[event.target.name]: event.target.value
+		});
+	}
+    
     handleDelete(id) {
 		axios.delete(`http://localhost:3001/api/v1/todos/${id}`)
 		.then(response => {
@@ -73,14 +85,12 @@ class CompletedPage extends Component {
 			this.setState({todos: todos})
 		})
 		.catch(error => console.log(error));
-		this.setState({length: this.state.length - 1})
     }
 
     handleUpdate(todo) {
 		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
     	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }})
 		this.setState({todos: todos})
-		this.setState({length: this.state.length - 1})
     }
     
     handleSortTitle() {
@@ -107,7 +117,6 @@ class CompletedPage extends Component {
                 <TodoContainer className={classes.root}
 					todos={this.state.todos}
 					tags={this.state.tags}
-					length={this.state.length}
 					handleChange={this.handleChange}
 					handleUpdate={this.handleUpdate}
 					handleDelete={this.handleDelete}

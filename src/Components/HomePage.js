@@ -216,7 +216,6 @@ class HomePage extends Component {
 				<TodoContainer
 					todos={this.state.todos}
 					tags={this.state.tags}
-					length={this.state.length}
 					handleChange={this.handleChange}
 					handleUpdate={this.handleUpdate}
 					handleDelete={this.handleDelete}
