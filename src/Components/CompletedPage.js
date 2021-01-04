@@ -46,7 +46,9 @@ class CompletedPage extends Component {
         super(props);
         this.state = {
             todos: null,
-            tags: []
+            tags: [],
+            titleSortedAsc: 0,
+            dateSortedAsc: 0
         }
 
 		this.handleChange = this.handleChange.bind(this);
@@ -70,7 +72,7 @@ class CompletedPage extends Component {
 			this.setState({tags: response.data})
 		})
     }
-    
+
     handleChange(event) {
 		this.setState({
 			[event.target.name]: event.target.value
