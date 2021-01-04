@@ -4,6 +4,8 @@ import axios from 'axios';
 import update from 'immutability-helper';
 import AddTodoForm from './AddTodoForm';
 import TodoContainer from './TodoContainer'
+import { TextField } from '@material-ui/core';
+import SearchBar from './SearchBar';
 
 const useStyles = (theme) => ({
 	sortButton: {
@@ -14,6 +16,13 @@ const useStyles = (theme) => ({
 		color: '#54e346',
 		marginLeft: '15%'
 	},
+
+	container: {
+		display: 'flex',
+		marginTop: '10%',
+		width: '70%',
+		margin: '0 auto',
+	}
 	
 });
 
@@ -198,17 +207,20 @@ class HomePage extends Component {
 		return (
 			this.state.todos && 
 			<div>
-				<AddTodoForm 
-				addTask={this.handleSubmit} 
-				handleChange={this.handleChange} 
-				handleDateChange={this.handleDateChange}
-				handleTagChange={this.handleTagChange}
-				defaultDate={this.state.newDueDate} 
-				newTag={this.state.newTag}
-				tags={this.state.tags}
-				canSubmit={canSubmit}
-				/>
-
+				<div className={classes.container}>
+					<AddTodoForm 
+					addTask={this.handleSubmit} 
+					handleChange={this.handleChange} 
+					handleDateChange={this.handleDateChange}
+					handleTagChange={this.handleTagChange}
+					defaultDate={this.state.newDueDate} 
+					newTag={this.state.newTag}
+					tags={this.state.tags}
+					canSubmit={canSubmit}
+					/>
+					<SearchBar />
+				</div>
+				
 				<span className={classes.alert}>
 					You have <span style={{color: 'white'}}>{this.state.todos.length}</span> unfinished task{!isSingular && 's'}.
 				</span>
