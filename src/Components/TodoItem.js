@@ -77,6 +77,7 @@ class TodoItem extends Component {
         this.props.handleUpdate(response.data)
         })
         .catch(error => console.log(error))
+        this.setState({completed: !this.state.completed})
     }
 
     handleEdit() {
@@ -155,7 +156,7 @@ class TodoItem extends Component {
                         tags={this.props.tags}
                     />
                     <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon className={classes.actionicon}/></IconButton>
-                    <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon style={this.props.todo.completed ? {fill:'green'} : {}}className={classes.actionicon}/></IconButton>
+                    <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon style={this.state.completed ? {fill:'green'} : {}}className={classes.actionicon}/></IconButton>
                 </TableCell>
             </TableRow>
         )
