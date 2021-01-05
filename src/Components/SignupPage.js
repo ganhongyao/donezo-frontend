@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import axios from "axios"
 import { makeStyles} from '@material-ui/core/styles';
 import { Avatar, Button, Checkbox, CssBaseline, FormControlLabel, Grid, TextField, withStyles } from '@material-ui/core';
-import ContactPhoneIcon from '@material-ui/icons/ContactPhone';import { Link } from 'react-router-dom';
+import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
+import { Link } from 'react-router-dom';
 
 const useStyles = (theme) => ({
     root: {
@@ -9,10 +11,10 @@ const useStyles = (theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0.6)',
-        marginLeft: '10%',
-        marginRight: '10%',
         padding: '1%',
-        marginTop: '3%'
+        marginTop: '10%',
+        width: '50%',
+        margin:'0 auto'
         
     },
 
@@ -22,7 +24,7 @@ const useStyles = (theme) => ({
     },
 
     form: {
-        width: '60%', // Fix IE 11 issue.
+        width: '40%', 
         marginTop: theme.spacing(1),
         
     },
@@ -46,8 +48,7 @@ class SignupPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: "",
-            lastName: "",
+            name: "",
             email: "",
             password: "",
             password_confirmation: "",
@@ -67,7 +68,24 @@ class SignupPage extends Component {
     handleSubmit(event) {
         const { email, password } = this.state;
         event.preventDefault();
-        console.log(this.state)
+        axios.post("http://localhost:3001/api/v1/users",
+            {   
+                user: {
+                    name: this.state.name,
+                    email: this.state.email,
+                    password: this.state.password,
+                    password_confirmation: this.state.password_confirmation
+                }
+                                
+            })
+            .then(response => {
+                console.log(response)
+                if (response.data.status === "User created") {
+                    this.props.handleLogin(response.data)
+                }
+            })
+            .catch(error => console.log(error))
+        
     }
 
     render() {
@@ -80,14 +98,11 @@ class SignupPage extends Component {
                 <Avatar className={classes.avatar}>
                     <ContactPhoneIcon />
                 </Avatar>
-                SIGN UP
+                SIGN UP {this.props.loggedinStatus}
                 <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
                     <TextField
-                        name="firstName"
-                        id="firstName"
-                        label="First Name"
+                        name="name"
+                        label="Name"
                         size="small"
                         variant="outlined"
                         required
@@ -95,20 +110,7 @@ class SignupPage extends Component {
                         autoFocus
                         onChange={this.handleChange}
                     />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <TextField
-                        name="lastName"
-                        id="lastName"
-                        label="Last Name"
-                        size="small"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        onChange={this.handleChange}
-                    />
-                    </Grid>
-                    </Grid>
+                    
                     <TextField className={classes.textfield}
                         type="email"
                         name="email"
