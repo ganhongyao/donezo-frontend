@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+import axios from 'axios';
 import { makeStyles} from '@material-ui/core/styles';
 import { Avatar, Button, Checkbox, CssBaseline, FormControlLabel, Grid, TextField, withStyles } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -10,10 +11,10 @@ const useStyles = (theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0.6)',
-        marginLeft: '10%',
-        marginRight: '10%',
         padding: '1%',
-        marginTop: '3%',
+        marginTop: '10%',
+        width: '50%',
+        margin: '0 auto'
         
     },
 
@@ -65,8 +66,24 @@ class LoginPage extends Component {
     handleSubmit(event) {
         const { email, password } = this.state;
         event.preventDefault();
-        console.log(this.state)
-    }
+        axios.post("http://localhost:3001/api/v1/tokens",
+        {   
+            
+                
+                email: this.state.email,
+                password: this.state.password,
+                
+            
+                            
+        })
+        .then(response => {
+            console.log(response)
+            if (response.data.logged_in) {
+                this.props.handleLogin(response.data)
+                this.props.history.push('/home')
+            }
+        })
+        .catch(error => console.log(error))    }
 
     render() {
 
