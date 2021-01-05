@@ -69,7 +69,7 @@ export default function Header(props) {
 
     var loggedInBar = (<div> 
                             <Link to='/login' className={classes.link}>
-                                <Button className={classes.loginbutton} onClick={props.loginHandler} variant="outlined">Log Out</Button>
+                                <Button className={classes.loginbutton} onClick={props.handleLogout} variant="outlined">Log Out</Button>
                             </Link>
                         </div>);
 
