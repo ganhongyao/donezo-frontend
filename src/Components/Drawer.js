@@ -47,7 +47,7 @@ export default function ComponentName() {
           <br/>
           <List>
             {['Profile', 'Settings'].map((text, index) => (
-              <ListItem button key={text}>
+              <ListItem button key={text} component={Link} to={`/${text}`}>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
