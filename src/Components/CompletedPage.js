@@ -7,14 +7,18 @@ import SearchBar from './SearchBar';
 
 
 const useStyles = (theme) => ({
+	root: {
+		marginTop: '10%',
+		width: '70%',
+		margin: '0 auto',
+	},
+	
     alert: {
 		color: '#54e346',
     },
     
     container: {
 		display: 'flex',
-		marginTop: '10%',
-		width: '70%',
 		margin: '0 auto',
         justifyContent: 'space-between',
         alignItems: 'flex-end'
@@ -131,7 +135,7 @@ class CompletedPage extends Component {
 
         return(
             this.state.todos &&
-            <div>
+            <div className={classes.root}>
                 
                 <div className={classes.container}>
                 <span className={classes.alert}>
