@@ -49,7 +49,8 @@ class App extends Component {
     this.state = {
       isLoggedIn: false,
       user: {},
-      token: ''
+      token: '',
+      isLoading: true
     }
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
@@ -63,6 +64,7 @@ class App extends Component {
       this.setState({user: foundUser})
       this.setState({isLoggedIn: true})
     }
+    this.setState({isLoading: false})
   }
 
   handleLogin(data) {
@@ -87,18 +89,19 @@ class App extends Component {
   render() {
 
     const { classes } = this.props;   
+    console.log(this.state.user.id)
     
-    return (
+    return ( !this.state.isLoading &&
       <div className={classes.root}>
         
         <Router>
           <Header isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout}/>
           <Switch>
-            <Route path="/" exact render={props => this.state.isLoggedIn ? <HomePage/> : <LoginPage {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>}/>
+            <Route path="/" exact render={props => this.state.isLoggedIn ? <HomePage {...props} user={this.state.user}/> : <LoginPage {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>}/>
             <Route path="/login" render={props => (<LoginPage {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>)}/>
             <Route path="/signup" render={props => (<SignupPage {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>)}/>
-            <Route path="/home" component={HomePage}/> 
-            <Route path="/completed" component={CompletedPage}/>
+            <Route path="/home" render={props => (<HomePage {...props} user={this.state.user}/>)}/> 
+            <Route path="/completed" render={props => (<CompletedPage {...props} user={this.state.user}/>)}/> 
           </Switch>
         </Router>
       </div>
