@@ -65,7 +65,12 @@ class CompletedPage extends Component {
     }
 
     componentDidMount() {
-		axios.get('http://localhost:3001/api/v1/todos.json')
+		axios.get('http://localhost:3001/api/v1/todos.json',
+		{
+			params: {
+				user_id: this.props.user.id
+			}
+		})
 		.then(response => {
 			console.log(response)
 			this.setState({todos: response.data.filter(todo => todo.completed)})
