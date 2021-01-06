@@ -90,7 +90,8 @@ class TodoItem extends Component {
 				'http://localhost:3001/api/v1/tags',
 				{ tag:
 					{
-						name: ele
+                        name: ele,
+                        user_id: this.props.user.id
 					}
 				}
 				)

@@ -91,7 +91,12 @@ class HomePage extends Component {
 
 		})
 		.catch(error => console.log(error));
-		axios.get("http://localhost:3001/api/v1/tags.json")
+		axios.get("http://localhost:3001/api/v1/tags.json",
+		{
+			params: {
+				user_id: this.props.user.id
+			}
+		})
 		.then(response => {
 			console.log(response)
 			this.setState({tags: response.data})
@@ -242,6 +247,7 @@ class HomePage extends Component {
 				</span>
 				
 				<TodoContainer
+					user={this.props.user}
 					todos={searchResults}
 					tags={this.state.tags}
 					handleChange={this.handleChange}

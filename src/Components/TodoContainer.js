@@ -58,6 +58,7 @@ class TodoContainer extends Component {
                         <TableBody>
                         {this.state.todos.map((todo) => {
                             return <TodoItem 
+                                user={this.props.user}
                                 key={todo.id} 
                                 todo={todo} 
                                 tags={this.props.tags}
