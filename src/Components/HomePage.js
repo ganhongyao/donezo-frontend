@@ -4,9 +4,9 @@ import axios from 'axios';
 import update from 'immutability-helper';
 import AddTodoForm from './AddTodoForm';
 import TodoContainer from './TodoContainer'
-import { TextField } from '@material-ui/core';
 import SearchBar from './SearchBar';
 import Greeting from './Greeting';
+import Drawer from './Drawer'
 
 const useStyles = (theme) => ({
 	root: {
@@ -26,7 +26,8 @@ const useStyles = (theme) => ({
 	container: {
 		display: 'flex',
 		justifyContent: 'space-between'
-	}
+	},
+
 	
 });
 
@@ -230,6 +231,8 @@ class HomePage extends Component {
 		return (
 			this.state.todos && 
 			<div className={classes.root}>
+
+				<Drawer />
 				
 				<Greeting user={this.props.user}/>
 
