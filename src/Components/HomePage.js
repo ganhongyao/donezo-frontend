@@ -6,22 +6,25 @@ import AddTodoForm from './AddTodoForm';
 import TodoContainer from './TodoContainer'
 import { TextField } from '@material-ui/core';
 import SearchBar from './SearchBar';
+import Greeting from './Greeting';
 
 const useStyles = (theme) => ({
+	root: {
+		marginTop: '5%',
+		width: '70%',
+		margin: '0 auto',
+	},
+
 	sortButton: {
 		color: 'white'
 	},
 
 	alert: {
 		color: '#54e346',
-		marginLeft: '15%'
 	},
 
 	container: {
 		display: 'flex',
-		marginTop: '10%',
-		width: '70%',
-		margin: '0 auto',
 		justifyContent: 'space-between'
 	}
 	
@@ -60,7 +63,6 @@ class HomePage extends Component {
 			newTitle: '',
 			newDueDate: '',
 			newTag: [],
-			length: 0,
 			tags: [],
 			titleSortedAsc: 0,
 			dateSortedAsc: 0,
@@ -220,15 +222,19 @@ class HomePage extends Component {
 
 	render() {
 		const { classes } = this.props;
-		var isSingular = this.state.length === 1;
+		var isSingular = this.state.todos && this.state.todos.length === 1;
 		var canSubmit = this.state.newTitle.length > 0 && this.state.newDueDate.length > 0;
 		var searchResults = this.state.todos && 
 			this.state.todos.filter(todo =>  todo.title.toLowerCase().includes(this.state.searchbar) || todo.tags_list.includes(this.state.searchbar))
 
 		return (
 			this.state.todos && 
-			<div>
+			<div className={classes.root}>
+				
+				<Greeting user={this.props.user}/>
+
 				<div className={classes.container}>
+
 					<AddTodoForm 
 					addTask={this.handleSubmit} 
 					handleChange={this.handleChange} 
