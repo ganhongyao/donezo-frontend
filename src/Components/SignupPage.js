@@ -82,6 +82,7 @@ class SignupPage extends Component {
                 console.log(response)
                 if (response.data.status === "User created") {
                     this.props.handleLogin(response.data)
+                    this.props.history.push('/home')
                 }
             })
             .catch(error => console.log(error))
