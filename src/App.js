@@ -15,6 +15,12 @@ import AddTodoForm from "./Components/AddTodoForm";
 import HomePage from "./Components/HomePage";
 import CompletedPage from "./Components/CompletedPage";
 import ProtectedRoute from './Components/ProtectedRoute'
+import TagsPage from "./Components/TagsPage";
+import ProfilePage from "./Components/ProfilePage";
+import SettingsPage from "./Components/SettingsPage";
+
+
+
 
 const useStyles = (theme) => ({
     root : {
@@ -90,6 +96,9 @@ class App extends Component {
             <Route path="/signup" render={props => (<SignupPage {...props} handleLogin={this.handleLogin} />)}/>
             <ProtectedRoute path="/home" component={HomePage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
             <ProtectedRoute path="/completed" component={CompletedPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
+            <ProtectedRoute path="/tags" component={TagsPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
+            <ProtectedRoute path="/profile" component={ProfilePage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
+            <ProtectedRoute path="/settings" component={SettingsPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
           </Switch>
         </Router>
       </div>

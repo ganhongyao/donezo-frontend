@@ -4,6 +4,8 @@ import update from 'immutability-helper'
 import { withStyles } from '@material-ui/core/styles';
 import TodoContainer from './TodoContainer';
 import SearchBar from './SearchBar';
+import Drawer from './Drawer'
+
 
 
 const useStyles = (theme) => ({
@@ -136,7 +138,7 @@ class CompletedPage extends Component {
         return(
             this.state.todos &&
             <div className={classes.root}>
-                
+                <Drawer />
                 <div className={classes.container}>
                 <span className={classes.alert}>
                         Completed
