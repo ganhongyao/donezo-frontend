@@ -79,7 +79,12 @@ class HomePage extends Component {
 	}
 
 	componentDidMount() {
-		axios.get('http://localhost:3001/api/v1/todos.json')
+		axios.get('http://localhost:3001/api/v1/todos.json',
+		{
+			params: {
+				user_id: this.props.user.id
+			}
+		})
 		.then(response => {
 			console.log(response)
 			this.setState({todos: response.data.filter(todo => !todo.completed)})
@@ -156,7 +161,8 @@ class HomePage extends Component {
 				'http://localhost:3001/api/v1/tags',
 				{ tag:
 					{
-						name: ele
+						name: ele,
+						user_id: this.props.user.id
 					}
 				}
 				)
@@ -179,7 +185,8 @@ class HomePage extends Component {
 				duedate: this.state.newDueDate,
 				description: '',
 				completed: false,
-				tags_list: this.state.newTag
+				tags_list: this.state.newTag,
+				user_id: this.props.user.id
 				}
 			}
 			)
