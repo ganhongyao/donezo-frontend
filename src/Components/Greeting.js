@@ -16,7 +16,7 @@ export default function Greeting(props) {
 
     return (
         <h1 className={classes.root}>
-            Welcome back, <span className={classes.name}>{props.user.name}</span>!
+            Welcome back, <span className={classes.name}>{props.user.name}</span>
         </h1>
     )
 }
