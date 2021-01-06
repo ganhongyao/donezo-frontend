@@ -15,6 +15,7 @@ import Header from "./Components/Header";
 import AddTodoForm from "./Components/AddTodoForm";
 import HomePage from "./Components/HomePage";
 import CompletedPage from "./Components/CompletedPage";
+import ProtectedRoute from './Components/ProtectedRoute'
 
 const useStyles = (theme) => ({
     root : {
@@ -98,10 +99,10 @@ class App extends Component {
           <Header isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout}/>
           <Switch>
             <Route path="/" exact render={props => this.state.isLoggedIn ? <HomePage {...props} user={this.state.user}/> : <LoginPage {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>}/>
-            <Route path="/login" render={props => (<LoginPage {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>)}/>
-            <Route path="/signup" render={props => (<SignupPage {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>)}/>
-            <Route path="/home" render={props => (<HomePage {...props} user={this.state.user}/>)}/> 
-            <Route path="/completed" render={props => (<CompletedPage {...props} user={this.state.user}/>)}/> 
+            <Route path="/login" render={props => (<LoginPage {...props} handleLogin={this.handleLogin} />)}/>
+            <Route path="/signup" render={props => (<SignupPage {...props} handleLogin={this.handleLogin} />)}/>
+            <ProtectedRoute path="/home" component={HomePage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
+            <ProtectedRoute path="/completed" component={CompletedPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
           </Switch>
         </Router>
       </div>
