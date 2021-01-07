@@ -38,7 +38,15 @@ export default function ComponentName() {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {['Home', 'Completed'].map((text, index) => (
+            {['Home', 'Today', 'Calendar'].map((text, index) => (
+              <ListItem button key={text} component={Link} to={`/${text}`}>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+          <br/>
+          <List>
+            {['Completed'].map((text, index) => (
               <ListItem button key={text} component={Link} to={`/${text}`}>
                 <ListItemText primary={text} />
               </ListItem>
