@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { makeStyles} from '@material-ui/core/styles';
-import { Chip, IconButton, ListItem, TableCell, TableRow, withStyles } from '@material-ui/core';
+import { Button, Chip, IconButton, ListItem, TableCell, TableRow, withStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import EditTodoForm from './EditTodoForm';
 import axios from 'axios';
+import ItemDialog from './ItemDialog'
 
 const useStyles = (theme) => ({
     root: {
@@ -21,12 +22,12 @@ const useStyles = (theme) => ({
         lineHeight: '15px',
         padding: '0px',
         paddingLeft: '15px',
-        height: '40px'
+        height: '40px',
+        cursor: 'pointer'
     },
 
     actionscell: {
         padding: '0px',
-        paddingLeft: '15px',
         display: 'flex',
         height: '40px',
         alignItems: 'center',
@@ -42,7 +43,8 @@ const useStyles = (theme) => ({
         marginLeft: '3px',
         fontSize: '10px',
         backgroundColor: '#54e346',
-    }
+    },
+
 });
 
 class TodoItem extends Component {
@@ -52,7 +54,9 @@ class TodoItem extends Component {
             title: this.props.todo.title,
             duedate: this.props.todo.duedate,
             completed: this.props.todo.completed,
-            tags_list: this.props.todo.tags_list
+            description: this.props.todo.description,
+            tags_list: this.props.todo.tags_list,
+            open: false
         }
         this.handleDelete = this.handleDelete.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -60,6 +64,8 @@ class TodoItem extends Component {
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleTagChange = this.handleTagChange.bind(this);
         this.handleComplete = this.handleComplete.bind(this);
+        this.handleCellClick = this.handleCellClick.bind(this);
+        this.handleClose = this.handleClose.bind(this)
     }
 
     handleDelete() {
@@ -81,7 +87,7 @@ class TodoItem extends Component {
     }
 
     handleEdit() {
-        const todo = {title: this.state.title, duedate: this.state.duedate, completed: this.state.completed, tags_list: this.state.tags_list}
+        const todo = {title: this.state.title, duedate: this.state.duedate, completed: this.state.completed, description: this.state.description, tags_list: this.state.tags_list}
         const tagsInDB = this.props.tags.map(object => object.name);
 		const TagsToAdd = this.state.tags_list.filter(item => !tagsInDB.includes(item));
 
@@ -133,7 +139,15 @@ class TodoItem extends Component {
 		this.setState({
 			tags_list: selected
 		})
-	}
+    }
+    
+    handleCellClick(event) {
+        this.setState({open: true})
+    }
+
+    handleClose() {
+        this.setState({open: false})
+    }
     
     render() {
         const { classes } = this.props;
@@ -142,9 +156,9 @@ class TodoItem extends Component {
 
         return (
             <TableRow className={classes.root}>
-                <TableCell className={classes.cell}>{this.props.todo.title}</TableCell>
-                <TableCell className={classes.cell}>{this.props.todo.duedate}</TableCell>
-                <TableCell className={classes.cell}>{chips}</TableCell>
+                <TableCell className={classes.cell} onClick={this.handleCellClick}>{this.props.todo.title}</TableCell>
+                <TableCell className={classes.cell} onClick={this.handleCellClick}>{this.props.todo.duedate}</TableCell>
+                <TableCell className={classes.cell} onClick={this.handleCellClick}>{chips}</TableCell>
                 <TableCell className={classes.actionscell} align='center'>
                     <EditTodoForm 
                         todo={this.props.todo} 
@@ -159,7 +173,12 @@ class TodoItem extends Component {
                     <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon className={classes.actionicon}/></IconButton>
                     <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon style={this.state.completed ? {fill:'green'} : {}}className={classes.actionicon}/></IconButton>
                 </TableCell>
+                
+                <ItemDialog handleClose={this.handleClose} open={this.state.open} todo={this.props.todo}/>
+                
             </TableRow>
+                
+            
         )
     }
 }
