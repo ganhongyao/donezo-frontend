@@ -26,6 +26,24 @@ const useStyles = (theme) => ({
         cursor: 'pointer'
     },
 
+    greentext: {
+        lineHeight: '15px',
+        padding: '0px',
+        paddingLeft: '15px',
+        height: '40px',
+        cursor: 'pointer',
+        color: '#017a3f'
+    },
+
+    redtext: {
+        lineHeight: '15px',
+        padding: '0px',
+        paddingLeft: '15px',
+        height: '40px',
+        cursor: 'pointer',
+        color: 'red'
+    },
+
     actionscell: {
         padding: '0px',
         display: 'flex',
@@ -153,11 +171,13 @@ class TodoItem extends Component {
         const { classes } = this.props;
         var canEdit = this.state.title.length > 0;
         const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))
+        var daysOverdue = Math.ceil((new Date() - new Date(this.state.duedate)) / (1000 * 24 * 3600))
+        var daysClass = daysOverdue === 1 ? "greentext" : daysOverdue > 1 ? "redtext" : "cell"
 
         return (
             <TableRow className={classes.root}>
                 <TableCell className={classes.cell} onClick={this.handleCellClick}>{this.props.todo.title}</TableCell>
-                <TableCell className={classes.cell} onClick={this.handleCellClick}>{this.props.todo.duedate}</TableCell>
+                <TableCell className={classes[daysClass]} onClick={this.handleCellClick}>{this.props.todo.duedate}</TableCell>
                 <TableCell className={classes.cell} onClick={this.handleCellClick}>{chips}</TableCell>
                 <TableCell className={classes.actionscell} align='center'>
                     <EditTodoForm 
