@@ -55,7 +55,7 @@ export default function TableHeader(props) {
                     </IconButton>
                 </StyledTableCell>
                 <StyledTableCell align="center">Tag(s)</StyledTableCell>
-                <StyledTableCell align="center">Actions</StyledTableCell>
+                <StyledTableCell align="center">Quick Actions</StyledTableCell>
 			</TableRow> 
         </TableHead>
     )

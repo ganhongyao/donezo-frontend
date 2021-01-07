@@ -64,6 +64,7 @@ class HomePage extends Component {
 			newTitle: '',
 			newDueDate: '',
 			newTag: [],
+			newDescription: '',
 			tags: [],
 			titleSortedAsc: 0,
 			dateSortedAsc: 0,
@@ -191,7 +192,7 @@ class HomePage extends Component {
 				{
 				title: this.state.newTitle,
 				duedate: this.state.newDueDate,
-				description: '',
+				description: this.state.newDescription,
 				completed: false,
 				tags_list: this.state.newTag,
 				user_id: this.props.user.id
