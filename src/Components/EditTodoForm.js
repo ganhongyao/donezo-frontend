@@ -102,10 +102,13 @@ export default function EditTodoForm(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="description"
+            name="description"
             label="Description"
             fullWidth
             variant="filled"
+            onChange={props.handleChange}
+            multiline
+            defaultValue={props.todo.description}
           />
 
         </DialogContent>

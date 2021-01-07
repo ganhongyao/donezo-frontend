@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { FormControl, Grid, IconButton, InputLabel, makeStyles, MenuItem } from '@material-ui/core';
+import { FormControl, Grid, IconButton, InputLabel, makeStyles, MenuItem, Tooltip } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
@@ -67,9 +67,12 @@ export default function FormDialog(props) {
 
   return (
     <div className={classes.root}>
-      <IconButton onClick={handleClickOpen} className={classes.button}>
-        <AddCircleIcon />
-      </IconButton>
+      <Tooltip title="Create new task" placement="right">
+        <IconButton onClick={handleClickOpen} className={classes.button}>
+          <AddCircleIcon />
+        </IconButton>
+      </Tooltip>
+      
       <Dialog open={open} onClose={handleClose} aria-labelledby="createform" maxWidth="xs" scroll={'body'}>
         <form onSubmit={props.addTask}>  
         <DialogTitle id="createform">Create new task</DialogTitle>
@@ -124,10 +127,12 @@ export default function FormDialog(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="description"
+            name="newDescription"
             label="Description"
             fullWidth
             variant="filled"
+            onChange={props.handleChange}
+            multiline
           />
 
         </DialogContent>
