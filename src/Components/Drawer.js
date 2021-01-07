@@ -38,7 +38,7 @@ export default function ComponentName() {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {['Home', 'Completed', 'Tags'].map((text, index) => (
+            {['Home', 'Completed'].map((text, index) => (
               <ListItem button key={text} component={Link} to={`/${text}`}>
                 <ListItemText primary={text} />
               </ListItem>

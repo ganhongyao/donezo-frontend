@@ -96,7 +96,6 @@ class App extends Component {
             <Route path="/signup" render={props => (<SignupPage {...props} handleLogin={this.handleLogin} />)}/>
             <ProtectedRoute path="/home" component={HomePage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
             <ProtectedRoute path="/completed" component={CompletedPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
-            <ProtectedRoute path="/tags" component={TagsPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
             <ProtectedRoute path="/profile" component={ProfilePage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
             <ProtectedRoute path="/settings" component={SettingsPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
           </Switch>
