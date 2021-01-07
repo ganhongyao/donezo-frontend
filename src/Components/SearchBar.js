@@ -20,7 +20,7 @@ export default function SearchBar(props) {
             <TextField className={classes.root}
                 margin="dense"
                 name="searchbar"
-                label="Search"
+                label="Search by task title or tags..."
                 fullWidth
                 variant="filled"
                 onChange={props.handleChange}
