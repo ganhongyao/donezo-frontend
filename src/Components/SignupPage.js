@@ -39,6 +39,10 @@ const useStyles = (theme) => ({
         '&:hover': {
             backgroundColor: '#00a152',
         },
+    }, 
+
+    errormessage: {
+        color: 'red'
     }
 
 
@@ -68,6 +72,13 @@ class SignupPage extends Component {
     handleSubmit(event) {
         const { email, password } = this.state;
         event.preventDefault();
+        if (this.state.password != this.state.password_confirmation) {
+            this.setState({registrationErrors: "Passwords do not match. Please re-type your passwords."})
+            return
+        } else if (this.state.password.length < 6) {
+            this.setState({registrationErrors: "Your password is too short. Please choose another password."})
+            return
+        }
         axios.post("http://localhost:3001/api/v1/users",
             {   
                 user: {
@@ -85,7 +96,10 @@ class SignupPage extends Component {
                     this.props.history.push('/home')
                 }
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error.response.errors)
+                this.setState({registrationErrors: error.response.data.errors})
+            })
         
     }
 
@@ -99,7 +113,8 @@ class SignupPage extends Component {
                 <Avatar className={classes.avatar}>
                     <ContactPhoneIcon />
                 </Avatar>
-                SIGN UP {this.props.loggedinStatus}
+                <div>SIGN UP</div>
+                <div className={classes.errormessage}>{this.state.registrationErrors}</div>
                 <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
                     <TextField
                         name="name"
@@ -115,7 +130,6 @@ class SignupPage extends Component {
                     <TextField className={classes.textfield}
                         type="email"
                         name="email"
-                        id="email"
                         label="Email Address"
                         size="small"
                         variant="outlined"
@@ -127,8 +141,7 @@ class SignupPage extends Component {
                     <TextField
                         type="password"
                         name="password"
-                        label="Password"
-                        id="password"
+                        label="Password (min. 6 characters)"
                         size="small"
                         variant="outlined"
                         margin="normal"
@@ -140,7 +153,6 @@ class SignupPage extends Component {
                         type="password"
                         name="password_confirmation"
                         label="Confirm your password"
-                        id="password_confirmation"
                         size="small"
                         variant="outlined"
                         margin="normal"
@@ -158,6 +170,9 @@ class SignupPage extends Component {
                     SIGN UP
                     </Button>
                 </form>
+                <Link to="/login" variant="body2">
+                    {"Already have an account? Log in"}
+                </Link>
             </div>
         )
     }

@@ -14,8 +14,7 @@ const useStyles = (theme) => ({
         padding: '1%',
         marginTop: '10%',
         width: '50%',
-        margin: '0 auto'
-        
+        margin: '0 auto'        
     },
 
     avatar: {
@@ -39,6 +38,10 @@ const useStyles = (theme) => ({
         '&:hover': {
             backgroundColor: '#00a152',
         },
+    },
+
+    errormessage: {
+        color: 'red'
     }
 
 
@@ -83,7 +86,10 @@ class LoginPage extends Component {
                 this.props.history.push('/home')
             }
         })
-        .catch(error => console.log(error))    }
+        .catch(error => {
+            console.log(error)
+            this.setState({loginErrors: error.response.data.errors})
+        })    }
 
     render() {
 
@@ -95,7 +101,9 @@ class LoginPage extends Component {
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
-                LOG IN
+
+                <div>LOG IN</div><br/>
+                <div className={classes.errormessage}>{this.state.loginErrors}</div>
                 <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
                     <TextField className={classes.textfield}
                         size="small"
@@ -134,20 +142,11 @@ class LoginPage extends Component {
                         className={classes.button}  
                     >
                         LOG IN
-                    </Button>
-                    <Grid container>
-                        <Grid item xs>
-                        <Link href="#" variant="body2">
-                            Forgot password?
-                        </Link>
-                        </Grid>
-                        <Grid item>
-                        <Link to="/signup" variant="body2">
-                            {"Don't have an account? Sign Up"}
-                        </Link>
-                        </Grid>
-                    </Grid>
+                    </Button>    
                 </form>
+                <Link to="/signup" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                </Link>
             </div>
         )
     }
