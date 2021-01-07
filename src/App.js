@@ -15,7 +15,6 @@ import AddTodoForm from "./Components/AddTodoForm";
 import HomePage from "./Components/HomePage";
 import CompletedPage from "./Components/CompletedPage";
 import ProtectedRoute from './Components/ProtectedRoute'
-import TagsPage from "./Components/TagsPage";
 import ProfilePage from "./Components/ProfilePage";
 import SettingsPage from "./Components/SettingsPage";
 

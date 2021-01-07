@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { FormControl, Grid, IconButton, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core';
+import { FormControl, Grid, IconButton, InputLabel, makeStyles, MenuItem, Select, Tooltip } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
@@ -44,9 +44,12 @@ export default function EditTodoForm(props) {
 
   return (
     <div className={classes.root}>
-      <IconButton onClick={handleClickOpen}>
-        <EditIcon className={classes.actionicon}/>
-      </IconButton>
+      <Tooltip title="Edit" arrow>
+        <IconButton onClick={handleClickOpen}>
+          <EditIcon className={classes.actionicon}/>
+        </IconButton>
+      </Tooltip>
+      
       <Dialog open={open} onClose={handleClose} aria-labelledby="createform" maxWidth="xs">
         <form onSubmit={props.handleEdit}>  
         <DialogTitle id="createform">Edit task</DialogTitle>

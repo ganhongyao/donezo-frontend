@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { makeStyles} from '@material-ui/core/styles';
-import { Button, Chip, IconButton, ListItem, TableCell, TableRow, withStyles } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
+import { Button, Chip, IconButton, ListItem, TableCell, TableRow, withStyles, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import EditTodoForm from './EditTodoForm';
@@ -170,7 +169,7 @@ class TodoItem extends Component {
     render() {
         const { classes } = this.props;
         var canEdit = this.state.title.length > 0;
-        const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))
+        const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip onClick={() => console.log('chip')} label={tag} size="small" className={classes.chip}/>))
         var daysOverdue = Math.ceil((new Date() - new Date(this.state.duedate)) / (1000 * 24 * 3600))
         var daysClass = daysOverdue === 1 ? "greentext" : daysOverdue > 1 ? "redtext" : "cell"
 
@@ -178,7 +177,7 @@ class TodoItem extends Component {
             <TableRow className={classes.root}>
                 <TableCell className={classes.cell} onClick={this.handleCellClick}>{this.props.todo.title}</TableCell>
                 <TableCell className={classes[daysClass]} onClick={this.handleCellClick}>{this.props.todo.duedate}</TableCell>
-                <TableCell className={classes.cell} onClick={this.handleCellClick}>{chips}</TableCell>
+                <TableCell className={classes.cell}>{chips}</TableCell>
                 <TableCell className={classes.actionscell} align='center'>
                     <EditTodoForm 
                         todo={this.props.todo} 
@@ -190,8 +189,12 @@ class TodoItem extends Component {
                         canEdit={canEdit}
                         tags={this.props.tags}
                     />
-                    <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon className={classes.actionicon}/></IconButton>
-                    <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon style={this.state.completed ? {fill:'green'} : {}}className={classes.actionicon}/></IconButton>
+                    <Tooltip title="Delete" arrow>
+                        <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon className={classes.actionicon}/></IconButton>
+                    </Tooltip>
+                    <Tooltip title="Donezo!" arrow>
+                        <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon style={this.state.completed ? {fill:'green'} : {}}className={classes.actionicon}/></IconButton>
+                    </Tooltip>
                 </TableCell>
                 
                 <ItemDialog handleClose={this.handleClose} open={this.state.open} todo={this.props.todo}/>

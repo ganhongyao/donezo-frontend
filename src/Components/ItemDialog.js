@@ -36,6 +36,15 @@ export default function ItemDialog(props) {
     var now = new Date();
     var duedate = new Date(props.todo.duedate);
     var days = Math.ceil((duedate - now) / (1000 * 3600 * 24))
+    if (days > 1) {
+        days = days.toString() + " days left"
+    } else if (days === 1) {
+        days = days.toString() + " day left"
+    } else if (days === 0) {
+        days = "due today"
+    } else {
+        days = "overdue"
+    }
 
     return (
         <Dialog fullWidth open={props.open} onClose={props.handleClose} aria-labelledby="createform" maxWidth="md" className={classes.root}>
@@ -44,11 +53,11 @@ export default function ItemDialog(props) {
                 <div className={classes.field}>
                     <img src={process.env.PUBLIC_URL + '/calendar.png'} className={classes.icon}/>
                     {props.todo.duedate} {" "} 
-                    ( {days} days left )<br/>  
+                    ( {days} )<br/>  
                 </div>
                 <div className={classes.field}>
                     <img src={process.env.PUBLIC_URL + '/description.png'} className={classes.icon}/>
-                    {props.todo.description}
+                    {props.todo.description || " - No description - "}
                 </div>
                 <div className={classes.field}>
                     <img src={process.env.PUBLIC_URL + '/tag.png'} className={classes.icon}/>
