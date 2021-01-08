@@ -138,6 +138,7 @@ class SignupPage extends Component {
                         fullWidth
                         onChange={this.handleChange}
                     />
+                    
                     <TextField
                         type="password"
                         name="password"
