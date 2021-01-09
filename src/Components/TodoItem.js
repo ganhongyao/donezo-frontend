@@ -182,17 +182,16 @@ class TodoItem extends Component {
 
         var now = new Date();
         var duedateobj = new Date(duedate);
-        var days = Math.ceil((duedateobj - now) / (1000 * 3600 * 24))
-        if (days > 1) {
-            days = days.toString() + " days left"
-        } else if (days === 1) {
-            days = days.toString() + " day left"
-        } else if (days === 0) {
-            days = "due today"
+        var daysleft = Math.ceil((duedateobj - now) / (1000 * 3600 * 24))
+        if (daysleft > 1) {
+            daysleft = daysleft.toString() + " days left"
+        } else if (daysleft === 1) {
+            daysleft = daysleft.toString() + " day left"
+        } else if (daysleft === 0) {
+            daysleft = "due today"
         } else {
-            days = "overdue"
+            daysleft = "overdue"
         }
-        console.log(daysClass)
 
         return (
             <TableRow className={classes.root}>
@@ -200,7 +199,7 @@ class TodoItem extends Component {
                 <TableCell className={classes[daysClass]} onClick={this.handleCellClick}>
                     {duedate} 
                     <span style={{color: 'white'}}> -- </span>
-                    ( <span>{days}</span> )
+                    ( <span>{daysleft}</span> )
                 </TableCell>
                 <TableCell className={classes.cell}>{chips}</TableCell>
                 <TableCell className={classes.actionscell} align='center'>
@@ -222,7 +221,7 @@ class TodoItem extends Component {
                     </Tooltip>
                 </TableCell>
                 
-                <ItemDialog handleClose={this.handleClose} open={this.state.open} todo={this.props.todo}/>
+                <ItemDialog handleClose={this.handleClose} open={this.state.open} todo={this.props.todo} daysleft={daysleft}/>
                 
             </TableRow>
                 
