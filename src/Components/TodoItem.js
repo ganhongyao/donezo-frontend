@@ -7,6 +7,7 @@ import EditTodoForm from './EditTodoForm';
 import axios from 'axios';
 import ItemDialog from './ItemDialog'
 import { ToastContainer, toast } from 'react-toastify';
+import { formatDistanceToNow } from 'date-fns'
 
 const useStyles = (theme) => ({
     root: {
@@ -175,13 +176,32 @@ class TodoItem extends Component {
         const { classes } = this.props;
         var canEdit = this.state.title.length > 0;
         const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip onClick={() => console.log('chip')} label={tag} size="small" className={classes.chip}/>))
-        var daysOverdue = Math.ceil((new Date() - new Date(this.state.duedate)) / (1000 * 24 * 3600))
+        const { duedate } = this.props.todo
+        var daysOverdue = Math.ceil((new Date() - new Date(duedate)) / (1000 * 24 * 3600))
         var daysClass = daysOverdue === 1 ? "greentext" : daysOverdue > 1 ? "redtext" : "cell"
+
+        var now = new Date();
+        var duedateobj = new Date(duedate);
+        var days = Math.ceil((duedateobj - now) / (1000 * 3600 * 24))
+        if (days > 1) {
+            days = days.toString() + " days left"
+        } else if (days === 1) {
+            days = days.toString() + " day left"
+        } else if (days === 0) {
+            days = "due today"
+        } else {
+            days = "overdue"
+        }
+        console.log(daysClass)
 
         return (
             <TableRow className={classes.root}>
                 <TableCell className={classes.cell} onClick={this.handleCellClick}>{this.props.todo.title}</TableCell>
-                <TableCell className={classes[daysClass]} onClick={this.handleCellClick}>{this.props.todo.duedate}</TableCell>
+                <TableCell className={classes[daysClass]} onClick={this.handleCellClick}>
+                    {duedate} 
+                    <span style={{color: 'white'}}> -- </span>
+                    ( <span>{days}</span> )
+                </TableCell>
                 <TableCell className={classes.cell}>{chips}</TableCell>
                 <TableCell className={classes.actionscell} align='center'>
                     <EditTodoForm 
