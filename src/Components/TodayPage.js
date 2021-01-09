@@ -9,7 +9,15 @@ const useStyles = (theme) => ({
 		marginTop: '5%',
 		width: '70%',
 		margin: '0 auto',
-	},
+    },
+    
+    cardcontainer: {
+        display: 'flex',
+    },
+
+    card: {
+        minWidth: 275
+    }
 });
 
 class TodayPage extends Component {
@@ -45,13 +53,16 @@ class TodayPage extends Component {
                 <h1 style={{color: '#54e346'}}>
                         Today
                 </h1>
+
+                <div className={classes.cardcontainer}>
+                    {this.state.todos.map(todo => 
+                        <Card className={classes.card}>
+                            <CardContent>
+                                {todo.title}
+                            </CardContent>
+                        </Card>)}
+                </div>
             
-            {this.state.todos.map(todo => 
-                <Card>
-                    <CardContent>
-                        {todo.title}
-                    </CardContent>
-                </Card>)}
                 
 
 
