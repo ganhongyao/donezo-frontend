@@ -13,6 +13,7 @@ import SignupPage from './Components/SignupPage';
 import Header from "./Components/Header";
 import AddTodoForm from "./Components/AddTodoForm";
 import HomePage from "./Components/HomePage";
+import TodayPage from './Components/TodayPage';
 import CompletedPage from "./Components/CompletedPage";
 import ProtectedRoute from './Components/ProtectedRoute'
 import ProfilePage from "./Components/ProfilePage";
@@ -103,6 +104,7 @@ class App extends Component {
             <Route path="/login" render={props => (<LoginPage {...props} handleLogin={this.handleLogin} />)}/>
             <Route path="/signup" render={props => (<SignupPage {...props} handleLogin={this.handleLogin} />)}/>
             <ProtectedRoute path="/home" component={HomePage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
+            <ProtectedRoute path="/today" component={TodayPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/>
             <ProtectedRoute path="/completed" component={CompletedPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
             <ProtectedRoute path="/profile" component={ProfilePage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
             <ProtectedRoute path="/settings" component={SettingsPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 

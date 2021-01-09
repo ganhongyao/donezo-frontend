@@ -10,7 +10,7 @@ import Drawer from './Drawer'
 
 const useStyles = (theme) => ({
 	root: {
-		marginTop: '10%',
+		marginTop: '5%',
 		width: '70%',
 		margin: '0 auto',
 	},
@@ -21,6 +21,7 @@ const useStyles = (theme) => ({
     
     container: {
 		display: 'flex',
+		flexDirection: 'row-reverse',
 		margin: '0 auto',
         justifyContent: 'space-between',
         alignItems: 'flex-end'
@@ -139,11 +140,12 @@ class CompletedPage extends Component {
             this.state.todos &&
             <div className={classes.root}>
                 <Drawer />
-                <div className={classes.container}>
-                <span className={classes.alert}>
-                        Completed
-                    </span>
 
+				<h1 style={{color: '#54e346'}}>
+					Completed
+				</h1>
+
+                <div className={classes.container}>
                     <SearchBar handleChange={this.handleChange}/>
                 </div>
                 

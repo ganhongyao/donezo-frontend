@@ -175,7 +175,7 @@ class TodoItem extends Component {
     render() {
         const { classes } = this.props;
         var canEdit = this.state.title.length > 0;
-        const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip onClick={() => console.log('chip')} label={tag} size="small" className={classes.chip}/>))
+        const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))
         const { duedate } = this.props.todo
         var daysOverdue = Math.ceil((new Date() - new Date(duedate)) / (1000 * 24 * 3600))
         var daysClass = daysOverdue === 1 ? "greentext" : daysOverdue > 1 ? "redtext" : "cell"
@@ -198,8 +198,8 @@ class TodoItem extends Component {
                 <TableCell className={classes.cell} onClick={this.handleCellClick}>{this.props.todo.title}</TableCell>
                 <TableCell className={classes[daysClass]} onClick={this.handleCellClick}>
                     {duedate} 
-                    <span style={{color: 'white'}}> -- </span>
-                    ( <span>{daysleft}</span> )
+                    <span style={{color: 'white'}}> &mdash; </span>
+                    {daysleft}
                 </TableCell>
                 <TableCell className={classes.cell}>{chips}</TableCell>
                 <TableCell className={classes.actionscell} align='center'>

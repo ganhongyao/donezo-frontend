@@ -7,7 +7,6 @@ import TodoContainer from './TodoContainer'
 import SearchBar from './SearchBar';
 import Greeting from './Greeting';
 import Drawer from './Drawer'
-import { ToastContainer, toast } from 'react-toastify';
 
 const useStyles = (theme) => ({
 	root: {
@@ -28,6 +27,14 @@ const useStyles = (theme) => ({
 		display: 'flex',
 		justifyContent: 'space-between'
 	},
+
+	chip: {
+        marginTop: '3px',
+        marginBottom: '3px',
+        marginLeft: '3px',
+        fontSize: '10px',
+        backgroundColor: '#54e346',
+    },
 
 	
 });
@@ -69,7 +76,7 @@ class HomePage extends Component {
 			tags: [],
 			titleSortedAsc: 0,
 			dateSortedAsc: 0,
-			searchbar: ''
+			searchbar: '',
 			
 		}
 		
@@ -80,7 +87,7 @@ class HomePage extends Component {
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
 		this.handleSortTitle = this.handleSortTitle.bind(this);
-        this.handleSortDate = this.handleSortDate.bind(this);
+		this.handleSortDate = this.handleSortDate.bind(this);
 	}
 
 	componentDidMount() {
@@ -129,7 +136,6 @@ class HomePage extends Component {
 				[event.target.name]: event.target.value
 			});
 		}
-		
 	}
 
 	handleDateChange(event, date) {
@@ -166,7 +172,7 @@ class HomePage extends Component {
 		const tagsInDB = this.state.tags.map(object => object.name);
 		const TagsToAdd = this.state.newTag.filter(item => !tagsInDB.includes(item));
 
-		TagsToAdd.forEach(ele => 	{
+		TagsToAdd.forEach(ele => {
 			axios.post(
 				'http://localhost:3001/api/v1/tags',
 				{ tag:
@@ -198,8 +204,7 @@ class HomePage extends Component {
 				tags_list: this.state.newTag,
 				user_id: this.props.user.id
 				}
-			}
-			)
+			})
 			.then(response => {
 			console.log(response)
 			const todos = update(this.state.todos, {
@@ -250,6 +255,7 @@ class HomePage extends Component {
 					tags={this.state.tags}
 					canSubmit={canSubmit}
 					/>
+				
 					<SearchBar handleChange={this.handleChange}/>
 				</div>
 				
