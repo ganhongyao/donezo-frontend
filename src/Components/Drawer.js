@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     drawer: {
+        
         width: '10%',
         flexShrink: 0,
         backgroundColor: 'red',
       },
       drawerPaper: {
+        marginTop: '5%',
         width: '10%',
         height: '70%',
         backgroundColor: 'transparent',
