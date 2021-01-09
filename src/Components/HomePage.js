@@ -7,6 +7,7 @@ import TodoContainer from './TodoContainer'
 import SearchBar from './SearchBar';
 import Greeting from './Greeting';
 import Drawer from './Drawer'
+import { ToastContainer, toast } from 'react-toastify';
 
 const useStyles = (theme) => ({
 	root: {
@@ -232,7 +233,7 @@ class HomePage extends Component {
 		return (
 			this.state.todos && 
 			<div className={classes.root}>
-
+				
 				<Drawer />
 				
 				<Greeting user={this.props.user}/>

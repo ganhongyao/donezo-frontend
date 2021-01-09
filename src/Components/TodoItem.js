@@ -6,6 +6,7 @@ import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import EditTodoForm from './EditTodoForm';
 import axios from 'axios';
 import ItemDialog from './ItemDialog'
+import { ToastContainer, toast } from 'react-toastify';
 
 const useStyles = (theme) => ({
     root: {
@@ -61,7 +62,6 @@ const useStyles = (theme) => ({
         fontSize: '10px',
         backgroundColor: '#54e346',
     },
-
 });
 
 class TodoItem extends Component {
@@ -101,6 +101,11 @@ class TodoItem extends Component {
         })
         .catch(error => console.log(error))
         this.setState({completed: !this.state.completed})
+        !this.state.completed && 
+            toast.success('Donezo!', 
+            {
+                position: toast.POSITION.TOP_CENTER,
+            })
     }
 
     handleEdit() {

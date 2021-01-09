@@ -17,6 +17,8 @@ import CompletedPage from "./Components/CompletedPage";
 import ProtectedRoute from './Components/ProtectedRoute'
 import ProfilePage from "./Components/ProfilePage";
 import SettingsPage from "./Components/SettingsPage";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -31,6 +33,12 @@ const useStyles = (theme) => ({
       display: 'flex',
       flexDirection: 'column',
     },
+
+    toast: {
+      fontFamily: 'Nunito',
+      textAlign: 'center'
+    },
+
 })
 
 
@@ -86,6 +94,7 @@ class App extends Component {
     
     return ( !this.state.isLoading &&
       <div className={classes.root}>
+        <ToastContainer bodyClassName={classes.toast} />
         
         <Router>
           <Header isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout}/>
@@ -99,6 +108,7 @@ class App extends Component {
             <ProtectedRoute path="/settings" component={SettingsPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
           </Switch>
         </Router>
+        
       </div>
     );
   }
