@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles} from '@material-ui/core/styles';
 import { AppBar, Button, IconButton, Toolbar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns'
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -25,13 +26,11 @@ const useStyles = makeStyles((theme) => ({
 
     toolbar: {
         display: 'flex',
-
     },
 
     loginbutton: {
         color: 'white',
         border: '2px solid #54e346'
-
     },
 
     signupbutton: {
@@ -39,8 +38,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#54e346',
         '&:hover': {
             backgroundColor: '#00a152',
-          },
-        
+        },
     },
 
     link: {
@@ -49,60 +47,53 @@ const useStyles = makeStyles((theme) => ({
 
     today: {
         margin: '0 auto'
+    },
+
+    name: {
+        marginRight: '1%'
     }
 
 }));
 
 export default function Header(props) {
     const classes = useStyles();
-
-    var objToday = new Date(),
-	weekday = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
-	dayOfWeek = weekday[objToday.getDay()],
-	domEnder = function() { var a = objToday; if (/1/.test(parseInt((a + "").charAt(0)))) return "th"; a = parseInt((a + "").charAt(1)); return 1 == a ? "st" : 2 == a ? "nd" : 3 == a ? "rd" : "th" }(),
-	dayOfMonth = today + ( objToday.getDate() < 10) ? '0' + objToday.getDate()  : objToday.getDate(),
-	months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'),
-	curMonth = months[objToday.getMonth()],
-    curYear = objToday.getFullYear();
+    const date = format(new Date(), "EEEE do MMMM, yyyy");
     
-    var today = dayOfWeek + " " + dayOfMonth+ " " + curMonth + ", " + curYear;
+    var loggedInActions = (
+        <div> 
+            <Link to='/login' className={classes.link}>
+                <Button className={classes.loginbutton} onClick={props.handleLogout} variant="outlined">Log Out</Button>
+            </Link>
+        </div>
+    );
 
-    var loggedInBar = (<div> 
-                            <Link to='/login' className={classes.link}>
-                                <Button className={classes.loginbutton} onClick={props.handleLogout} variant="outlined">Log Out</Button>
-                            </Link>
-                        </div>);
-
-    var loggedOutBar = (<div> 
-                            <Link to='/login' className={classes.link}>
-                                <Button className={classes.loginbutton} variant="outlined">Log In</Button>
-                            </Link>
-                            <Link to='/signup' className={classes.link}>
-                                <Button className={classes.signupbutton} variant="contained">Sign up</Button>
-                            </Link>
-                        </div>);
+    var loggedOutActions = (
+        <div> 
+            <Link to='/login' className={classes.link}>
+                <Button className={classes.loginbutton} variant="outlined">Log In</Button>
+            </Link>
+            <Link to='/signup' className={classes.link}>
+                <Button className={classes.signupbutton} variant="contained">Sign up</Button>
+            </Link>
+        </div>
+    );
 
     return (
-        
         <div>
             <AppBar className={classes.appbar} elevation={0}>
                 <Toolbar className={classes.toolbar}>
                     <h1 className={classes.appbarTitle}>
                         <Link to={props.isLoggedIn ? "/home" : "/"} className={classes.link}>
-                        <span className={classes.greenText}>Done</span><span className={classes.whiteText}>zo.</span>
+                            <span className={classes.greenText}>Done</span><span className={classes.whiteText}>zo.</span>
                         </Link>
                     </h1>
                     <div className={classes.today}> 
-                        {props.isLoggedIn && today}
+                        {props.isLoggedIn && date}
                     </div>
-                    
-                    {props.isLoggedIn ? loggedInBar : loggedOutBar}
-
+                    <div className={classes.name}>{props.user.name}</div>
+                    {props.isLoggedIn ? loggedInActions : loggedOutActions}
                 </Toolbar>
-                
             </AppBar>
         </div>
-        
-
     )
 }
