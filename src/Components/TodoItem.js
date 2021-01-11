@@ -221,7 +221,7 @@ class TodoItem extends Component {
                     </Tooltip>
                 </TableCell>
                 
-                <ItemDialog handleClose={this.handleClose} open={this.state.open} todo={this.props.todo} daysleft={daysleft}/>
+                <ItemDialog handleClose={this.handleClose} open={this.state.open} todo={this.props.todo}/>
                 
             </TableRow>
                 

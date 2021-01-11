@@ -35,7 +35,6 @@ class TodoContainer extends Component {
 
     render() {
         const { classes } = this.props;
-        console.log("from container " + this.state.todos)
         
         return(
             <div>
