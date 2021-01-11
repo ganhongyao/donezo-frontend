@@ -58,17 +58,11 @@ class TodayPage extends Component {
 		})
 		.then(response => {
 			console.log(response)
-			this.setState({todos: response.data.filter(todo => !todo.completed).filter(todo => todo.duedate === format(new Date(), "yyyy-MM-dd"))})
+			this.setState({todos: response.data.filter(todo => todo.duedate === format(new Date(), "yyyy-MM-dd"))})
 
 		})
 		.catch(error => console.log(error));
     }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.todos !== prevProps.todos) {
-          this.setState({todos: this.props.todos});
-        }
-      }
 
     handleUpdate(todo) {
 		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
@@ -78,6 +72,7 @@ class TodayPage extends Component {
 
     render() {
         const { classes } = this.props;
+        const outstanding = this.state.todos.filter(todo => !todo.completed);
         return (
             this.state.todos &&
             <div className={classes.root}>
@@ -88,12 +83,13 @@ class TodayPage extends Component {
                 </h1>
 
                 <div className={classes.cardcontainer}>
-                    {this.state.todos.map(todo => 
+                    {outstanding.map(todo => 
                         <TodoCard todo={todo} key={todo.id} handleUpdate={this.handleUpdate}/>)}
                 </div>
-            
-                
 
+                <div style={{color: 'white'}}>
+                    {outstanding.length === 0 && "You have no outstanding tasks due today."}
+                </div>
 
             </div>
         )
