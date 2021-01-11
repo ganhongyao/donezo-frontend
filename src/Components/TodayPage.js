@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { Card, CardContent, withStyles } from '@material-ui/core';
+import { Button, Card, CardContent, Chip, withStyles } from '@material-ui/core';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
 import Drawer from './Drawer';
 import axios from 'axios'
 import { format } from 'date-fns';
+import TodoCard from './TodoCard';
+import update from 'immutability-helper'
+
 
 const useStyles = (theme) => ({
     root: {
@@ -17,7 +22,22 @@ const useStyles = (theme) => ({
 
     card: {
         minWidth: 275
-    }
+    },
+
+    chip: {
+        marginTop: '3px',
+        marginBottom: '3px',
+        marginLeft: '3px',
+        fontSize: '10px',
+        backgroundColor: '#54e346',
+    },
+
+    greenbutton: {
+        '&:hover': {
+            backgroundColor: '#00a152',
+        },
+        margin: '0 auto'
+    },
 });
 
 class TodayPage extends Component {
@@ -26,6 +46,7 @@ class TodayPage extends Component {
         this.state = {
             todos: []
         }
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     componentDidMount() {
@@ -37,11 +58,23 @@ class TodayPage extends Component {
 		})
 		.then(response => {
 			console.log(response)
-			this.setState({todos: response.data.filter(todo => todo.duedate === format(new Date(), "yyyy-MM-dd"))})
+			this.setState({todos: response.data.filter(todo => !todo.completed).filter(todo => todo.duedate === format(new Date(), "yyyy-MM-dd"))})
 
 		})
 		.catch(error => console.log(error));
     }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.todos !== prevProps.todos) {
+          this.setState({todos: this.props.todos});
+        }
+      }
+
+    handleUpdate(todo) {
+		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
+    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }})
+		this.setState({todos: todos})
+	}
 
     render() {
         const { classes } = this.props;
@@ -56,11 +89,7 @@ class TodayPage extends Component {
 
                 <div className={classes.cardcontainer}>
                     {this.state.todos.map(todo => 
-                        <Card className={classes.card}>
-                            <CardContent>
-                                {todo.title}
-                            </CardContent>
-                        </Card>)}
+                        <TodoCard todo={todo} key={todo.id} handleUpdate={this.handleUpdate}/>)}
                 </div>
             
                 
