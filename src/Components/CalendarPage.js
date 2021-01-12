@@ -89,8 +89,6 @@ class CalendarPage extends Component {
         const { classes } = this.props;
         const localizer = momentLocalizer(moment);
         
-        
-        
         return(
             this.state.todos &&
             <div>

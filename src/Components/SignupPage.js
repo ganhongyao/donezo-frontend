@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import axios from "axios"
+import React, { useState } from 'react';
 import { makeStyles} from '@material-ui/core/styles';
-import { Avatar, Button, Checkbox, CssBaseline, FormControlLabel, Grid, TextField, withStyles } from '@material-ui/core';
+import axios from 'axios';
+import { Avatar, Button, CssBaseline, TextField } from '@material-ui/core';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import { Link } from 'react-router-dom';
 
-const useStyles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
@@ -14,8 +14,7 @@ const useStyles = (theme) => ({
         padding: '1%',
         marginTop: '10%',
         width: '50%',
-        margin:'0 auto'
-        
+        margin:'0 auto'   
     },
 
     avatar: {
@@ -26,7 +25,6 @@ const useStyles = (theme) => ({
     form: {
         width: '40%', 
         marginTop: theme.spacing(1),
-        
     },
 
     textfield: {
@@ -44,140 +42,125 @@ const useStyles = (theme) => ({
     errormessage: {
         color: 'red'
     }
+}));
 
+export default function SignupPage(props) {
+    const classes = useStyles();
+    const [ state, setState ] = useState({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: ""
+    })
+    const [registrationErrors, setErrors] = useState("");
 
-});
-
-class SignupPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: "",
-            email: "",
-            password: "",
-            password_confirmation: "",
-            registrationErrors: ""
-          }
-          
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+    const handleChange = event => {
+        setState(prev => ({ 
+            ...prev,
+            [event.target.name]: event.target.value,
+        }))
     }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
-
-    handleSubmit(event) {
-        const { email, password } = this.state;
+    const handleSubmit = event => {
         event.preventDefault();
-        if (this.state.password != this.state.password_confirmation) {
-            this.setState({registrationErrors: "Passwords do not match. Please re-type your passwords."})
+        const { name, email, password, password_confirmation } = state;
+        if (password != password_confirmation) {
+            setErrors("Passwords do not match. Please re-type your passwords.")
             return
-        } else if (this.state.password.length < 6) {
-            this.setState({registrationErrors: "Your password is too short. Please choose another password."})
+        } else if (password.length < 6) {
+            setErrors("Your password is too short. Please choose another password.")
             return
         }
         axios.post("http://localhost:3001/api/v1/users",
             {   
                 user: {
-                    name: this.state.name,
-                    email: this.state.email,
-                    password: this.state.password,
-                    password_confirmation: this.state.password_confirmation
+                    name: name,
+                    email: email,
+                    password: password,
+                    password_confirmation: password_confirmation
                 }
                                 
             })
             .then(response => {
                 console.log(response)
                 if (response.data.status === "User created") {
-                    this.props.handleLogin(response.data)
-                    this.props.history.push('/home')
+                    props.handleLogin(response.data)
+                    props.history.push('/home')
                 }
             })
             .catch(error => {
                 console.log(error.response.errors)
-                this.setState({registrationErrors: error.response.data.errors})
+                setErrors(error.response.data.errors)
             })
-        
     }
 
-    render() {
-
-        const { classes } = this.props;
-
-        return (
-            <div className={classes.root}>
-                <CssBaseline />
-                <Avatar className={classes.avatar}>
-                    <ContactPhoneIcon />
-                </Avatar>
-                <div>SIGN UP</div>
-                <div className={classes.errormessage}>{this.state.registrationErrors}</div>
-                <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
-                    <TextField
-                        name="name"
-                        label="Name"
-                        size="small"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        autoFocus
-                        onChange={this.handleChange}
-                    />
-                    
-                    <TextField className={classes.textfield}
-                        type="email"
-                        name="email"
-                        label="Email Address"
-                        size="small"
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        onChange={this.handleChange}
-                    />
-                    
-                    <TextField
-                        type="password"
-                        name="password"
-                        label="Password (min. 6 characters)"
-                        size="small"
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        onChange={this.handleChange}
-                    />
-                    <TextField
-                        type="password"
-                        name="password_confirmation"
-                        label="Confirm your password"
-                        size="small"
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        onChange={this.handleChange}
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}  
-                    >
-                    SIGN UP
-                    </Button>
-                </form>
-                <Link to="/login" variant="body2">
-                    {"Already have an account? Log in"}
-                </Link>
-            </div>
-        )
-    }
-    
+    return (
+        <div className={classes.root}>
+            <CssBaseline />
+            <Avatar className={classes.avatar}>
+                <ContactPhoneIcon />
+            </Avatar>
+            <div>SIGN UP</div>
+            <div className={classes.errormessage}>{registrationErrors}</div>
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                <TextField
+                    name="name"
+                    label="Name"
+                    size="small"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    autoFocus
+                    onChange={handleChange}
+                />
+                
+                <TextField className={classes.textfield}
+                    type="email"
+                    name="email"
+                    label="Email Address"
+                    size="small"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    onChange={handleChange}
+                />
+                
+                <TextField
+                    type="password"
+                    name="password"
+                    label="Password (min. 6 characters)"
+                    size="small"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    onChange={handleChange}
+                />
+                <TextField
+                    type="password"
+                    name="password_confirmation"
+                    label="Confirm your password"
+                    size="small"
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    onChange={handleChange}
+                />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}  
+                >
+                SIGN UP
+                </Button>
+            </form>
+            <Link to="/login" variant="body2">
+                {"Already have an account? Log in"}
+            </Link>
+        </div>
+    )
 }
-
-export default withStyles(useStyles)(SignupPage);

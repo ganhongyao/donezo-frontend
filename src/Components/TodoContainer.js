@@ -7,17 +7,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TodoItem from './TodoItem';
 import TableHeader from './TableHeader'
 
-
 const useStyles = (theme) => ({
     table: {
         margin: '0 auto',
         marginBottom: '5%'
     },
-
-    
 });
-
-
 
 class TodoContainer extends Component {
     constructor(props) {
@@ -31,7 +26,7 @@ class TodoContainer extends Component {
         if (this.props.todos !== prevProps.todos) {
           this.setState({todos: this.props.todos});
         }
-      }
+    }
 
     render() {
         const { classes } = this.props;
@@ -45,30 +40,26 @@ class TodoContainer extends Component {
                         <col style={{width:"20%"}}/>
                         <col style={{width:"10%"}}/>
                     </colgroup>
-                        
                         <TableHeader 
                             handleSortTitle={this.props.handleSortTitle}
                             handleSortDate={this.props.handleSortDate} 
                             titleSortedAsc={this.props.titleSortedAsc}
                             dateSortedAsc={this.props.dateSortedAsc}
                              />
-                        
                         <TableBody>
-                        {this.state.todos.map((todo) => {
-                            return <TodoItem 
-                                user={this.props.user}
-                                key={todo.id} 
-                                todo={todo} 
-                                tags={this.props.tags}
-                                handleDelete={this.props.handleDelete} 
-                                handleChange={this.props.handleChange} 
-                                handleUpdate={this.props.handleUpdate}/>
-                        })}
-                        
+                            {this.state.todos.map((todo) => {
+                                return <TodoItem 
+                                    user={this.props.user}
+                                    key={todo.id} 
+                                    todo={todo} 
+                                    tags={this.props.tags}
+                                    handleDelete={this.props.handleDelete} 
+                                    handleChange={this.props.handleChange} 
+                                    handleUpdate={this.props.handleUpdate}/>
+                            })}
                         </TableBody>
                 </Table>
-            </div>
-            
+            </div>     
         )
     }
 }

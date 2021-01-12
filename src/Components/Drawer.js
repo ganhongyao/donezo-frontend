@@ -1,68 +1,49 @@
 import React from 'react';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, List, ListItem, ListItemText, Toolbar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-    drawer: {
-        
-        width: '10%',
-        flexShrink: 0,
-        backgroundColor: 'red',
-      },
-      drawerPaper: {
-        marginTop: '5%',
-        width: '10%',
-        height: '70%',
-        backgroundColor: 'transparent',
-        border: 'none',
-        color: '#16c79a',
-        
+	drawer: {
+		width: '10%',
+		flexShrink: 0,
+		backgroundColor: 'red',
+	},
 
-      },
-      drawerContainer: {
-        overflow: 'auto',
-      },
+	drawerPaper: {
+		marginTop: '5%',
+		width: '10%',
+		height: '70%',
+		backgroundColor: 'transparent',
+		border: 'none',
+		color: '#16c79a',
+	},
+
+	drawerContainer: {
+		overflow: 'auto',
+	},
 
 }));
 
 export default function ComponentName() {
-    const classes = useStyles();
+	const classes = useStyles();
 
-    return (
-        <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          <List>
-            {['Home', 'Today', 'Calendar'].map((text, index) => (
-              <ListItem button key={text} component={Link} to={`/${text}`}>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <br/>
-          <List>
-            {['Completed'].map((text, index) => (
-              <ListItem button key={text} component={Link} to={`/${text}`}>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <br/>
-          <List>
-            {['Profile', 'Settings'].map((text, index) => (
-              <ListItem button key={text} component={Link} to={`/${text}`}>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      </Drawer>
-    )
+	return (
+		<Drawer
+		className={classes.drawer}
+		variant="permanent"
+		classes={{
+			paper: classes.drawerPaper,
+		}}
+		>
+			<Toolbar />
+			<List className={classes.drawerContainer}>
+				{['Home', '', 'Today', 'Calendar', 'Completed', '', 'Profile', 'Settings'].map((text, index) => (
+				<ListItem button key={text} component={text != '' && Link} to={`/${text}`}>
+					<ListItemText primary={text} />
+				</ListItem>
+				))}
+			</List>
+		</Drawer>
+  )
 }

@@ -3,7 +3,7 @@ import { withStyles, makeStyles} from '@material-ui/core/styles';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import { Button, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
@@ -30,7 +30,6 @@ const StyledTableCell = withStyles((theme) => ({
 
 export default function TableHeader(props) {
     const classes = useStyles();
-    console.log(props.titleSortedAsc)
     return (
         <TableHead>
            <TableRow>

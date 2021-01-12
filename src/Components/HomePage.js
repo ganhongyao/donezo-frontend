@@ -6,7 +6,8 @@ import AddTodoForm from './AddTodoForm';
 import TodoContainer from './TodoContainer'
 import SearchBar from './SearchBar';
 import Greeting from './Greeting';
-import Drawer from './Drawer'
+import Drawer from './Drawer';
+import { sort } from './Helpers'
 
 const useStyles = (theme) => ({
 	root: {
@@ -35,40 +36,13 @@ const useStyles = (theme) => ({
         fontSize: '10px',
         backgroundColor: '#54e346',
     },
-
-	
 });
-
-function sortBy(arr, by, sortedAsc) {
-	const isAsc = sortedAsc % 2 == 1;
-	function compareTitle( a, b ) {
-		if ( a.title < b.title ){
-		  return isAsc ? 1 : -1;
-		}
-		if ( a.title > b.title ){
-		  return isAsc ? -1 : 1;
-		}
-		return 0;
-	}
-	function compareDate( a, b ) {
-		if ( a.duedate < b.duedate ){
-		  return isAsc ? 1 : -1;
-		}
-		if ( a.duedate > b.duedate ){
-		  return isAsc ? -1 : 1;
-		}
-		return 0;
-	}
-	let copy = arr.slice();
-	by == 'title' ? copy.sort(compareTitle) : copy.sort(compareDate)
-	return copy;
-}   
 
 class HomePage extends Component {
   	constructor(props) {
 		super(props);
 		this.state = {
-			todos: null,
+			todos: [],
 			newTitle: '',
 			newDueDate: '',
 			newTag: [],
@@ -77,7 +51,6 @@ class HomePage extends Component {
 			titleSortedAsc: 0,
 			dateSortedAsc: 0,
 			searchbar: '',
-			
 		}
 		
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -100,7 +73,6 @@ class HomePage extends Component {
 		.then(response => {
 			console.log(response)
 			this.setState({todos: response.data.filter(todo => !todo.completed)})
-
 		})
 		.catch(error => console.log(error));
 		axios.get("http://localhost:3001/api/v1/tags.json",
@@ -190,7 +162,6 @@ class HomePage extends Component {
 				this.setState({tags: tags})
 				})
 				.catch(error => console.log(error))
-			
 		})
 
 		axios.post(
@@ -218,14 +189,13 @@ class HomePage extends Component {
 	}
 
 	handleSortTitle() {
-
 		this.setState((prevState) => ({titleSortedAsc: prevState.titleSortedAsc + 1}))
-		this.setState({todos: sortBy(this.state.todos, 'title', this.state.titleSortedAsc)})
+		this.setState({todos: sort(this.state.todos, 'title', this.state.titleSortedAsc)})
 	}
 
 	handleSortDate() {
 		this.setState((prevState) => ({dateSortedAsc: prevState.dateSortedAsc + 1}))
-		this.setState({todos: sortBy(this.state.todos, 'date', this.state.dateSortedAsc)})
+		this.setState({todos: sort(this.state.todos, 'date', this.state.dateSortedAsc)})
 	}
 
 	render() {
@@ -238,13 +208,9 @@ class HomePage extends Component {
 		return (
 			this.state.todos && 
 			<div className={classes.root}>
-				
 				<Drawer />
-				
 				<Greeting user={this.props.user}/>
-
 				<div className={classes.container}>
-
 					<AddTodoForm 
 					addTask={this.handleSubmit} 
 					handleChange={this.handleChange} 
@@ -255,14 +221,11 @@ class HomePage extends Component {
 					tags={this.state.tags}
 					canSubmit={canSubmit}
 					/>
-				
 					<SearchBar handleChange={this.handleChange}/>
 				</div>
-				
 				<span className={classes.alert}>
 					You have <span style={{color: 'white'}}>{this.state.todos.length}</span> unfinished task{!isSingular && 's'}.
 				</span>
-				
 				<TodoContainer
 					user={this.props.user}
 					todos={searchResults}

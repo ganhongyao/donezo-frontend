@@ -1,13 +1,12 @@
 import React from 'react';
-import { makeStyles} from '@material-ui/core/styles';
-import { Button, Card, CardContent, Chip, withStyles } from '@material-ui/core';
+import { Button, Card, CardContent, Chip } from '@material-ui/core';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 export default function TodoCard(props) {
-    const classes = useStyles();
+    
     const handleComplete = () => {
         const todo = {completed: !props.todo.completed}
         axios.put(
@@ -26,6 +25,7 @@ export default function TodoCard(props) {
                 position: toast.POSITION.TOP_CENTER,
             })
     }
+
     return (
         <Card className={classes.card} variant="outlined">
             <CardHeader 

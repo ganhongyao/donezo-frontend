@@ -5,8 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TodoContainer from './TodoContainer';
 import SearchBar from './SearchBar';
 import Drawer from './Drawer'
-
-
+import { sort } from './Helpers'
 
 const useStyles = (theme) => ({
 	root: {
@@ -28,30 +27,7 @@ const useStyles = (theme) => ({
 	}
 });
 
-function sortBy(arr, by, sortedAsc) {
-	const isAsc = sortedAsc % 2 == 1;
-	function compareTitle( a, b ) {
-		if ( a.title < b.title ){
-		  return isAsc ? 1 : -1;
-		}
-		if ( a.title > b.title ){
-		  return isAsc ? -1 : 1;
-		}
-		return 0;
-	}
-	function compareDate( a, b ) {
-		if ( a.duedate < b.duedate ){
-		  return isAsc ? 1 : -1;
-		}
-		if ( a.duedate > b.duedate ){
-		  return isAsc ? -1 : 1;
-		}
-		return 0;
-	}
-	let copy = arr.slice();
-	by == 'title' ? copy.sort(compareTitle) : copy.sort(compareDate)
-	return copy;
-}   
+
 
 class CompletedPage extends Component {
     constructor(props) {
@@ -123,12 +99,12 @@ class CompletedPage extends Component {
     handleSortTitle() {
 
 		this.setState((prevState) => ({titleSortedAsc: prevState.titleSortedAsc + 1}))
-		this.setState({todos: sortBy(this.state.todos, 'title', this.state.titleSortedAsc)})
+		this.setState({todos: sort(this.state.todos, 'title', this.state.titleSortedAsc)})
 	}
 
 	handleSortDate() {
 		this.setState((prevState) => ({dateSortedAsc: prevState.dateSortedAsc + 1}))
-		this.setState({todos: sortBy(this.state.todos, 'date', this.state.dateSortedAsc)})
+		this.setState({todos: sort(this.state.todos, 'date', this.state.dateSortedAsc)})
 	}
 
     render() {
@@ -149,7 +125,6 @@ class CompletedPage extends Component {
                     <SearchBar handleChange={this.handleChange}/>
                 </div>
                 
-
                 <TodoContainer className={classes.root}
 					todos={searchResults}
 					tags={this.state.tags}
@@ -162,7 +137,6 @@ class CompletedPage extends Component {
                     dateSortedAsc={this.state.dateSortedAsc}
 					/>
             </div>
-            
         )
     }
 }

@@ -99,7 +99,7 @@ class App extends Component {
         <ToastContainer bodyClassName={classes.toast} />
         
         <Router>
-          <Header isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout}/>
+          <Header user={this.state.user} isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout}/>
           <Switch>
             <Route path="/" exact render={props => this.state.isLoggedIn ? <HomePage {...props} user={this.state.user}/> : <LoginPage {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn}/>}/>
             <Route path="/login" render={props => (<LoginPage {...props} handleLogin={this.handleLogin} />)}/>

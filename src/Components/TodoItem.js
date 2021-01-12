@@ -180,9 +180,7 @@ class TodoItem extends Component {
         var daysOverdue = Math.ceil((new Date() - new Date(duedate)) / (1000 * 24 * 3600))
         var daysClass = daysOverdue === 1 ? "greentext" : daysOverdue > 1 ? "redtext" : "cell"
 
-        var now = new Date();
-        var duedateobj = new Date(duedate);
-        var daysleft = Math.ceil((duedateobj - now) / (1000 * 3600 * 24))
+        var daysleft = Math.ceil((new Date(duedate) - new Date()) / (1000 * 3600 * 24))
         if (daysleft > 1) {
             daysleft = daysleft.toString() + " days left"
         } else if (daysleft === 1) {
@@ -220,12 +218,8 @@ class TodoItem extends Component {
                         <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon style={this.state.completed ? {fill:'green'} : {}}className={classes.actionicon}/></IconButton>
                     </Tooltip>
                 </TableCell>
-                
                 <ItemDialog handleClose={this.handleClose} open={this.state.open} todo={this.props.todo}/>
-                
             </TableRow>
-                
-            
         )
     }
 }

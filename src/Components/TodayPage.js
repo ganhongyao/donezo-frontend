@@ -77,20 +77,16 @@ class TodayPage extends Component {
             this.state.todos &&
             <div className={classes.root}>
                 <Drawer />
-    
                 <h1 style={{color: '#54e346'}}>
                         Today
                 </h1>
-
                 <div className={classes.cardcontainer}>
                     {outstanding.map(todo => 
                         <TodoCard todo={todo} key={todo.id} handleUpdate={this.handleUpdate}/>)}
                 </div>
-
                 <div style={{color: 'white'}}>
                     {outstanding.length === 0 && "You have no outstanding tasks due today."}
                 </div>
-
             </div>
         )
     }
