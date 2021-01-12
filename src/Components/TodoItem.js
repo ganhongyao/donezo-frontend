@@ -1,68 +1,43 @@
 import React, { Component } from 'react';
-import { makeStyles} from '@material-ui/core/styles';
-import { Button, Chip, IconButton, ListItem, TableCell, TableRow, withStyles, Tooltip } from '@material-ui/core';
+import { Chip, IconButton, TableCell, TableRow, withStyles, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import EditTodoForm from './EditTodoForm';
 import axios from 'axios';
 import ItemDialog from './ItemDialog'
-import { ToastContainer, toast } from 'react-toastify';
-import { formatDistanceToNow } from 'date-fns'
+import { toast } from 'react-toastify';
+import Avatar from '@material-ui/core/Avatar';
+import { AvatarGroup } from '@material-ui/lab';
 
 const useStyles = (theme) => ({
     root: {
         backgroundColor: 'rgba(255, 255, 255, 0.6)',  
-        lineHeight: '15px',
-        padding: '0px',
         paddingLeft: '15px',
-        height: '40px',
-        
-    },
-
-    cell: {
-        lineHeight: '15px',
-        padding: '0px',
-        paddingLeft: '15px',
-        height: '40px',
-        cursor: 'pointer'
-    },
-
-    greentext: {
-        lineHeight: '15px',
-        padding: '0px',
-        paddingLeft: '15px',
-        height: '40px',
         cursor: 'pointer',
-        color: '#017a3f'
+        height: '70px',
     },
 
-    redtext: {
-        lineHeight: '15px',
-        padding: '0px',
-        paddingLeft: '15px',
-        height: '40px',
-        cursor: 'pointer',
-        color: 'red'
-    },
-
-    actionscell: {
-        padding: '0px',
+    flexcell: {
         display: 'flex',
-        height: '40px',
-        alignItems: 'center',
-    },
-
-    actionicon: {
-        fill: 'black'
+        justifyContent: 'flex-start',
+        height: '70px',
+        alignItems: 'center'
     },
 
     chip: {
-        marginTop: '3px',
-        marginBottom: '3px',
         marginLeft: '3px',
         fontSize: '10px',
         backgroundColor: '#54e346',
     },
+
+    avatar: {
+        width: theme.spacing(4),
+        height: theme.spacing(4),
+    },
+
+    avatargroup: {
+        marginLeft: '5% '
+    }
 });
 
 class TodoItem extends Component {
@@ -178,7 +153,7 @@ class TodoItem extends Component {
         const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))
         const { duedate } = this.props.todo
         var daysOverdue = Math.ceil((new Date() - new Date(duedate)) / (1000 * 24 * 3600))
-        var daysClass = daysOverdue === 1 ? "greentext" : daysOverdue > 1 ? "redtext" : "cell"
+        var textstyle = daysOverdue === 1 ? {color: '#017a3f'} : daysOverdue > 1 ? {color: 'red'} : {}
 
         var daysleft = Math.ceil((new Date(duedate) - new Date()) / (1000 * 3600 * 24))
         if (daysleft > 1) {
@@ -193,14 +168,21 @@ class TodoItem extends Component {
 
         return (
             <TableRow className={classes.root}>
-                <TableCell className={classes.cell} onClick={this.handleCellClick}>{this.props.todo.title}</TableCell>
-                <TableCell className={classes[daysClass]} onClick={this.handleCellClick}>
+                <TableCell className={classes.flexcell} onClick={this.handleCellClick}>
+                    {this.props.todo.title}
+                    <AvatarGroup className={classes.avatargroup}>
+                        <Avatar className={classes.avatar}>T</Avatar>
+                        <Avatar className={classes.avatar}>U</Avatar>
+                        <Avatar className={classes.avatar}>D</Avatar>
+                    </AvatarGroup>
+                </TableCell>
+                <TableCell style={textstyle} onClick={this.handleCellClick} className={classes.cell}>
                     {duedate} 
                     <span style={{color: 'white'}}> &mdash; </span>
                     {daysleft}
                 </TableCell>
-                <TableCell className={classes.cell}>{chips}</TableCell>
-                <TableCell className={classes.actionscell} align='center'>
+                <TableCell onClick={this.handleCellClick} className={classes.cell}>{chips}</TableCell>
+                <TableCell className={classes.flexcell} align='center'>
                     <EditTodoForm 
                         todo={this.props.todo} 
                         handleChange={this.handleChange} 
@@ -212,10 +194,10 @@ class TodoItem extends Component {
                         tags={this.props.tags}
                     />
                     <Tooltip title="Delete" arrow>
-                        <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon className={classes.actionicon}/></IconButton>
+                        <IconButton aria-label="delete" onClick={this.handleDelete}><DeleteIcon style={{fill: 'black'}}/></IconButton>
                     </Tooltip>
                     <Tooltip title="Donezo!" arrow>
-                        <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon style={this.state.completed ? {fill:'green'} : {}}className={classes.actionicon}/></IconButton>
+                        <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon style={this.state.completed ? {fill:'green'} : {fill: 'black'}}/></IconButton>
                     </Tooltip>
                 </TableCell>
                 <ItemDialog handleClose={this.handleClose} open={this.state.open} todo={this.props.todo}/>
