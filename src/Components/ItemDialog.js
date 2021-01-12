@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { Button, Chip } from '@material-ui/core';
+import { Avatar, Button, Chip } from '@material-ui/core';
 import axios from 'axios';
 import { toast } from 'react-toastify'
 
@@ -29,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '3px',
         fontSize: '10px',
         backgroundColor: '#54e346',
+    },
+    
+    collab: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
     },
 
     actions: {
@@ -80,8 +86,11 @@ export default function ItemDialog(props) {
                 </div>
                 <div className={classes.field}>
                     <img src={process.env.PUBLIC_URL + '/tag.png'} className={classes.icon}/>
-                    {props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))
-}
+                    {props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))}
+                </div>
+                <div className={classes.field}>
+                    <img src={process.env.PUBLIC_URL + '/group.png'} className={classes.icon}/>
+                    {props.todo.collaborators && props.todo.collaborators.map(person => (<div className={classes.collab}><Avatar/> {person}</div>))}
                 </div>
                 
             </DialogContent>

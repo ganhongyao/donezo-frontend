@@ -1,11 +1,39 @@
 import React from 'react';
-import { Button, Card, CardContent, Chip } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, Button, Card, CardContent, Chip } from '@material-ui/core';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const useStyles = makeStyles((theme) => ({
+    chip: {
+        marginLeft: '3px',
+        fontSize: '10px',
+        backgroundColor: '#54e346',
+    },
+
+    collab: {
+        display: 'flex',
+        marginTop: '5%'
+    },
+
+    avatar: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+
+    donezo: {
+        margin: '0 auto',
+        '&:hover': {
+            backgroundColor: '#00a152',
+        },
+    }
+}));
+
 export default function TodoCard(props) {
+    const classes = useStyles();
     
     const handleComplete = () => {
         const todo = {completed: !props.todo.completed}
@@ -34,10 +62,13 @@ export default function TodoCard(props) {
                 />
             <CardContent>
                 {props.todo.description || '- No description -'}
+                <div className={classes.collab}>
+                    {props.todo.collaborators && props.todo.collaborators.map(person => (<div className={classes.avatar}><Avatar/> {person}</div>))}
+                </div>
             </CardContent>
             <CardActions>
                 <Button 
-                    className={classes.greenbutton} 
+                    className={classes.donezo} 
                     color="primary" 
                     variant="contained" 
                     onClick={handleComplete}

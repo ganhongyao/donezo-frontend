@@ -36,7 +36,8 @@ const useStyles = (theme) => ({
     },
 
     avatargroup: {
-        marginLeft: '5% '
+        marginLeft: '5% ',
+        borderStyle: 'none'
     }
 });
 
@@ -167,14 +168,14 @@ class TodoItem extends Component {
         }
 
         return (
+            
             <TableRow className={classes.root}>
                 <TableCell className={classes.flexcell} onClick={this.handleCellClick}>
                     {this.props.todo.title}
+                    {this.props.todo.collaborators && 
                     <AvatarGroup className={classes.avatargroup}>
-                        <Avatar className={classes.avatar}>T</Avatar>
-                        <Avatar className={classes.avatar}>U</Avatar>
-                        <Avatar className={classes.avatar}>D</Avatar>
-                    </AvatarGroup>
+                        {this.props.todo.collaborators.map(name => name.charAt(0)).map(person => <Avatar>{person}</Avatar>)}
+                    </AvatarGroup>}
                 </TableCell>
                 <TableCell style={textstyle} onClick={this.handleCellClick} className={classes.cell}>
                     {duedate} 

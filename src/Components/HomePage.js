@@ -57,6 +57,7 @@ class HomePage extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
 		this.handleTagChange = this.handleTagChange.bind(this);
+		this.handleCollaboratorsChange = this.handleCollaboratorsChange.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
 		this.handleSortTitle = this.handleSortTitle.bind(this);
@@ -126,6 +127,12 @@ class HomePage extends Component {
 		})
 	}
 
+	handleCollaboratorsChange(event, selected) {
+		this.setState({
+			collaborators: selected
+		})
+	}
+
 	handleUpdate(todo) {
 		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
     	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }})
@@ -173,7 +180,9 @@ class HomePage extends Component {
 				description: this.state.newDescription,
 				completed: false,
 				tags_list: this.state.newTag,
-				user_id: this.props.user.id
+				collaborators: this.state.collaborators,
+				user_id: this.props.user.id,
+				
 				}
 			})
 			.then(response => {
@@ -216,6 +225,7 @@ class HomePage extends Component {
 					handleChange={this.handleChange} 
 					handleDateChange={this.handleDateChange}
 					handleTagChange={this.handleTagChange}
+					handleCollaboratorsChange={this.handleCollaboratorsChange}
 					defaultDate={this.state.newDueDate} 
 					newTag={this.state.newTag}
 					tags={this.state.tags}
