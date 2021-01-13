@@ -70,7 +70,7 @@ class CalendarPage extends Component {
     getEventColor(event) {
         if (event.completed) {
             return {style: legend[2].style}
-        } else if (isPast(new Date(event.duedate))) {
+        } else if (Math.ceil((new Date() - new Date(event.duedate)) / (1000 * 24 * 3600)) > 1) {
             return {style: legend[1].style}
         } else {
             return {style: legend[0].style}
@@ -84,7 +84,6 @@ class CalendarPage extends Component {
         this.setState({todos: todos})
     }
     
-
     render() {
         const { classes } = this.props;
         const localizer = momentLocalizer(moment);
@@ -93,7 +92,6 @@ class CalendarPage extends Component {
             this.state.todos &&
             <div>
                 <Drawer/>
-
                 <Calendar
                 localizer={localizer}
                 events={this.state.todos}
@@ -104,11 +102,9 @@ class CalendarPage extends Component {
                 eventPropGetter={event => this.getEventColor(event)}
                 onSelectEvent={(event) => this.setState({openedId: event.id})}
                 />
-
                 <div className={classes.legend}>
                     {legend.map(item => <Chip label={item.status} style={item.style} />)}
                 </div>
-
                 {this.state.todos.map(todo => 
                     <ItemDialog 
                         todo={todo}
