@@ -50,6 +50,7 @@ class TodoItem extends Component {
             completed: this.props.todo.completed,
             description: this.props.todo.description,
             tags_list: this.props.todo.tags_list,
+            collaborators: this.props.todo.collaborators,
             open: false
         }
         this.handleDelete = this.handleDelete.bind(this);
@@ -57,6 +58,7 @@ class TodoItem extends Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleTagChange = this.handleTagChange.bind(this);
+        this.handleCollaboratorsChange = this.handleCollaboratorsChange.bind(this);
         this.handleComplete = this.handleComplete.bind(this);
         this.handleCellClick = this.handleCellClick.bind(this);
         this.handleClose = this.handleClose.bind(this)
@@ -86,7 +88,13 @@ class TodoItem extends Component {
     }
 
     handleEdit() {
-        const todo = {title: this.state.title, duedate: this.state.duedate, completed: this.state.completed, description: this.state.description, tags_list: this.state.tags_list}
+        const todo = {
+            title: this.state.title, 
+            duedate: this.state.duedate, 
+            completed: this.state.completed, 
+            description: this.state.description, 
+            tags_list: this.state.tags_list,
+            collaborators: this.state.collaborators}
         const tagsInDB = this.props.tags.map(object => object.name);
 		const TagsToAdd = this.state.tags_list.filter(item => !tagsInDB.includes(item));
 
@@ -137,6 +145,12 @@ class TodoItem extends Component {
     handleTagChange(event, selected) {
 		this.setState({
 			tags_list: selected
+		})
+    }
+
+    handleCollaboratorsChange(event, selected) {
+		this.setState({
+			collaborators: selected
 		})
     }
     
@@ -190,6 +204,7 @@ class TodoItem extends Component {
                         handleEdit={this.handleEdit} 
                         handleDateChange={this.handleDateChange} 
                         handleTagChange={this.handleTagChange}
+                        handleCollaboratorsChange={this.handleCollaboratorsChange}
                         defaultDate={this.state.duedate}
                         canEdit={canEdit}
                         tags={this.props.tags}

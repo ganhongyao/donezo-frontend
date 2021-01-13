@@ -7,15 +7,22 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+    },
+
     chip: {
         marginLeft: '3px',
         fontSize: '10px',
         backgroundColor: '#54e346',
+        flex: 2
     },
 
     collab: {
         display: 'flex',
-        marginTop: '5%'
+        marginTop: '5%',
     },
 
     avatar: {
@@ -24,11 +31,13 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center'
     },
 
-    donezo: {
+    donezo: {  
         margin: '0 auto',
         '&:hover': {
             backgroundColor: '#00a152',
         },
+        alignSelf: 'flex-end',
+        flex: '5'
     }
 }));
 
@@ -55,13 +64,13 @@ export default function TodoCard(props) {
     }
 
     return (
-        <Card className={classes.card} variant="outlined">
+        <Card className={classes.root} variant="outlined">
             <CardHeader 
                 title={props.todo.title}
                 subheader={props.todo.tags_list.map(tag => <Chip label={tag} size="small" className={classes.chip}/>)}
                 />
             <CardContent>
-                {props.todo.description || '- No description -'}
+                {props.todo.description}
                 <div className={classes.collab}>
                     {props.todo.collaborators && props.todo.collaborators.map(person => (<div className={classes.avatar}><Avatar/> {person}</div>))}
                 </div>
