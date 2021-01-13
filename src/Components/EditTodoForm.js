@@ -129,6 +129,7 @@ export default function EditTodoForm(props) {
               )}
               className={classes.autocomplete}
               onChange={props.handleCollaboratorsChange}
+              defaultValue={props.todo.collaborators}
             />
           </FormControl>
 
