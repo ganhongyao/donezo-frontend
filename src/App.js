@@ -17,8 +17,6 @@ import TodayPage from './Components/TodayPage';
 import CalendarPage from './Components/CalendarPage';
 import CompletedPage from "./Components/CompletedPage";
 import ProtectedRoute from './Components/ProtectedRoute'
-import ProfilePage from "./Components/ProfilePage";
-import SettingsPage from "./Components/SettingsPage";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -108,8 +106,6 @@ class App extends Component {
             <ProtectedRoute path="/today" component={TodayPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/>
             <ProtectedRoute path="/calendar" component={CalendarPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/>
             <ProtectedRoute path="/completed" component={CompletedPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
-            <ProtectedRoute path="/profile" component={ProfilePage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
-            <ProtectedRoute path="/settings" component={SettingsPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn}/> 
           </Switch>
         </Router>
         
