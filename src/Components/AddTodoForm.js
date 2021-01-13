@@ -103,7 +103,6 @@ export default function FormDialog(props) {
 							/>
 						</FormControl>
 						<TextField
-							autoFocus
 							margin="dense"
 							name="newDescription"
 							label="Description"

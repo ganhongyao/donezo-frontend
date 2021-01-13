@@ -114,6 +114,24 @@ export default function EditTodoForm(props) {
             defaultValue={props.todo.description}
           />
 
+          <FormControl>                 
+            <Autocomplete
+              multiple
+              options={[]}
+              freeSolo
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip variant="outlined" label={option} size="small" {...getTagProps({ index })} />
+                ))
+              }
+              renderInput={(params) => (
+                <TextField {...params} variant="filled" label="Who are you working on this with?" placeholder="Enter names" />
+              )}
+              className={classes.autocomplete}
+              onChange={props.handleCollaboratorsChange}
+            />
+          </FormControl>
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
