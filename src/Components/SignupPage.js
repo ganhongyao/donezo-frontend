@@ -71,7 +71,7 @@ export default function SignupPage(props) {
             setErrors("Your password is too short. Please choose another password.")
             return
         }
-        axios.post("https://cors-anywhere.herokuapp.com/https://donezo-api.herokuapp.com/api/v1/users",
+        axios.post("https://donezo-api.herokuapp.com/api/v1/users",
             {   
                 user: {
                     name: name,
