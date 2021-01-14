@@ -164,7 +164,7 @@ class TodoItem extends Component {
     
     render() {
         const { classes } = this.props;
-        var canEdit = this.state.title.length > 0;
+        var canEdit = this.state.title !== null && this.state.title.length > 0;
         const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))
         const { duedate } = this.props.todo
         var daysOverdue = Math.ceil((new Date() - new Date(duedate)) / (1000 * 24 * 3600))
