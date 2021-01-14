@@ -102,7 +102,7 @@ class App extends Component {
     return ( !this.state.isLoading &&
       <div className={classes.root}>
         <ToastContainer bodyClassName={classes.toast} />
-        <Backdrop className={classes.backdrop} open={this.state.isLoading} onClick={handleClose}>
+        <Backdrop className={classes.backdrop} open={this.state.isLoading}>
           <CircularProgress color="inherit" />
         </Backdrop>
         
