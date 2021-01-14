@@ -47,7 +47,7 @@ export default function TodoCard(props) {
     const handleComplete = () => {
         const todo = {completed: !props.todo.completed}
         axios.put(
-            `http://localhost:3001/api/v1/todos/${props.todo.id}`,
+            `https://donezo-api.herokuapp.com/api/v1/todos/${props.todo.id}`,
             {todo: todo}
         )
         .then(response => {

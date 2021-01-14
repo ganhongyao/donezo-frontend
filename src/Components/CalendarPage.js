@@ -52,7 +52,7 @@ class CalendarPage extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3001/api/v1/todos.json',
+        axios.get('https://donezo-api.herokuapp.com/api/v1/todos.json',
 		{
 			params: {
 				user_id: this.props.user.id

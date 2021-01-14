@@ -71,7 +71,7 @@ class TodoItem extends Component {
     handleComplete() {
         const todo = {title: this.state.title, duedate: this.state.duedate, completed: !this.state.completed}
         axios.put(
-        `http://localhost:3001/api/v1/todos/${this.props.todo.id}`,
+        `https://donezo-api.herokuapp.com/api/v1/todos/${this.props.todo.id}`,
         {todo: todo}
         )
         .then(response => {
@@ -100,7 +100,7 @@ class TodoItem extends Component {
 
 		TagsToAdd.forEach(ele => 	{
 			axios.post(
-				'http://localhost:3001/api/v1/tags',
+				'https://donezo-api.herokuapp.com/api/v1/tags',
 				{ tag:
 					{
                         name: ele,
@@ -115,7 +115,7 @@ class TodoItem extends Component {
 			
 		})
         axios.put(
-        `http://localhost:3001/api/v1/todos/${this.props.todo.id}`,
+        `https://donezo-api.herokuapp.com/api/v1/todos/${this.props.todo.id}`,
         {todo: todo}
         )
         .then(response => {
