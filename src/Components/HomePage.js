@@ -47,6 +47,7 @@ class HomePage extends Component {
 			newDueDate: '',
 			newTag: [],
 			newDescription: '',
+			collaborators: [],
 			tags: [],
 			titleSortedAsc: 0,
 			dateSortedAsc: 0,
