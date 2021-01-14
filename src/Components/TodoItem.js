@@ -164,7 +164,6 @@ class TodoItem extends Component {
     
     render() {
         const { classes } = this.props;
-        var canEdit = this.state.title && this.state.title.length > 0;
         const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))
         const { duedate } = this.props.todo
         var daysOverdue = Math.ceil((new Date() - new Date(duedate)) / (1000 * 24 * 3600))
@@ -206,7 +205,6 @@ class TodoItem extends Component {
                         handleTagChange={this.handleTagChange}
                         handleCollaboratorsChange={this.handleCollaboratorsChange}
                         defaultDate={this.state.duedate}
-                        canEdit={canEdit}
                         tags={this.props.tags}
                     />
                     <Tooltip title="Delete" arrow>
