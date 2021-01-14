@@ -90,9 +90,9 @@ class App extends Component {
   }
 
   handleLoading() {
-    this.setState(prevState => {
+    this.setState((prevState) => ({
       isLoading: !prevState.isLoading
-    })
+    }))
   }
 
   render() {
