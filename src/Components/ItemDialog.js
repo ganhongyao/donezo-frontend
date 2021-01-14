@@ -56,7 +56,7 @@ export default function ItemDialog(props) {
     const handleComplete = () => {
         const todo = {completed: !props.todo.completed}
             axios.put(
-            `https://donezo-api.herokuapp.com/api/v1/todos/${props.todo.id}`,
+            `https://cors-anywhere.herokuapp.com/https://donezo-api.herokuapp.com/api/v1/todos/${props.todo.id}`,
             {todo: todo}
             )
             .then(response => {

@@ -67,7 +67,7 @@ class LoginPage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        axios.post("https://donezo-api.herokuapp.com/api/v1/tokens",
+        axios.post("https://cors-anywhere.herokuapp.com/https://donezo-api.herokuapp.com/api/v1/tokens",
         {   
             
                 

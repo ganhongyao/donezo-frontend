@@ -65,7 +65,7 @@ class HomePage extends Component {
 	}
 
 	componentDidMount() {
-		axios.get('https://donezo-api.herokuapp.com/api/v1/todos.json',
+		axios.get('https://cors-anywhere.herokuapp.com/https://donezo-api.herokuapp.com/api/v1/todos.json',
 		{
 			params: {
 				user_id: this.props.user.id
@@ -76,7 +76,7 @@ class HomePage extends Component {
 			this.setState({todos: response.data.filter(todo => !todo.completed)})
 		})
 		.catch(error => console.log(error));
-		axios.get("https://donezo-api.herokuapp.com/api/v1/tags.json",
+		axios.get("https://cors-anywhere.herokuapp.com/https://donezo-api.herokuapp.com/api/v1/tags.json",
 		{
 			params: {
 				user_id: this.props.user.id
@@ -90,7 +90,7 @@ class HomePage extends Component {
 
 
 	handleDelete(id) {
-		axios.delete(`https://donezo-api.herokuapp.com/api/v1/todos/${id}`)
+		axios.delete(`https://cors-anywhere.herokuapp.com/https://donezo-api.herokuapp.com/api/v1/todos/${id}`)
 		.then(response => {
 			const todoIndex = this.state.todos.findIndex(x => x.id === id)
 			const todos = update(this.state.todos, { $splice: [[todoIndex, 1]]})
@@ -153,7 +153,7 @@ class HomePage extends Component {
 
 		TagsToAdd.forEach(ele => {
 			axios.post(
-				'https://donezo-api.herokuapp.com/api/v1/tags',
+				'https://cors-anywhere.herokuapp.com/https://donezo-api.herokuapp.com/api/v1/tags',
 				{ tag:
 					{
 						name: ele,
@@ -172,7 +172,7 @@ class HomePage extends Component {
 		})
 
 		axios.post(
-			'https://donezo-api.herokuapp.com/api/v1/todos',
+			'https://cors-anywhere.herokuapp.com/https://donezo-api.herokuapp.com/api/v1/todos',
 			{ todo:
 				{
 				title: this.state.newTitle,
