@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles, makeStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,13 +8,6 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
-
-
-const useStyles = makeStyles((theme) => ({
-    sortButton: {
-        fill: 'white',
-    }
-}));
 
 const StyledTableCell = withStyles((theme) => ({
 	head: {
@@ -29,7 +22,6 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 export default function TableHeader(props) {
-    const classes = useStyles();
     return (
         <TableHead>
            <TableRow>
@@ -38,7 +30,7 @@ export default function TableHeader(props) {
                     <IconButton aria-label="sortTitle" onClick={props.handleSortTitle} >
                         {props.titleSortedAsc === 0
                             ? <SortByAlphaIcon style={{fill: 'white'}}/>
-                            : props.titleSortedAsc % 2 == 0 
+                            : props.titleSortedAsc % 2 === 0 
                                 ? <ArrowDropDownIcon style={{fill: 'white'}}/>
                                 : <ArrowDropUpIcon style={{fill: 'white'}}/>}
                     </IconButton>
@@ -48,7 +40,7 @@ export default function TableHeader(props) {
                     <IconButton aria-label="sortDate" onClick={props.handleSortDate} >
                         {props.dateSortedAsc === 0
                             ? <ImportExportIcon style={{fill: 'white'}}/>
-                            : props.dateSortedAsc % 2 == 0 
+                            : props.dateSortedAsc % 2 === 0 
                                 ? <ArrowDropDownIcon style={{fill: 'white'}}/>
                                 : <ArrowDropUpIcon style={{fill: 'white'}}/>}
                     </IconButton>

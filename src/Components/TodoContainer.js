@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import axios from 'axios'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import TableHead from '@material-ui/core/TableHead';
 import TodoItem from './TodoItem';
 import TableHeader from './TableHeader'
 

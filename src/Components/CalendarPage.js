@@ -8,7 +8,6 @@ import moment from 'moment';
 import axios from 'axios';
 import update from 'immutability-helper'
 import ItemDialog from './ItemDialog';
-import { isPast } from 'date-fns';
 
 const useStyles = (theme) => ({
     calendar: {

@@ -1,17 +1,13 @@
-import React, { useState, Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline, withStyles } from '@material-ui/core';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  Redirect
 } from "react-router-dom";
 import LoginPage from './Components/LoginPage';
 import SignupPage from './Components/SignupPage';
 import Header from "./Components/Header";
-import AddTodoForm from "./Components/AddTodoForm";
 import HomePage from "./Components/HomePage";
 import TodayPage from './Components/TodayPage';
 import CalendarPage from './Components/CalendarPage';
@@ -59,7 +55,6 @@ class App extends Component {
 
   componentDidMount() {
     const loggedinUser = localStorage.getItem('user');
-    console.log("mounted", loggedinUser)
     if (loggedinUser) {
       const foundUser = JSON.parse(loggedinUser)
       this.setState({user: foundUser})
@@ -90,7 +85,6 @@ class App extends Component {
   render() {
 
     const { classes } = this.props;   
-    console.log(this.state.user.id)
     
     return ( !this.state.isLoading &&
       <div className={classes.root}>

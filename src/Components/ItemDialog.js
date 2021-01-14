@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Avatar, Button, Chip } from '@material-ui/core';
 import axios from 'axios';
@@ -77,19 +76,19 @@ export default function ItemDialog(props) {
             <DialogTitle id="createform">{props.todo.title}</DialogTitle>
             <DialogContent>
                 <div className={classes.field}>
-                    <img src={process.env.PUBLIC_URL + '/calendar.png'} className={classes.icon}/>
+                    <img src={process.env.PUBLIC_URL + '/calendar.png'} alt='calendar' className={classes.icon}/>
                     {props.todo.duedate} {" "} 
                 </div>
                 <div className={classes.field}>
-                    <img src={process.env.PUBLIC_URL + '/description.png'} className={classes.icon}/>
+                    <img src={process.env.PUBLIC_URL + '/description.png'} alt='description' className={classes.icon}/>
                     {props.todo.description || " - No description - "}
                 </div>
                 <div className={classes.field}>
-                    <img src={process.env.PUBLIC_URL + '/tag.png'} className={classes.icon}/>
+                    <img src={process.env.PUBLIC_URL + '/tag.png'} alt='tag' className={classes.icon}/>
                     {props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))}
                 </div>
                 <div className={classes.field}>
-                    <img src={process.env.PUBLIC_URL + '/group.png'} className={classes.icon}/>
+                    <img src={process.env.PUBLIC_URL + '/group.png'} alt='group' className={classes.icon}/>
                     {props.todo.collaborators && props.todo.collaborators.map(person => (<div className={classes.collab}><Avatar/> {person}</div>))}
                 </div>
                 

@@ -64,7 +64,7 @@ export default function SignupPage(props) {
     const handleSubmit = event => {
         event.preventDefault();
         const { name, email, password, password_confirmation } = state;
-        if (password != password_confirmation) {
+        if (password !== password_confirmation) {
             setErrors("Passwords do not match. Please re-type your passwords.")
             return
         } else if (password.length < 6) {

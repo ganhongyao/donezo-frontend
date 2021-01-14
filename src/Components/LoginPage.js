@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import { makeStyles} from '@material-ui/core/styles';
-import { Avatar, Button, Checkbox, CssBaseline, FormControlLabel, Grid, TextField, withStyles } from '@material-ui/core';
+import { Avatar, Button, CssBaseline, TextField, withStyles } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Link } from 'react-router-dom';
 
@@ -67,7 +66,6 @@ class LoginPage extends Component {
     }
 
     handleSubmit(event) {
-        const { email, password } = this.state;
         event.preventDefault();
         axios.post("http://localhost:3001/api/v1/tokens",
         {   
