@@ -48,6 +48,7 @@ class CompletedPage extends Component {
     }
 
     componentDidMount() {
+		this.props.handleLoading();
         axios.get('https://donezo-api.herokuapp.com/api/v1/todos.json',
 		{
 			params: {
@@ -65,6 +66,7 @@ class CompletedPage extends Component {
 			console.log(response)
 			this.setState({tags: response.data})
 		})
+		this.props.handleLoading();
     }
 
     handleChange(event) {

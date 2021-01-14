@@ -48,6 +48,7 @@ class TodayPage extends Component {
     }
 
     componentDidMount() {
+        this.props.handleLoading();
         axios.get('https://donezo-api.herokuapp.com/api/v1/todos.json',
 		{
 			params: {
@@ -59,7 +60,8 @@ class TodayPage extends Component {
 			this.setState({todos: response.data.filter(todo => todo.duedate === format(new Date(), "yyyy-MM-dd"))})
 
 		})
-		.catch(error => console.log(error));
+        .catch(error => console.log(error));
+        this.props.handleLoading();
     }
 
     handleUpdate(todo) {

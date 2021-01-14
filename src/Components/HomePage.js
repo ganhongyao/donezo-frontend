@@ -65,6 +65,7 @@ class HomePage extends Component {
 	}
 
 	componentDidMount() {
+		this.props.handleLoading();
 		axios.get('https://donezo-api.herokuapp.com/api/v1/todos.json',
 		{
 			params: {
@@ -86,6 +87,7 @@ class HomePage extends Component {
 			console.log(response)
 			this.setState({tags: response.data})
 		})
+		this.props.handleLoading();
 	}
 
 

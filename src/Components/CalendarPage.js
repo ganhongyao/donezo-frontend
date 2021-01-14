@@ -52,6 +52,7 @@ class CalendarPage extends Component {
     }
 
     componentDidMount() {
+        this.props.handleLoading();
         axios.get('https://donezo-api.herokuapp.com/api/v1/todos.json',
 		{
 			params: {
@@ -63,7 +64,8 @@ class CalendarPage extends Component {
 			this.setState({todos: response.data})
 
 		})
-		.catch(error => console.log(error));
+        .catch(error => console.log(error));
+        this.props.handleLoading();
     }
 
     getEventColor(event) {
