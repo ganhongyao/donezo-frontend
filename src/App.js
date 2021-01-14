@@ -110,7 +110,7 @@ class App extends Component {
           <Header user={this.state.user} isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout}/>
           <Switch>
             <Route path="/" exact render={props => this.state.isLoggedIn 
-              ? <HomePage {...props} user={this.state.user}/> 
+              ? <HomePage {...props} user={this.state.user} handleLoading={this.handleLoading}/> 
               : <LoginPage {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn} handleLoading={this.handleLoading}/>}/>
             <Route path="/login" render={props => (<LoginPage {...props} handleLogin={this.handleLogin} />)}/>
             <Route path="/signup" render={props => (<SignupPage {...props} handleLogin={this.handleLogin} />)}/>
