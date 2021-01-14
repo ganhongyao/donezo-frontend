@@ -100,7 +100,7 @@ class TodoItem extends Component {
 
 		TagsToAdd.forEach(ele => 	{
 			axios.post(
-				'https://cors-anywhere.herokuapp.com/https://donezo-api.herokuapp.com/api/v1/tags',
+				'https://donezo-api.herokuapp.com/api/v1/tags',
 				{ tag:
 					{
                         name: ele,
@@ -115,7 +115,7 @@ class TodoItem extends Component {
 			
 		})
         axios.put(
-        `https://cors-anywhere.herokuapp.com/https://donezo-api.herokuapp.com/api/v1/todos/${this.props.todo.id}`,
+        `https://donezo-api.herokuapp.com/api/v1/todos/${this.props.todo.id}`,
         {todo: todo}
         )
         .then(response => {
