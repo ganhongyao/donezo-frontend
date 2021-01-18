@@ -61,11 +61,12 @@ class CalendarPage extends Component {
 		})
 		.then(response => {
 			console.log(response)
-			this.setState({todos: response.data})
+            this.setState({todos: response.data})
+            this.props.handleLoading();
 
 		})
         .catch(error => console.log(error));
-        this.props.handleLoading();
+        
     }
 
     getEventColor(event) {

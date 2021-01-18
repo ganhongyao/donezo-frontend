@@ -58,10 +58,9 @@ class TodayPage extends Component {
 		.then(response => {
 			console.log(response)
 			this.setState({todos: response.data.filter(todo => todo.duedate === format(new Date(), "yyyy-MM-dd"))})
-
+            this.props.handleLoading();
 		})
         .catch(error => console.log(error));
-        this.props.handleLoading();
     }
 
     handleUpdate(todo) {

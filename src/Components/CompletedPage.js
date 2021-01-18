@@ -58,7 +58,7 @@ class CompletedPage extends Component {
 		.then(response => {
 			console.log(response)
 			this.setState({todos: response.data.filter(todo => todo.completed)})
-
+			this.props.handleLoading();
 		})
 		.catch(error => console.log(error));
 		axios.get("https://donezo-api.herokuapp.com/api/v1/tags.json")
@@ -66,7 +66,7 @@ class CompletedPage extends Component {
 			console.log(response)
 			this.setState({tags: response.data})
 		})
-		this.props.handleLoading();
+		
     }
 
     handleChange(event) {
