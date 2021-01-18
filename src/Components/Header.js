@@ -3,6 +3,7 @@ import { makeStyles} from '@material-ui/core/styles';
 import { AppBar, Button, Toolbar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -51,6 +52,10 @@ const useStyles = makeStyles((theme) => ({
 
     name: {
         marginRight: '1%'
+    },
+
+    icon: {
+        marginRight: '5%'
     }
 
 }));
@@ -62,7 +67,10 @@ export default function Header(props) {
     var loggedInActions = (
         <div> 
             <Link to='/login' className={classes.link}>
-                <Button className={classes.loginbutton} onClick={props.handleLogout} variant="outlined">Log Out</Button>
+                <Button className={classes.loginbutton} onClick={props.handleLogout} variant="outlined">
+                    <ExitToAppIcon className={classes.icon}/> 
+                    LogOut
+                </Button>
             </Link>
         </div>
     );
