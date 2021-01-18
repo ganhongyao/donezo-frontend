@@ -54,7 +54,8 @@ class App extends Component {
       isLoggedIn: false,
       user: {},
       token: '',
-      isLoading: false
+      isLoading: true,
+      backdrop: false
     }
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
@@ -62,14 +63,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.handleLoading();
     const loggedinUser = localStorage.getItem('user');
     if (loggedinUser) {
       const foundUser = JSON.parse(loggedinUser)
       this.setState({user: foundUser})
       this.setState({isLoggedIn: true})
     }
-    this.handleLoading();
+    this.setState({isLoading: false})
   }
 
   handleLogin(data) {
@@ -90,19 +90,20 @@ class App extends Component {
   }
 
   handleLoading() {
-    this.setState((prevState) => ({
-      isLoading: !prevState.isLoading
+    this.setState(prevstate => ({
+      backdrop: !prevstate.backdrop
     }))
   }
 
   render() {
 
     const { classes } = this.props;   
+    console.log("app load", this.state.isLoading)
     
     return ( !this.state.isLoading &&
       <div className={classes.root}>
         <ToastContainer bodyClassName={classes.toast} />
-        <Backdrop className={classes.backdrop} open={this.state.isLoading}>
+        <Backdrop className={classes.backdrop} open={this.state.backdrop}>
           <CircularProgress color="inherit" />
         </Backdrop>
         
