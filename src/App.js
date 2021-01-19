@@ -96,10 +96,7 @@ class App extends Component {
   }
 
   render() {
-
-    const { classes } = this.props;   
-    console.log("app load", this.state.isLoading)
-    
+    const { classes } = this.props;       
     return ( !this.state.isLoading &&
       <div className={classes.root}>
         <ToastContainer bodyClassName={classes.toast} />

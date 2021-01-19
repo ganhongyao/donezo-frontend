@@ -6,7 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Avatar, Button, Chip } from '@material-ui/core';
 import axios from 'axios';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import ZenMode from './ZenMode';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -91,7 +92,6 @@ export default function ItemDialog(props) {
                     <img src={process.env.PUBLIC_URL + '/group.png'} alt='group' className={classes.icon}/>
                     {props.todo.collaborators && props.todo.collaborators.map(person => (<div className={classes.collab}><Avatar/> {person}</div>))}
                 </div>
-                
             </DialogContent>
             <DialogActions className={classes.actions}>
                 <Button onClick={handleComplete} color="primary" variant="contained" className={classes.donezo}>
@@ -100,7 +100,6 @@ export default function ItemDialog(props) {
                 <Button onClick={props.handleClose} color="primary" >
                     Close
                 </Button>
-                
             </DialogActions>
         </Dialog>
     )
