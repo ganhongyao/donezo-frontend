@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Countdown from 'react-countdown';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Zoom } from '@material-ui/core';
 import RandomQuote from './RandomQuote';
