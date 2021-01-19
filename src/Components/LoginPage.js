@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import { Avatar, Button, CssBaseline, TextField, withStyles } from '@material-ui/core';
+import { Avatar, Button, CssBaseline, TextField } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Link } from 'react-router-dom';
 

@@ -7,7 +7,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Avatar, Button, Chip } from '@material-ui/core';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import ZenMode from './ZenMode';
 
 const useStyles = makeStyles((theme) => ({
     field: {

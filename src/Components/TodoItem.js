@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Chip, IconButton, TableCell, TableRow, withStyles, Tooltip, Dialog, Backdrop } from '@material-ui/core';
+import { Chip, IconButton, TableCell, TableRow, withStyles, Tooltip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
