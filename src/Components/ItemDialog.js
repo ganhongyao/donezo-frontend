@@ -86,11 +86,11 @@ export default function ItemDialog(props) {
                 </div>
                 <div className={classes.field}>
                     <img src={process.env.PUBLIC_URL + '/tag.png'} alt='tag' className={classes.icon}/>
-                    {props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))}
+                    {props.todo.tags_list.map(tag => (<Chip label={tag} key={tag} size="small" className={classes.chip}/>))}
                 </div>
                 <div className={classes.field}>
                     <img src={process.env.PUBLIC_URL + '/group.png'} alt='group' className={classes.icon}/>
-                    {props.todo.collaborators && props.todo.collaborators.map(person => (<div className={classes.collab}><Avatar/> {person}</div>))}
+                    {props.todo.collaborators && props.todo.collaborators.map(person => (<div className={classes.collab} key={person}><Avatar/> {person}</div>))}
                 </div>
             </DialogContent>
             <DialogActions className={classes.actions}>

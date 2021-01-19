@@ -105,10 +105,11 @@ class CalendarPage extends Component {
                 onSelectEvent={(event) => this.setState({openedId: event.id})}
                 />
                 <div className={classes.legend}>
-                    {legend.map(item => <Chip label={item.status} style={item.style} />)}
+                    {legend.map(item => <Chip key={item.status} label={item.status} style={item.style} />)}
                 </div>
                 {this.state.todos.map(todo => 
                     <ItemDialog 
+                        key={todo.id}
                         todo={todo}
                         handleClose={() => this.setState({openedId: 0})} 
                         handleUpdate={this.handleUpdate}

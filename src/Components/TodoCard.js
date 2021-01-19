@@ -75,12 +75,12 @@ export default function TodoCard(props) {
         <Card className={classes.root} variant="outlined">
             <CardHeader 
                 title={props.todo.title}
-                subheader={props.todo.tags_list.map(tag => <Chip label={tag} size="small" className={classes.chip}/>)}
+                subheader={props.todo.tags_list.map(tag => <Chip key={tag} label={tag} size="small" className={classes.chip}/>)}
                 />
             <CardContent>
                 {props.todo.description}
                 <div className={classes.collab}>
-                    {props.todo.collaborators && props.todo.collaborators.map(person => (<div className={classes.avatar}><Avatar/> {person}</div>))}
+                    {props.todo.collaborators && props.todo.collaborators.map(person => (<div key={person} className={classes.avatar}><Avatar/> {person}</div>))}
                 </div>
                 <ZenMode zenOpen={zenOpen} handleZen={handleZen} handleComplete={handleComplete}/>
             </CardContent>

@@ -82,7 +82,6 @@ export default function ZenMode(props) {
 							label="Hours"
 							variant="outlined"
                             onChange={handleChange}
-                            defaultValue={0}
                             value={state.hours}
                             InputProps={{
                                 inputProps: { 
@@ -97,7 +96,6 @@ export default function ZenMode(props) {
 							label="Minutes"
 							variant="outlined"
                             onChange={handleChange}
-                            defaultValue={0}
                             value={state.minutes}
                             InputProps={{
                                 inputProps: { 
@@ -112,7 +110,6 @@ export default function ZenMode(props) {
 							label="Seconds"
 							variant="outlined"
                             onChange={handleChange}
-                            defaultValue={0}
                             value={state.seconds}
                             InputProps={{
                                 inputProps: { 

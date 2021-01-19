@@ -167,7 +167,7 @@ class TodoItem extends Component {
     
     render() {
         const { classes } = this.props;
-        const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip label={tag} size="small" className={classes.chip}/>))
+        const chips = this.props.todo.tags_list == null ? '' : this.props.todo.tags_list.map(tag => (<Chip label={tag} key={tag} size="small" className={classes.chip}/>))
         const { duedate } = this.props.todo
         var daysOverdue = Math.ceil((new Date() - new Date(duedate)) / (1000 * 24 * 3600))
         var textstyle = daysOverdue === 1 ? {color: '#017a3f'} : daysOverdue > 1 ? {color: 'red'} : {}
@@ -189,7 +189,7 @@ class TodoItem extends Component {
                     {this.props.todo.title}
                     {this.props.todo.collaborators && 
                     <AvatarGroup className={classes.avatargroup}>
-                        {this.props.todo.collaborators.map(name => name.charAt(0).toUpperCase()).map(person => <Avatar>{person}</Avatar>)}
+                        {this.props.todo.collaborators.map(name => name.charAt(0).toUpperCase()).map(person => <Avatar key={person}>{person}</Avatar>)}
                     </AvatarGroup>}
                 </TableCell>
                 <TableCell style={textstyle} onClick={this.handleCellClick} className={classes.cell}>
