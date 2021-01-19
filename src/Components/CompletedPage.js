@@ -27,8 +27,6 @@ const useStyles = (theme) => ({
 	}
 });
 
-
-
 class CompletedPage extends Component {
     constructor(props) {
         super(props);
@@ -66,7 +64,6 @@ class CompletedPage extends Component {
 			console.log(response)
 			this.setState({tags: response.data})
 		})
-		
     }
 
     handleChange(event) {
@@ -79,7 +76,6 @@ class CompletedPage extends Component {
                 [event.target.name]: event.target.value
             });
         }
-		
 	}
     
     handleDelete(id) {
@@ -118,15 +114,12 @@ class CompletedPage extends Component {
             this.state.todos &&
             <div className={classes.root}>
                 <Drawer />
-
 				<h1 style={{color: '#54e346'}}>
 					Completed
 				</h1>
-
                 <div className={classes.container}>
                     <SearchBar handleChange={this.handleChange}/>
                 </div>
-                
                 <TodoContainer className={classes.root}
 					todos={searchResults}
 					tags={this.state.tags}

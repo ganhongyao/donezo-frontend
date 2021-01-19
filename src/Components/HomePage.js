@@ -35,7 +35,7 @@ const useStyles = (theme) => ({
         marginLeft: '3px',
         fontSize: '10px',
         backgroundColor: '#54e346',
-    },
+    }
 });
 
 class HomePage extends Component {
@@ -90,7 +90,6 @@ class HomePage extends Component {
 			this.setState({tags: response.data})
 		})
 	}
-
 
 	handleDelete(id) {
 		axios.delete(`https://donezo-api.herokuapp.com/api/v1/todos/${id}`)

@@ -7,21 +7,21 @@ const useStyles = makeStyles((theme) => ({
         width: '50%',
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
         marginLeft: '1%'
-    },
+    }
 }));
 
 export default function SearchBar(props) {
     const classes = useStyles();
 
     return (
-            <TextField className={classes.root}
-                margin="dense"
-                name="searchbar"
-                label="Search by task title or tags..."
-                fullWidth
-                variant="filled"
-                onChange={props.handleChange}
-                
-			/>
+        <TextField className={classes.root}
+            margin="dense"
+            name="searchbar"
+            label="Search by task title or tags..."
+            fullWidth
+            variant="filled"
+            onChange={props.handleChange}
+            
+        />
     )
 }

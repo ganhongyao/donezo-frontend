@@ -6,7 +6,6 @@ import { format } from 'date-fns';
 import TodoCard from './TodoCard';
 import update from 'immutability-helper'
 
-
 const useStyles = (theme) => ({
     root: {
 		marginTop: '5%',
@@ -35,7 +34,7 @@ const useStyles = (theme) => ({
             backgroundColor: '#00a152',
         },
         margin: '0 auto'
-    },
+    }
 });
 
 class TodayPage extends Component {

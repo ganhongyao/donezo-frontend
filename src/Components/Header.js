@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         marginRight: '5%'
     }
-
 }));
 
 export default function Header(props) {

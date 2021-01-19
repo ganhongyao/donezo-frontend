@@ -10,9 +10,6 @@ import { toast } from 'react-toastify';
 import ZenMode from './ZenMode';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-    },
-
     field: {
         display: 'flex',
         alignItems: 'center',
@@ -45,11 +42,9 @@ const useStyles = makeStyles((theme) => ({
     donezo: {
         '&:hover': {
             backgroundColor: '#00a152',
-        },
+        }
     }
 }));
-
-
 
 export default function ItemDialog(props) {
     const classes = useStyles();

@@ -30,13 +30,12 @@ const useStyles = makeStyles((theme) => ({
 
 	autocomplete: {
 		width: '300px'
-	},
+	}
 }));
 
 
 export default function FormDialog(props) {
 	const classes = useStyles();
-
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -54,7 +53,6 @@ export default function FormDialog(props) {
 					<AddCircleIcon />
 				</IconButton>
 			</Tooltip>
-			
 			<Dialog open={open} onClose={handleClose} aria-labelledby="createform" maxWidth="xs" scroll={'body'}>
 				<form onSubmit={props.addTask}>  
 					<DialogTitle id="createform">Create new task</DialogTitle>

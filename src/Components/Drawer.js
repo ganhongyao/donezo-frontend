@@ -21,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 	drawerContainer: {
 		overflow: 'auto',
-	},
-
+	}
 }));
 
 export default function ComponentName() {
@@ -30,11 +29,10 @@ export default function ComponentName() {
 
 	return (
 		<Drawer
-		className={classes.drawer}
-		variant="permanent"
-		classes={{
-			paper: classes.drawerPaper,
-		}}
+			className={classes.drawer}
+			variant="permanent"
+			classes={{
+				paper: classes.drawerPaper,}}
 		>
 			<Toolbar />
 			<List className={classes.drawerContainer}>

@@ -52,7 +52,6 @@ export default function SignupPage(props) {
         password: "",
         password_confirmation: ""
     })
-
     const [registrationErrors, setErrors] = useState("");
 
     const handleChange = event => {

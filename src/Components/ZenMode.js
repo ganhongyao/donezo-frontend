@@ -76,46 +76,46 @@ export default function ZenMode(props) {
                             </Countdown>
                         : <form onSubmit={handleSubmit}>
                             <TextField
-                            name="hours"
-                            type="number"
-							margin="dense"
-							label="Hours"
-							variant="outlined"
-                            onChange={handleChange}
-                            value={state.hours}
-                            InputProps={{
-                                inputProps: { 
-                                    min: 0, max: 24
-                                }
-                            }}
+                                name="hours"
+                                type="number"
+                                margin="dense"
+                                label="Hours"
+                                variant="outlined"
+                                onChange={handleChange}
+                                value={state.hours}
+                                InputProps={{
+                                    inputProps: { 
+                                        min: 0, max: 24
+                                    }
+                                }}
 						    />
                             <TextField
-                            name="minutes"
-                            type="number"
-							margin="dense"
-							label="Minutes"
-							variant="outlined"
-                            onChange={handleChange}
-                            value={state.minutes}
-                            InputProps={{
-                                inputProps: { 
-                                    max: 60, min: 0 
-                                }
-                            }}
+                                name="minutes"
+                                type="number"
+                                margin="dense"
+                                label="Minutes"
+                                variant="outlined"
+                                onChange={handleChange}
+                                value={state.minutes}
+                                InputProps={{
+                                    inputProps: { 
+                                        max: 60, min: 0 
+                                    }
+                                }}
 						    />
                             <TextField
-                            name="seconds"
-                            type="number"
-							margin="dense"
-							label="Seconds"
-							variant="outlined"
-                            onChange={handleChange}
-                            value={state.seconds}
-                            InputProps={{
-                                inputProps: { 
-                                    max: 60, min: 0 
-                                }
-                            }}
+                                name="seconds"
+                                type="number"
+                                margin="dense"
+                                label="Seconds"
+                                variant="outlined"
+                                onChange={handleChange}
+                                value={state.seconds}
+                                InputProps={{
+                                    inputProps: { 
+                                        max: 60, min: 0 
+                                    }
+                                }}
 						    />
                             <Button type="submit" color="primary" variant="contained" className={classes.donezo}>
                                 Begin

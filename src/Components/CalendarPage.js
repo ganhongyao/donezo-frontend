@@ -36,7 +36,7 @@ const legend = [
     {
         style: {backgroundColor: 'grey'},
         status: 'completed'
-    },
+    }
 ]
 legend.forEach(obj => {obj.style.color = 'white'})  
 
@@ -66,7 +66,6 @@ class CalendarPage extends Component {
 
 		})
         .catch(error => console.log(error));
-        
     }
 
     getEventColor(event) {
@@ -77,7 +76,6 @@ class CalendarPage extends Component {
         } else {
             return {style: legend[0].style}
         }
-        
     }
 
     handleUpdate(todo) {
@@ -115,9 +113,7 @@ class CalendarPage extends Component {
                         handleUpdate={this.handleUpdate}
                         open={this.state.openedId === todo.id} />
                 )}
-
             </div>
-            
         )
     }
 }

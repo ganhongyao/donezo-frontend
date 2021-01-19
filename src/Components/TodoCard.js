@@ -97,7 +97,6 @@ export default function TodoCard(props) {
                     Donezo
                 </Button>
             </CardActions>
-            
         </Card>
     )
 }
