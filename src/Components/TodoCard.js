@@ -49,18 +49,18 @@ export default function TodoCard(props) {
     const [zenOpen, setZenOpen] = useState(false);
 
     const handleZen = () => {
-        setZenOpen(!zenOpen)
+        setZenOpen(!zenOpen);
     }
     
     const handleComplete = () => {
-        const todo = {completed: !props.todo.completed}
+        const todo = {completed: !props.todo.completed};
         axios.put(
             `https://donezo-api.herokuapp.com/api/v1/todos/${props.todo.id}`,
             {todo: todo}
         )
         .then(response => {
-            console.log(response)
-            props.handleUpdate(response.data)
+            console.log(response);
+            props.handleUpdate(response.data);
         })
         .catch(error => console.log(error))
         

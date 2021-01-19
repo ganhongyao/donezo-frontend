@@ -60,8 +60,8 @@ class CalendarPage extends Component {
 			}
 		})
 		.then(response => {
-			console.log(response)
-            this.setState({todos: response.data})
+			console.log(response);
+            this.setState({todos: response.data});
             this.props.handleLoading();
 
 		})
@@ -79,9 +79,9 @@ class CalendarPage extends Component {
     }
 
     handleUpdate(todo) {
-		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
-    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }})
-        this.setState({todos: todos})
+		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id);
+    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }});
+        this.setState({todos: todos});
     }
     
     render() {

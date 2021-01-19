@@ -25,9 +25,9 @@ class RandomQuote extends Component {
 	componentDidMount() {
 		axios.get('https://type.fit/api/quotes/')
 		.then(response => {
-			console.log(response)
-			this.setState({ quotes: response.data })
-			this.setState({ displayedquote: this.getRandomQuote(this.state.quotes) })
+			console.log(response);
+			this.setState({ quotes: response.data });
+			this.setState({ displayedquote: this.getRandomQuote(this.state.quotes) });
 		})
 		.catch(error => console.log(error));
 		this.updateTimer = setInterval(() => this.setState({ displayedquote: this.getRandomQuote(this.state.quotes) }), 10000);

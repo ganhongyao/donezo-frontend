@@ -54,15 +54,15 @@ class CompletedPage extends Component {
 			}
 		})
 		.then(response => {
-			console.log(response)
-			this.setState({todos: response.data.filter(todo => todo.completed)})
+			console.log(response);
+			this.setState({todos: response.data.filter(todo => todo.completed)});
 			this.props.handleLoading();
 		})
 		.catch(error => console.log(error));
 		axios.get("https://donezo-api.herokuapp.com/api/v1/tags.json")
 		.then(response => {
-			console.log(response)
-			this.setState({tags: response.data})
+			console.log(response);
+			this.setState({tags: response.data});
 		})
     }
 
@@ -81,28 +81,27 @@ class CompletedPage extends Component {
     handleDelete(id) {
 		axios.delete(`https://donezo-api.herokuapp.com/api/v1/todos/${id}`)
 		.then(response => {
-			const todoIndex = this.state.todos.findIndex(x => x.id === id)
-			const todos = update(this.state.todos, { $splice: [[todoIndex, 1]]})
-			this.setState({todos: todos})
+			const todoIndex = this.state.todos.findIndex(x => x.id === id);
+			const todos = update(this.state.todos, { $splice: [[todoIndex, 1]]});
+			this.setState({todos: todos});
 		})
 		.catch(error => console.log(error));
     }
 
     handleUpdate(todo) {
-		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
-    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }})
-		this.setState({todos: todos})
+		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id);
+    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }});
+		this.setState({todos: todos});
     }
     
     handleSortTitle() {
-
-		this.setState((prevState) => ({titleSortedAsc: prevState.titleSortedAsc + 1}))
-		this.setState({todos: sort(this.state.todos, 'title', this.state.titleSortedAsc)})
+		this.setState((prevState) => ({titleSortedAsc: prevState.titleSortedAsc + 1}));
+		this.setState({todos: sort(this.state.todos, 'title', this.state.titleSortedAsc)});
 	}
 
 	handleSortDate() {
-		this.setState((prevState) => ({dateSortedAsc: prevState.dateSortedAsc + 1}))
-		this.setState({todos: sort(this.state.todos, 'date', this.state.dateSortedAsc)})
+		this.setState((prevState) => ({dateSortedAsc: prevState.dateSortedAsc + 1}));
+		this.setState({todos: sort(this.state.todos, 'date', this.state.dateSortedAsc)});
 	}
 
     render() {

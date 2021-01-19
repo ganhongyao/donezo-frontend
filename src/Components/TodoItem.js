@@ -68,7 +68,7 @@ class TodoItem extends Component {
     }
 
     handleDelete() {
-        this.props.handleDelete(this.props.todo.id)
+        this.props.handleDelete(this.props.todo.id);
     }
 
     handleComplete() {
@@ -78,11 +78,11 @@ class TodoItem extends Component {
         {todo: todo}
         )
         .then(response => {
-        console.log(response)
-        this.props.handleUpdate(response.data)
+            console.log(response)
+            this.props.handleUpdate(response.data)
         })
         .catch(error => console.log(error))
-        this.setState({completed: !this.state.completed})
+        this.setState({completed: !this.state.completed});
         !this.state.completed && 
             toast.success('Donezo!', 
             {
@@ -112,7 +112,7 @@ class TodoItem extends Component {
 				}
 				)
 				.then(response => {
-				console.log(response)
+				    console.log(response);
 				})
 				.catch(error => console.log(error))
 			
@@ -122,8 +122,8 @@ class TodoItem extends Component {
         {todo: todo}
         )
         .then(response => {
-        console.log(response)
-        this.props.handleUpdate(response.data)
+            console.log(response);
+            this.props.handleUpdate(response.data);
         })
         .catch(error => console.log(error))
 
@@ -142,27 +142,27 @@ class TodoItem extends Component {
 		const adjustedDate = year + "-" + month + "-" + day;
 		this.setState({
 			duedate: adjustedDate
-		})
+		});
     }
 
     handleTagChange(event, selected) {
 		this.setState({
 			tags_list: selected
-		})
+		});
     }
 
     handleCollaboratorsChange(event, selected) {
 		this.setState({
 			collaborators: selected
-		})
+		});
     }
     
     handleCellClick() {
-        this.setState(prevState => ({dialogOpen: !prevState.dialogOpen}))
+        this.setState(prevState => ({dialogOpen: !prevState.dialogOpen}));
     }
 
     handleZen() {
-        this.setState(prevState => ({zenOpen: !prevState.zenOpen}))
+        this.setState(prevState => ({zenOpen: !prevState.zenOpen}));
     }
     
     render() {

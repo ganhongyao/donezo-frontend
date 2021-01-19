@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { Avatar, Button, CssBaseline, TextField } from '@material-ui/core';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
@@ -65,10 +65,10 @@ export default function SignupPage(props) {
         event.preventDefault();
         const { name, email, password, password_confirmation } = state;
         if (password !== password_confirmation) {
-            setErrors("Passwords do not match. Please re-type your passwords.")
+            setErrors("Passwords do not match. Please re-type your passwords.");
             return
         } else if (password.length < 6) {
-            setErrors("Your password is too short. Please choose another password.")
+            setErrors("Your password is too short. Please choose another password.");
             return
         }
         props.handleLoading();
@@ -85,14 +85,14 @@ export default function SignupPage(props) {
             .then(response => {
                 console.log(response)
                 if (response.data.status === "User created") {
-                    props.handleLogin(response.data)
-                    props.history.push('/home')
+                    props.handleLogin(response.data);
+                    props.history.push('/home');
                 }
                 props.handleLoading();
             })
             .catch(error => {
-                console.log(error.response.errors)
-                setErrors(error.response.data.errors)
+                console.log(error.response.errors);
+                setErrors(error.response.data.errors);
                 props.handleLoading();
             })
     }

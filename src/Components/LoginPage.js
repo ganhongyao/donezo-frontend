@@ -69,7 +69,7 @@ export default function LoginPage(props) {
                 password: state.password,                  
         })
         .then(response => {
-            console.log(response)
+            console.log(response);
             props.handleLoading();
             if (response.data.logged_in) {
                 props.handleLogin(response.data)
@@ -77,8 +77,8 @@ export default function LoginPage(props) {
             }
         })
         .catch(error => {
-            console.log(error)
-            setLoginErrors(error.response.data.errors)
+            console.log(error);
+            setLoginErrors(error.response.data.errors);
             props.handleLoading();
         })
     }

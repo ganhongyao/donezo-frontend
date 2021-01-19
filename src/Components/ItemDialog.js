@@ -50,21 +50,21 @@ export default function ItemDialog(props) {
     const classes = useStyles();
 
     const handleComplete = () => {
-        const todo = {completed: !props.todo.completed}
-            axios.put(
-            `https://donezo-api.herokuapp.com/api/v1/todos/${props.todo.id}`,
-            {todo: todo}
-            )
-            .then(response => {
-            console.log(response)
-            props.handleUpdate(response.data)
+        const todo = {completed: !props.todo.completed};
+        axios.put(
+        `https://donezo-api.herokuapp.com/api/v1/todos/${props.todo.id}`,
+        {todo: todo}
+        )
+        .then(response => {
+            console.log(response);
+            props.handleUpdate(response.data);
+        })
+        .catch(error => console.log(error))
+        !props.todo.completed && 
+            toast.success('Donezo!', 
+            {
+                position: toast.POSITION.TOP_CENTER,
             })
-            .catch(error => console.log(error))
-            !props.todo.completed && 
-                toast.success('Donezo!', 
-                {
-                    position: toast.POSITION.TOP_CENTER,
-                })
     }
     
     return (

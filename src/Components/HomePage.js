@@ -74,8 +74,8 @@ class HomePage extends Component {
 			}
 		})
 		.then(response => {
-			console.log(response)
-			this.setState({todos: response.data.filter(todo => !todo.completed)})
+			console.log(response);
+			this.setState({todos: response.data.filter(todo => !todo.completed)});
 			this.props.handleLoading();
 		})
 		.catch(error => console.log(error));
@@ -86,17 +86,17 @@ class HomePage extends Component {
 			}
 		})
 		.then(response => {
-			console.log(response)
-			this.setState({tags: response.data})
+			console.log(response);
+			this.setState({tags: response.data});
 		})
 	}
 
 	handleDelete(id) {
 		axios.delete(`https://donezo-api.herokuapp.com/api/v1/todos/${id}`)
 		.then(response => {
-			const todoIndex = this.state.todos.findIndex(x => x.id === id)
-			const todos = update(this.state.todos, { $splice: [[todoIndex, 1]]})
-			this.setState({todos: todos})
+			const todoIndex = this.state.todos.findIndex(x => x.id === id);
+			const todos = update(this.state.todos, { $splice: [[todoIndex, 1]]});
+			this.setState({todos: todos});
 		})
 		.catch(error => console.log(error));
 		this.setState({length: this.state.length - 1})
@@ -104,7 +104,7 @@ class HomePage extends Component {
 
 	handleChange(event) {
 		if (event.target.name === "searchbar") {
-			this.setState({searchbar: event.target.value.toLowerCase()})
+			this.setState({searchbar: event.target.value.toLowerCase()});
 		}
 		else {
 			this.setState({
@@ -136,10 +136,10 @@ class HomePage extends Component {
 	}
 
 	handleUpdate(todo) {
-		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
-    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }})
-		this.setState({todos: todos})
-		this.setState({length: this.state.length - 1})
+		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id);
+    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }});
+		this.setState({todos: todos});
+		this.setState({length: this.state.length - 1});
 	}
 
 	handleSubmit(event) {
@@ -164,7 +164,7 @@ class HomePage extends Component {
 				}
 				)
 				.then(response => {
-				console.log(response)
+				console.log(response);
 				const tags = update(this.state.tags, {
 					$splice: [[0, 0, response.data]]
 				})
@@ -188,11 +188,11 @@ class HomePage extends Component {
 				}
 			})
 			.then(response => {
-			console.log(response)
+			console.log(response);
 			const todos = update(this.state.todos, {
 				$splice: [[0, 0, response.data]]
-			})
-			this.setState({todos: todos})
+			});
+			this.setState({todos: todos});
 			})
 			.catch(error => console.log(error))
 		
@@ -200,13 +200,13 @@ class HomePage extends Component {
 	}
 
 	handleSortTitle() {
-		this.setState((prevState) => ({titleSortedAsc: prevState.titleSortedAsc + 1}))
-		this.setState({todos: sort(this.state.todos, 'title', this.state.titleSortedAsc)})
+		this.setState((prevState) => ({titleSortedAsc: prevState.titleSortedAsc + 1}));
+		this.setState({todos: sort(this.state.todos, 'title', this.state.titleSortedAsc)});
 	}
 
 	handleSortDate() {
-		this.setState((prevState) => ({dateSortedAsc: prevState.dateSortedAsc + 1}))
-		this.setState({todos: sort(this.state.todos, 'date', this.state.dateSortedAsc)})
+		this.setState((prevState) => ({dateSortedAsc: prevState.dateSortedAsc + 1}));
+		this.setState({todos: sort(this.state.todos, 'date', this.state.dateSortedAsc)});
 	}
 
 	render() {

@@ -55,17 +55,17 @@ class TodayPage extends Component {
 			}
 		})
 		.then(response => {
-			console.log(response)
-			this.setState({todos: response.data.filter(todo => todo.duedate === format(new Date(), "yyyy-MM-dd"))})
+			console.log(response);
+			this.setState({todos: response.data.filter(todo => todo.duedate === format(new Date(), "yyyy-MM-dd"))});
             this.props.handleLoading();
 		})
         .catch(error => console.log(error));
     }
 
     handleUpdate(todo) {
-		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id)
-    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }})
-		this.setState({todos: todos})
+		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id);
+    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }});
+		this.setState({todos: todos});
 	}
 
     render() {
