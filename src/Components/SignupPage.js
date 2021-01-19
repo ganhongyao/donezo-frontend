@@ -93,6 +93,7 @@ export default function SignupPage(props) {
             .catch(error => {
                 console.log(error.response.errors)
                 setErrors(error.response.data.errors)
+                props.handleLoading();
             })
     }
 

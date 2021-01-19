@@ -82,6 +82,7 @@ class LoginPage extends Component {
         .catch(error => {
             console.log(error)
             this.setState({loginErrors: error.response.data.errors})
+            this.props.handleLoading();
         })}
 
     render() {
