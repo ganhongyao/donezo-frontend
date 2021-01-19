@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, Button, Card, CardContent, Chip } from '@material-ui/core';
+import { Avatar, Button, Card, CardContent, Chip, IconButton, Tooltip } from '@material-ui/core';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import ZenMode from './ZenMode';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,6 +46,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TodoCard(props) {
     const classes = useStyles();
+    const [zenOpen, setZenOpen] = useState(false);
+
+    const handleZen = () => {
+        setZenOpen(!zenOpen)
+    }
     
     const handleComplete = () => {
         const todo = {completed: !props.todo.completed}
@@ -74,8 +82,12 @@ export default function TodoCard(props) {
                 <div className={classes.collab}>
                     {props.todo.collaborators && props.todo.collaborators.map(person => (<div className={classes.avatar}><Avatar/> {person}</div>))}
                 </div>
+                <ZenMode zenOpen={zenOpen} handleZen={handleZen} handleComplete={handleComplete}/>
             </CardContent>
-            <CardActions>
+            <CardActions className={classes.actions}>
+                <Tooltip title="Zen Mode" arrow>
+                    <IconButton aria-label="zen" onClick={handleZen}><AccessibilityIcon style={{fill: 'black'}}/></IconButton>
+                </Tooltip>
                 <Button 
                     className={classes.donezo} 
                     color="primary" 
@@ -85,6 +97,7 @@ export default function TodoCard(props) {
                     Donezo
                 </Button>
             </CardActions>
+            
         </Card>
     )
 }
