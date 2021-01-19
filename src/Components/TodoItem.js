@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Chip, IconButton, TableCell, TableRow, withStyles, Tooltip } from '@material-ui/core';
+import { Chip, IconButton, TableCell, TableRow, withStyles, Tooltip, Dialog, Backdrop } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import EditTodoForm from './EditTodoForm';
 import axios from 'axios';
 import ItemDialog from './ItemDialog'
 import { toast } from 'react-toastify';
 import Avatar from '@material-ui/core/Avatar';
 import { AvatarGroup } from '@material-ui/lab';
+import ZenMode from './ZenMode';
 
 const useStyles = (theme) => ({
     root: {
@@ -51,7 +53,8 @@ class TodoItem extends Component {
             description: this.props.todo.description,
             tags_list: this.props.todo.tags_list,
             collaborators: this.props.todo.collaborators,
-            open: false
+            dialogOpen: false,
+            zenOpen: false
         }
         this.handleDelete = this.handleDelete.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -61,7 +64,7 @@ class TodoItem extends Component {
         this.handleCollaboratorsChange = this.handleCollaboratorsChange.bind(this);
         this.handleComplete = this.handleComplete.bind(this);
         this.handleCellClick = this.handleCellClick.bind(this);
-        this.handleClose = this.handleClose.bind(this)
+        this.handleZen = this.handleZen.bind(this);
     }
 
     handleDelete() {
@@ -154,12 +157,12 @@ class TodoItem extends Component {
 		})
     }
     
-    handleCellClick(event) {
-        this.setState({open: true})
+    handleCellClick() {
+        this.setState(prevState => ({dialogOpen: !prevState.dialogOpen}))
     }
 
-    handleClose() {
-        this.setState({open: false})
+    handleZen() {
+        this.setState(prevState => ({zenOpen: !prevState.zenOpen}))
     }
     
     render() {
@@ -181,7 +184,6 @@ class TodoItem extends Component {
         }
 
         return (
-            
             <TableRow className={classes.root}>
                 <TableCell className={classes.flexcell} onClick={this.handleCellClick}>
                     {this.props.todo.title}
@@ -213,8 +215,12 @@ class TodoItem extends Component {
                     <Tooltip title="Donezo!" arrow>
                         <IconButton aria-label="done" onClick={this.handleComplete}><DoneOutlineIcon style={this.state.completed ? {fill:'green'} : {fill: 'black'}}/></IconButton>
                     </Tooltip>
+                    <Tooltip title="Zen Mode" arrow>
+                        <IconButton aria-label="zen" onClick={this.handleZen}><AccessibilityIcon style={{fill: 'black'}}/></IconButton>
+                    </Tooltip>
+                    <ZenMode zenOpen={this.state.zenOpen} handleZen={this.handleZen} handleComplete={this.handleComplete}/>
                 </TableCell>
-                <ItemDialog handleClose={this.handleClose} open={this.state.open} todo={this.props.todo}/>
+                <ItemDialog handleClose={this.handleCellClick} open={this.state.dialogOpen} todo={this.props.todo}/>
             </TableRow>
         )
     }
