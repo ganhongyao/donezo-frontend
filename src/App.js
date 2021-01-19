@@ -113,8 +113,8 @@ class App extends Component {
             <Route path="/" exact render={props => this.state.isLoggedIn 
               ? <HomePage {...props} user={this.state.user} handleLoading={this.handleLoading}/> 
               : <LoginPage {...props} handleLogin={this.handleLogin} isLoggedIn={this.state.isLoggedIn} handleLoading={this.handleLoading}/>}/>
-            <Route path="/login" render={props => (<LoginPage {...props} handleLogin={this.handleLogin} />)}/>
-            <Route path="/signup" render={props => (<SignupPage {...props} handleLogin={this.handleLogin} />)}/>
+            <Route path="/login" render={props => (<LoginPage {...props} handleLogin={this.handleLogin} handleLoading={this.handleLoading} />)}/>
+            <Route path="/signup" render={props => (<SignupPage {...props} handleLogin={this.handleLogin} handleLoading={this.handleLoading} />)}/>
             <ProtectedRoute path="/home" component={HomePage} user={this.state.user} isLoggedIn={this.state.isLoggedIn} handleLoading={this.handleLoading}/> 
             <ProtectedRoute path="/today" component={TodayPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn} handleLoading={this.handleLoading}/>
             <ProtectedRoute path="/calendar" component={CalendarPage} user={this.state.user} isLoggedIn={this.state.isLoggedIn} handleLoading={this.handleLoading}/>

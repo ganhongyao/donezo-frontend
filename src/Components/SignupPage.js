@@ -52,6 +52,7 @@ export default function SignupPage(props) {
         password: "",
         password_confirmation: ""
     })
+
     const [registrationErrors, setErrors] = useState("");
 
     const handleChange = event => {
@@ -71,6 +72,7 @@ export default function SignupPage(props) {
             setErrors("Your password is too short. Please choose another password.")
             return
         }
+        props.handleLoading();
         axios.post("https://donezo-api.herokuapp.com/api/v1/users",
             {   
                 user: {
@@ -87,6 +89,7 @@ export default function SignupPage(props) {
                     props.handleLogin(response.data)
                     props.history.push('/home')
                 }
+                props.handleLoading();
             })
             .catch(error => {
                 console.log(error.response.errors)

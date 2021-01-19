@@ -42,8 +42,6 @@ const useStyles = (theme) => ({
     errormessage: {
         color: 'red'
     }
-
-
 });
 
 class LoginPage extends Component {
@@ -67,18 +65,15 @@ class LoginPage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        this.props.handleLoading();
         axios.post("https://donezo-api.herokuapp.com/api/v1/tokens",
         {   
-            
-                
                 email: this.state.email,
-                password: this.state.password,
-                
-            
-                            
+                password: this.state.password,                  
         })
         .then(response => {
             console.log(response)
+            this.props.handleLoading();
             if (response.data.logged_in) {
                 this.props.handleLogin(response.data)
                 this.props.history.push('/home')
@@ -87,19 +82,16 @@ class LoginPage extends Component {
         .catch(error => {
             console.log(error)
             this.setState({loginErrors: error.response.data.errors})
-        })    }
+        })}
 
     render() {
-
         const { classes } = this.props;
-
         return (
             <div className={classes.root}>
                 <CssBaseline />
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
-
                 <div>LOG IN</div><br/>
                 <div className={classes.errormessage}>{this.state.loginErrors}</div>
                 <form className={classes.form} noValidate onSubmit={this.handleSubmit}>
