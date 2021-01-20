@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import update from 'immutability-helper'
 import { withStyles } from '@material-ui/core/styles';
-import TodoContainer from './TodoContainer';
-import SearchBar from './SearchBar';
-import Drawer from './Drawer'
-import { sort } from './Helpers'
+import TodoContainer from '../components/TodoContainer';
+import SearchBar from '../components/SearchBar';
+import Drawer from '../components/Drawer'
+import { sort } from '../Helpers'
 
 const useStyles = (theme) => ({
 	root: {

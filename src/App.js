@@ -5,14 +5,14 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import LoginPage from './Components/LoginPage';
-import SignupPage from './Components/SignupPage';
-import Header from "./Components/Header";
-import HomePage from "./Components/HomePage";
-import TodayPage from './Components/TodayPage';
-import CalendarPage from './Components/CalendarPage';
-import CompletedPage from "./Components/CompletedPage";
-import ProtectedRoute from './Components/ProtectedRoute'
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import Header from "./components/Header";
+import HomePage from "./pages/HomePage";
+import TodayPage from './pages/TodayPage';
+import CalendarPage from './pages/CalendarPage';
+import CompletedPage from "./pages/CompletedPage";
+import ProtectedRoute from './components/ProtectedRoute'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Backdrop from '@material-ui/core/Backdrop';

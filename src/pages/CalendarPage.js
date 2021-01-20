@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Chip } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from './Drawer';
+import Drawer from '../components/Drawer';
 import { Calendar, momentLocalizer} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import axios from 'axios';
 import update from 'immutability-helper'
-import ItemDialog from './ItemDialog';
+import ItemDialog from '../components/ItemDialog';
 
 const useStyles = (theme) => ({
     calendar: {

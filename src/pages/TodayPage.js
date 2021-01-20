@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core';
-import Drawer from './Drawer';
+import Drawer from '../components/Drawer';
 import axios from 'axios'
 import { format } from 'date-fns';
-import TodoCard from './TodoCard';
+import TodoCard from '../components/TodoCard';
 import update from 'immutability-helper'
 
 const useStyles = (theme) => ({
