@@ -43,9 +43,9 @@ class TodayPage extends Component {
         this.state = {
             todos: []
         }
-        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
+    // fetches todo data from api
     componentDidMount() {
         this.props.handleLoading();
         axios.get('https://donezo-api.herokuapp.com/api/v1/todos.json',
@@ -62,12 +62,6 @@ class TodayPage extends Component {
         .catch(error => console.log(error));
     }
 
-    handleUpdate(todo) {
-		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id);
-    	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }});
-		this.setState({todos: todos});
-	}
-
     render() {
         const { classes } = this.props;
         const outstanding = this.state.todos.filter(todo => !todo.completed);
@@ -80,7 +74,7 @@ class TodayPage extends Component {
                 </h1>
                 <div className={classes.cardcontainer}>
                     {outstanding.map(todo => 
-                        <TodoCard todo={todo} key={todo.id} handleUpdate={this.handleUpdate}/>)}
+                        <TodoCard todo={todo} key={todo.id} />)}
                 </div>
                 <div style={{color: 'white'}}>
                     {outstanding.length === 0 && "You have no outstanding tasks due today."}

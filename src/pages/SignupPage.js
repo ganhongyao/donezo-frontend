@@ -61,6 +61,7 @@ export default function SignupPage(props) {
         }))
     }
 
+    // validates form data in frontend before validating data in backend and creating account if successful
     const handleSubmit = event => {
         event.preventDefault();
         const { name, email, password, password_confirmation } = state;

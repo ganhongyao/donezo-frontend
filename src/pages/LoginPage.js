@@ -60,6 +60,7 @@ export default function LoginPage(props) {
         }))
     }
 
+    // submits form data to api for authentication
     const handleSubmit = (event) => {
         event.preventDefault();
         props.handleLoading();

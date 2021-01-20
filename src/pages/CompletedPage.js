@@ -45,6 +45,7 @@ class CompletedPage extends Component {
         this.handleSortDate = this.handleSortDate.bind(this);
     }
 
+	// fetches todo data from api
     componentDidMount() {
 		this.props.handleLoading();
         axios.get('https://donezo-api.herokuapp.com/api/v1/todos.json',
@@ -77,7 +78,7 @@ class CompletedPage extends Component {
             });
         }
 	}
-    
+	
     handleDelete(id) {
 		axios.delete(`https://donezo-api.herokuapp.com/api/v1/todos/${id}`)
 		.then(response => {
@@ -87,7 +88,8 @@ class CompletedPage extends Component {
 		})
 		.catch(error => console.log(error));
     }
-
+	
+	// updates todo data in api
     handleUpdate(todo) {
 		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id);
     	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }});

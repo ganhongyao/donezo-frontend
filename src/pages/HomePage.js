@@ -65,6 +65,7 @@ class HomePage extends Component {
 		this.handleSortDate = this.handleSortDate.bind(this);
 	}
 
+	// fetches todo and tags data from api
 	componentDidMount() {
 		this.props.handleLoading();
 		axios.get('https://donezo-api.herokuapp.com/api/v1/todos.json',
@@ -134,7 +135,7 @@ class HomePage extends Component {
 			collaborators: selected
 		})
 	}
-
+	
 	handleUpdate(todo) {
 		const todoIndex = this.state.todos.findIndex(x => x.id === todo.id);
     	const todos = update(this.state.todos, {[todoIndex]: { $set: todo }});
@@ -142,6 +143,7 @@ class HomePage extends Component {
 		this.setState({length: this.state.length - 1});
 	}
 
+	// submits form data to api to create a new todo along with any new tags created
 	handleSubmit(event) {
 		event.preventDefault();
 		if (Number.isInteger(this.state.newDueDate)) {

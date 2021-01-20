@@ -51,6 +51,7 @@ class CalendarPage extends Component {
         this.handleUpdate = this.handleUpdate.bind(this);
     }
 
+    // fetches todo data from api
     componentDidMount() {
         this.props.handleLoading();
         axios.get('https://donezo-api.herokuapp.com/api/v1/todos.json',
@@ -68,6 +69,7 @@ class CalendarPage extends Component {
         .catch(error => console.log(error));
     }
 
+    // render color of todo depending on status of todo
     getEventColor(event) {
         if (event.completed) {
             return {style: legend[2].style}

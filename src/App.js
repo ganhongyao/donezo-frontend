@@ -18,9 +18,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-
-
-
 const useStyles = (theme) => ({
     root : {
       minHeight: '100vh',
@@ -44,8 +41,6 @@ const useStyles = (theme) => ({
 
 })
 
-
-
 class App extends Component {
   
   constructor(props) {
@@ -62,6 +57,7 @@ class App extends Component {
     this.handleLoading = this.handleLoading.bind(this);
   }
 
+  // looks for the 'user' item in localStorage and sets state of app if user is found
   componentDidMount() {
     const loggedinUser = localStorage.getItem('user');
     if (loggedinUser) {
@@ -72,8 +68,8 @@ class App extends Component {
     this.setState({isLoading: false})
   }
 
+  // sets state of app upon login and persist the user in localStorage
   handleLogin(data) {
-    console.log(data.user)
     this.setState({
       isLoggedIn: true,
       user: data.user
@@ -81,6 +77,7 @@ class App extends Component {
     localStorage.setItem('user', JSON.stringify(data.user))
   }
 
+  // resets state of app upon logout and remove user item from localStorage
   handleLogout() {
     this.setState({
       user: {},
@@ -89,6 +86,7 @@ class App extends Component {
     localStorage.clear()
   }
 
+  // renders the loading backdrop, used when awaiting data requests
   handleLoading() {
     this.setState(prevstate => ({
       backdrop: !prevstate.backdrop
